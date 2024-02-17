@@ -1,0 +1,108 @@
+import FormInput from "~/components/Custom/FormInput";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AuthLoginSchema } from "~/validation";
+import { Button, Card, Col, Row } from "react-bootstrap";
+import { TbBrandGithub, TbBrandTwitter } from "react-icons/tb";
+import LOGO from "~/assets/static/logo-small.svg";
+
+const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({ resolver: yupResolver(AuthLoginSchema) });
+
+  const submit = (values: any) => {
+    console.log(values);
+  };
+
+  return (
+    <>
+      <div className="text-center mb-4">
+        <Link to="/login" className="navbar-brand navbar-brand-autodark">
+          <img
+            src={LOGO}
+            height={36}
+            alt={import.meta.env.VITE_APP_NAME}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null;
+              currentTarget.src = import.meta.env.VITE_DEFAULT_IMAGE;
+            }}
+          />
+        </Link>
+      </div>
+      <Card className="card-md">
+        <Card.Body>
+          <h2 className="text-center mb-4">Hesabınıza giriş yapın</h2>
+          <form onSubmit={handleSubmit(submit)}>
+            <FormInput.Control
+              id="username"
+              name="username"
+              label="Kullanıcı Adı"
+              placeholder="Kullanıcı adını girin"
+              classNameContainer="mb-3"
+              register={register}
+              errors={errors}
+            />
+            <FormInput.Control
+              type="password"
+              id="password"
+              name="password"
+              label={
+                <>
+                  Şifre
+                  <span className="form-label-description">
+                    <Link to="/forgot-password">Şifremi Unuttum</Link>
+                  </span>
+                </>
+              }
+              placeholder="Şifre girin"
+              classNameContainer="mb-3"
+              showPasswordButton
+              register={register}
+              errors={errors}
+            />
+            <FormInput.Check
+              id="rememberMe"
+              name="rememberMe"
+              title="Beni Hatırla"
+              classNameContainer="mb-3"
+              register={register}
+              errors={errors}
+            />
+
+            <Button type="submit" className="w-100 mt-4" disabled={isSubmitting}>
+              Giriş Yap
+            </Button>
+          </form>
+        </Card.Body>
+        <div className="hr-text">veya</div>
+        <Card.Body>
+          <Row>
+            <Col>
+              <Link to="#" className="btn w-100">
+                <TbBrandGithub className="icon" />
+                Github ile giriş yap
+              </Link>
+            </Col>
+            <Col>
+              <Link to="#" className="btn w-100">
+                <TbBrandTwitter className="icon text-twitter" />
+                Twitter ile giriş yap
+              </Link>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+      <div className="text-center text-muted mt-3">
+        Hesabınız yok mu?{" "}
+        <Link to="/register" tabIndex={-1}>
+          Kaydol
+        </Link>
+      </div>
+    </>
+  );
+};
+export default Login;

@@ -1,0 +1,7 @@
+@each $state, $data in $form-validation-states {
+  .react-select.is-#{$state} {
+    .react-select__control {
+      @include custom-validation-state($state, false, $data...);
+    }
+  }
+}
