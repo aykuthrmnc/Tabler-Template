@@ -6,6 +6,7 @@ import { AuthLoginSchema } from "~/validation";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { TbBrandGithub, TbBrandTwitter } from "react-icons/tb";
 import LOGO from "~/assets/static/logo-small.svg";
+import { loginUserHandle } from "~/utils/storeHandle";
 
 const Login = () => {
   const {
@@ -15,7 +16,7 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(AuthLoginSchema) });
 
   const submit = (values: any) => {
-    console.log(values);
+    loginUserHandle(values);
   };
 
   return (

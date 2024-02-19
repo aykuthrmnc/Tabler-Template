@@ -9,8 +9,8 @@ export const getUserHandle = () => {
   store.dispatch(getUser());
 };
 
-export const loginUserHandle = (data: any, type = "user") => {
-  store.dispatch(setUser({ user: data, type }));
+export const loginUserHandle = (data: any) => {
+  store.dispatch(setUser(data));
 };
 
 export const logoutUserHandle = () => {

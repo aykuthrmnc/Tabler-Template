@@ -4,7 +4,6 @@ import { decryptValue, encryptValue } from "~/utils/functions";
 
 const initialState: Auth = {
   user: null,
-  admin: null,
 };
 
 const auth = createSlice({
@@ -16,22 +15,14 @@ const auth = createSlice({
 
       if (value) {
         const userValue = decryptValue(value);
-        state.user = userValue ? JSON.parse(userValue)?.user : null;
-        state.admin = userValue ? JSON.parse(userValue)?.admin : null;
+        state.user = userValue ? JSON.parse(userValue) : null;
       }
     },
     setUser: (state, action) => {
-      switch (action.payload.type) {
-        case "admin":
-          state.admin = action.payload?.user;
-          break;
-        case "user":
-          state.user = action.payload?.user;
-          break;
-      }
+      state.user = action.payload;
 
       if (action.payload) {
-        const value = encryptValue(state);
+        const value = encryptValue(action.payload);
 
         localStorage.setItem(import.meta.env.VITE_AUTH_SESSION_KEY, value);
       } else {
@@ -40,7 +31,6 @@ const auth = createSlice({
     },
     logoutUser: (state) => {
       state.user = null;
-      state.admin = null;
       localStorage.removeItem(import.meta.env.VITE_AUTH_SESSION_KEY);
     },
   },

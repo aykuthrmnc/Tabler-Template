@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorBoundary from "~/components/ErrorBoundary";
 import Loader from "~/components/Loader";
 import { Route } from "~/types";
 
@@ -79,13 +79,13 @@ const authCheck = (routes: Route[]) =>
     }
     if (route.layout) {
       route.element = (
-        <ErrorBoundary FallbackComponent={() => <Error500 />}>
+        <ErrorBoundary fallback={<Error500 />}>
           <Suspense fallback={<Loader title="Sayfa hazırlanıyor" showLogo={true} />}>{route.element}</Suspense>
         </ErrorBoundary>
       );
     } else {
       route.element = (
-        <ErrorBoundary FallbackComponent={() => <Error500 />}>
+        <ErrorBoundary fallback={<Error500 />}>
           <Suspense fallback={<Loader title="Sayfa hazırlanıyor" showLogo={true} />}>{route.element}</Suspense>
         </ErrorBoundary>
       );

@@ -18,7 +18,6 @@ export interface NoDataObject {
 //! REDUX - AUTH
 export interface Auth {
   user?: any;
-  admin?: any;
 }
 
 //! THEME
