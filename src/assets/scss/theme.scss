@@ -1,0 +1,33 @@
+// React-Datetime
+@import "react-datetime/css/react-datetime.css";
+@import "core";
+
+// React-Toastify
+@import "react-toastify/dist/ReactToastify.css";
+// React-Phone-Number-Input
+@import "react-phone-number-input/style.css";
+
+.color-inherit {
+  color: inherit;
+}
+
+// NAVBAR
+.navbar {
+  .dropdown-menu:not(.show) {
+    display: none !important;
+  }
+
+  &.navbar-vertical .dropdown-menu.show {
+    display: block !important;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .navbar .dropdown-menu.show {
+    display: block !important;
+  }
+}
+
+// .navbar-vertical:not(:has( ~ .navbar)) .d-lg-vertical-flex {
+//   display: flex !important;
+// }

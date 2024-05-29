@@ -1,0 +1,75 @@
+.inset-0 {
+  inset: 0;
+}
+
+// @media (max-width: 767.98px) {
+//   .table-responsive .dropdown-menu {
+//     position: static !important;
+//   }
+// }
+// @media (min-width: 768px) {
+//   .table-responsive {
+//     overflow: visible;
+//   }
+// }
+
+#dynagrid {
+  @media (max-width: 767.98px) {
+    & > thead > tr > th {
+      min-width: 150px;
+    }
+  }
+
+  // // AFTER
+  // & > tbody > tr > td {
+  //   height: 50px !important;
+  // }
+
+  & > tbody > tr > td.editableTd {
+    position: relative;
+    // padding: 0 !important;
+    // height: 50px !important;
+
+    // padding-left: 1px !important;
+    // z-index: 999 !important;
+
+    input {
+      transition: none;
+      &:focus {
+        //   border: var(--bs-border-width) solid var(--bs-primary);
+        border: 1px solid #90caf9;
+        //   outline: 0;
+      }
+    }
+
+    .react-select > div {
+      border: inherit;
+      background-color: inherit !important;
+    }
+
+    .PhoneInputInput {
+      display: block;
+      height: 100%;
+      width: 100%;
+      padding-inline: 0.75rem;
+      margin-bottom: 0;
+      line-height: 1.5;
+      color: var(--ct-input-plaintext-color);
+      background-color: transparent;
+      border: solid transparent;
+      border-width: 1px 0;
+      border-radius: 0;
+
+      &:focus {
+        color: var(--ct-input-focus-color);
+        background-color: var(--ct-input-focus-bg);
+      }
+    }
+
+    @media (min-width: 768px) {
+      & .rdtPicker {
+        bottom: 100%;
+      }
+    }
+  }
+}

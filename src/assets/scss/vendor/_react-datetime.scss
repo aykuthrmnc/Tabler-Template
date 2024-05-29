@@ -1,0 +1,31 @@
+.rdtPicker {
+  // box-shadow: 0 0 0 1000px var(--#{$prefix}body-bg) inset;
+  // background: var(--#{$prefix}bg-forms) !important;
+  // border: $input-border-color !important;
+  @extend .form-control;
+  display: none;
+  padding: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  thead tr:first-of-type th {
+    &:hover {
+      color: inherit;
+      text-decoration: none;
+      background-color: rgba(var(--#{$prefix}secondary-rgb), 0.08);
+    }
+  }
+
+  td.rdtYear,
+  td.rdtMonth,
+  td.rdtDay,
+  td.rdtHour,
+  td.rdtMinute,
+  td.rdtSecond,
+  .rdtTimeToggle {
+    &:not(.rdtActive):hover {
+      color: inherit;
+      text-decoration: none;
+      background-color: rgba(var(--#{$prefix}secondary-rgb), 0.08);
+    }
+  }
+}
