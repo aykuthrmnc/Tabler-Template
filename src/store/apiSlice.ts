@@ -4,7 +4,7 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 //! BASE QUERY WITH AXIOS
 const axiosBaseQuery =
   (
-    { baseURL }: { baseURL: string } = { baseURL: "" }
+    { baseURL }: { baseURL: string } = { baseURL: "" },
   ): BaseQueryFn<
     {
       url: string;

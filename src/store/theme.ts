@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LayoutColor, LayoutLanguageMode, LayoutPosition, LayoutTheme, LayoutType, LayoutVerticalLocation, LayoutWidth } from "~/types";
+import {
+  LayoutColor,
+  LayoutLanguageMode,
+  LayoutPosition,
+  LayoutTheme,
+  LayoutType,
+  LayoutVerticalLocation,
+  LayoutWidth,
+} from "~/types";
 import { Theme } from "~/types";
 import { JSONParser } from "~/utils/functions";
 
@@ -190,6 +198,15 @@ const theme = createSlice({
   },
 });
 
-export const { getTheme, setTheme, setType, setWidth, setPosition, setColor, setLanguageMode, setVerticalLocation, setSettingMenuShow } =
-  theme.actions;
+export const {
+  getTheme,
+  setTheme,
+  setType,
+  setWidth,
+  setPosition,
+  setColor,
+  setLanguageMode,
+  setVerticalLocation,
+  setSettingMenuShow,
+} = theme.actions;
 export default theme.reducer;

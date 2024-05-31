@@ -83,6 +83,8 @@ export interface FormInputCheckProps extends FormCheckProps {
   classNameContainer?: string;
   classNameSubContainer?: string;
   title?: string | any;
+  // register?: UseFormRegister<any>;
+  // errors?: any;
   control?: Control<any, any>;
   value?: any;
   onChangeValue?: (e: any) => any;

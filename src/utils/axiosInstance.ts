@@ -18,7 +18,7 @@ instance.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 instance.interceptors.response.use(
@@ -55,7 +55,7 @@ instance.interceptors.response.use(
       // return message;
     }
     return Promise.reject(message);
-  }
+  },
 );
 
 export default instance;

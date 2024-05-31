@@ -31,8 +31,13 @@ const Breadcrumbs = () => {
             {(pageTitle?.linkItems || []).map((item, key: number) => {
               return (
                 !item?.isHidden && (
-                  <Link key={key} to={item.path} className="btn btn-primary d-flex align-items-center justify-content-center gap-1 rounded-5">
-                    {item.icon && <item.icon size="16" className="flex-shrink-0" />} <span className="d-none d-md-block">{item?.label}</span>
+                  <Link
+                    key={key}
+                    to={item.path}
+                    className="btn btn-primary d-flex align-items-center justify-content-center gap-1 rounded-5"
+                  >
+                    {item.icon && <item.icon size="16" className="flex-shrink-0" />}{" "}
+                    <span className="d-none d-md-block">{item?.label}</span>
                   </Link>
                 )
               );

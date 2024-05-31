@@ -3,7 +3,7 @@ import { DependencyList, useCallback, useEffect, useRef } from "react";
 const useDebounce = (
   fn: Function,
   { ms = 0, initialMs }: { ms: number; initialMs?: number },
-  deps: DependencyList = []
+  deps: DependencyList = [],
 ): { isReady: () => boolean | null; cancel: () => void } => {
   const firstRenderMs = useRef(initialMs ?? ms);
   const ready = useRef<boolean | null>(false);

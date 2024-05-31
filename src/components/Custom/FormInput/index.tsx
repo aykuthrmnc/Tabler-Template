@@ -97,8 +97,20 @@ const styles: StylesConfig = {
   }),
   option: (base: any, { isDisabled, isFocused, isSelected }: any) => ({
     ...base,
-    backgroundColor: isDisabled ? "" : isSelected ? styleProps.primaryColor : isFocused ? styleProps.primaryActiveColor : undefined,
-    color: isDisabled ? styleProps.secondaryColor : isSelected ? styleProps.thirdColor : isFocused ? styleProps.thirdColor : undefined,
+    backgroundColor: isDisabled
+      ? ""
+      : isSelected
+        ? styleProps.primaryColor
+        : isFocused
+          ? styleProps.primaryActiveColor
+          : undefined,
+    color: isDisabled
+      ? styleProps.secondaryColor
+      : isSelected
+        ? styleProps.thirdColor
+        : isFocused
+          ? styleProps.thirdColor
+          : undefined,
     cursor: isDisabled ? "not-allowed" : "default",
     ":active": {
       ...base[":active"],
@@ -143,76 +155,6 @@ const styles: StylesConfig = {
 
 const FormInput = ({ children }: FormInputProps) => children;
 
-// const Control = ({
-//   as,
-//   id,
-//   name,
-//   label,
-//   type = "text",
-//   className,
-//   classNameLabel,
-//   classNameSearch,
-//   classNamePassword,
-//   classNameContainer,
-//   required,
-//   searchIcon,
-//   showPasswordButton = false,
-//   register,
-//   errors,
-//   hideErrorMessage,
-//   ...props
-// }: FormInputControlProps) => {
-//   const [inputType, setInputType] = useState(type);
-
-//   return (
-//     <Form.Group className={classNameContainer}>
-//       {label && (
-//         <Form.Label className={classNameLabel} htmlFor={id}>
-//           {label} {required && <span className="text-danger">*</span>}
-//         </Form.Label>
-//       )}
-//       <div className="position-relative h-100">
-//         {type === "search" && (
-//           <div className={classNames(classNameSearch, "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2")}>
-//             {searchIcon ?? <FaSearch />}
-//           </div>
-//         )}
-//         <Form.Control
-//           as={as}
-//           id={id}
-//           name={name}
-//           type={inputType}
-//           className={classNames(className, {
-//             "ps-4": type === "search",
-//           })}
-//           style={{ paddingRight: showPasswordButton ? "2.5rem" : undefined }}
-//           isInvalid={name.includes(".") ? name.split(".").reduce((x, y) => x?.[y], errors) : errors?.[name] ? true : false}
-//           {...(name && register?.(name))}
-//           {...props}
-//         />
-//         {type === "password" && showPasswordButton && (
-//           <button
-//             type="button"
-//             title={inputType === "password" ? "Göster" : "Gizle"}
-//             onClick={() => setInputType(inputType === "password" ? "text" : "password")}
-//             // 'border-0 bg-transparent position-absolute top-0 bottom-0 end-0 d-flex align-items-center px-2 text-reset'
-//             className={classNames(
-//               classNamePassword,
-//               "position-absolute top-0 bottom-0 end-0 d-flex align-items-center border-0 bg-transparent link-secondary pe-3"
-//             )}
-//           >
-//             {inputType === "password" ? <TbEye size="20" /> : <TbEyeClosed size="20" />}
-//           </button>
-//         )}
-//       </div>
-
-//       {!hideErrorMessage && errors && (
-//         <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
-//       )}
-//     </Form.Group>
-//   );
-// };
-
 const Control = ({
   as,
   id,
@@ -248,7 +190,12 @@ const Control = ({
           )}
           <div className="position-relative h-100">
             {type === "search" && (
-              <div className={classNames(classNameSearch, "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2")}>
+              <div
+                className={classNames(
+                  classNameSearch,
+                  "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2",
+                )}
+              >
                 {searchIcon ?? <FaSearch />}
               </div>
             )}
@@ -260,7 +207,9 @@ const Control = ({
               className={classNames(className, {
                 "ps-4": type === "search",
               })}
-              style={{ paddingRight: showPasswordButton ? "2.5rem" : undefined }}
+              style={{
+                paddingRight: showPasswordButton ? "2.5rem" : undefined,
+              }}
               isInvalid={invalid}
               value={value}
               onChange={(e) => {
@@ -279,7 +228,7 @@ const Control = ({
                 // 'border-0 bg-transparent position-absolute top-0 bottom-0 end-0 d-flex align-items-center px-2 text-reset'
                 className={classNames(
                   classNamePassword,
-                  "position-absolute top-0 bottom-0 end-0 d-flex align-items-center border-0 bg-transparent link-secondary pe-3"
+                  "position-absolute top-0 bottom-0 end-0 d-flex align-items-center border-0 bg-transparent link-secondary pe-3",
                 )}
               >
                 {inputType === "password" ? <TbEye size="20" /> : <TbEyeClosed size="20" />}
@@ -429,10 +378,16 @@ const Check = ({
             className={className}
             isInvalid={invalid}
             value={value}
-            checked={value === val}
-            onChange={(e) => {
-              onChange(e);
-              onChangeValue?.(e);
+            checked={Array.isArray(val) ? val.includes(value) : value === val}
+            onChange={() => {
+              const currentValue = Array.isArray(val)
+                ? val.includes(value)
+                  ? val.filter((x) => x !== value)
+                  : [...new Set([...val, value])].sort()
+                : value !== val && value;
+
+              onChange(currentValue);
+              onChangeValue?.(currentValue);
             }}
             ref={ref}
             onBlur={onBlur}
@@ -445,8 +400,6 @@ const Check = ({
           )}
           {!hideErrorMessage && error && <Form.Control.Feedback type="invalid">{error?.message}</Form.Control.Feedback>}
         </Form.Check>
-
-        {/* {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>} */}
       </Form.Group>
     )}
   />
@@ -766,7 +719,9 @@ const ReactSelectAsyncUrl = ({
       return new Promise((resolve) => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-          axios(optionsUrl?.(e), { method: "get", ...optionConfig?.(e) }).then((res: any) => resolve(getOptionValues?.(res.data) || res.data));
+          axios(optionsUrl?.(e), { method: "get", ...optionConfig?.(e) }).then((res: any) =>
+            resolve(getOptionValues?.(res.data) || res.data),
+          );
         }, 700);
       });
     }
@@ -964,7 +919,8 @@ const ReactDatePicker = ({
           selected={value ? new Date(value) : null}
           onChange={(e: any) => {
             onChange(e ? moment(e).format(showTimeSelect ? "YYYY-MM-DD HH:mm" : "YYYY-MM-DD") : null);
-            if (onChangeValue) onChangeValue(e ? moment(e).format(showTimeSelect ? "YYYY-MM-DD HH:mm" : "YYYY-MM-DD") : null);
+            if (onChangeValue)
+              onChangeValue(e ? moment(e).format(showTimeSelect ? "YYYY-MM-DD HH:mm" : "YYYY-MM-DD") : null);
           }}
           ref={ref}
           onBlur={onBlur}
@@ -1131,7 +1087,12 @@ const ReactDropZone = ({
                   <aside className="dropzone-showcase">
                     {value?.map((file: any, key: number) => (
                       <div className="dropzone-showcase-item" key={key}>
-                        <img alt={file.name} src={file.preview} className={classNameFile} onLoad={() => URL.revokeObjectURL(file.preview)} />
+                        <img
+                          alt={file.name}
+                          src={file.preview}
+                          className={classNameFile}
+                          onLoad={() => URL.revokeObjectURL(file.preview)}
+                        />
                       </div>
                     ))}
                   </aside>
@@ -1262,3 +1223,122 @@ FormInput.Counter = Counter;
 FormInput.Custom = Custom;
 
 export default FormInput;
+
+// const RegisterControl = ({
+//   as,
+//   id,
+//   name,
+//   label,
+//   type = "text",
+//   className,
+//   classNameLabel,
+//   classNameSearch,
+//   classNamePassword,
+//   classNameContainer,
+//   required,
+//   searchIcon,
+//   showPasswordButton = false,
+//   register,
+//   errors,
+//   hideErrorMessage,
+//   ...props
+// }: FormInputControlProps) => {
+//   const [inputType, setInputType] = useState(type);
+
+//   return (
+//     <Form.Group className={classNameContainer}>
+//       {label && (
+//         <Form.Label className={classNameLabel} htmlFor={id}>
+//           {label} {required && <span className="text-danger">*</span>}
+//         </Form.Label>
+//       )}
+//       <div className="position-relative h-100">
+//         {type === "search" && (
+//           <div className={classNames(classNameSearch, "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2")}>
+//             {searchIcon ?? <FaSearch />}
+//           </div>
+//         )}
+//         <Form.Control
+//           as={as}
+//           id={id}
+//           name={name}
+//           type={inputType}
+//           className={classNames(className, {
+//             "ps-4": type === "search",
+//           })}
+//           style={{ paddingRight: showPasswordButton ? "2.5rem" : undefined }}
+//           isInvalid={name.includes(".") ? name.split(".").reduce((x, y) => x?.[y], errors) : errors?.[name] ? true : false}
+//           {...(name && register?.(name))}
+//           {...props}
+//         />
+//         {type === "password" && showPasswordButton && (
+//           <button
+//             type="button"
+//             title={inputType === "password" ? "Göster" : "Gizle"}
+//             onClick={() => setInputType(inputType === "password" ? "text" : "password")}
+//             // 'border-0 bg-transparent position-absolute top-0 bottom-0 end-0 d-flex align-items-center px-2 text-reset'
+//             className={classNames(
+//               classNamePassword,
+//               "position-absolute top-0 bottom-0 end-0 d-flex align-items-center border-0 bg-transparent link-secondary pe-3"
+//             )}
+//           >
+//             {inputType === "password" ? <TbEye size="20" /> : <TbEyeClosed size="20" />}
+//           </button>
+//         )}
+//       </div>
+
+//       {!hideErrorMessage && errors && (
+//         <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
+//       )}
+//     </Form.Group>
+//   );
+// };
+
+// const RegisterCheck = ({
+//   id,
+//   name,
+//   label,
+//   className,
+//   classNameLabel,
+//   classNameTitle,
+//   classNameContainer,
+//   classNameSubContainer,
+//   required,
+//   type,
+//   title,
+//   register,
+//   errors,
+//   hideErrorMessage,
+//   ...props
+// }: FormInputCheckProps) => (
+//   <Form.Group className={classNameContainer}>
+//     {label && (
+//       <Form.Label className={classNameLabel} htmlFor={id}>
+//         {label} {required && <span className="text-danger">*</span>}
+//       </Form.Label>
+//     )}
+//     <Form.Check className={classNameSubContainer} type={type}>
+//       <Form.Check.Input
+//         id={id}
+//         name={name}
+//         type={type != "switch" ? type : undefined}
+//         className={className}
+//         isInvalid={errors?.[name] ? true : false}
+//         {...(name &&
+//           register?.(name, {
+//             /* FOR BOOLEAN VALUE */
+//           }))}
+//         {...props}
+//       />
+//       {title && (
+//         <Form.Check.Label className={classNameTitle} htmlFor={id}>
+//           {title}
+//         </Form.Check.Label>
+//       )}
+//     </Form.Check>
+
+//     {/* {!hideErrorMessage && errors && (
+//       <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
+//     )} */}
+//   </Form.Group>
+// );

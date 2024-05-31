@@ -73,8 +73,20 @@ const styles: StylesConfig = {
   option: (base: any, { isDisabled, isFocused, isSelected }: any) => {
     return {
       ...base,
-      backgroundColor: isDisabled ? "" : isSelected ? styleProps.primaryColor : isFocused ? styleProps.primaryActiveColor : undefined,
-      color: isDisabled ? styleProps.secondaryColor : isSelected ? styleProps.thirdColor : isFocused ? styleProps.thirdColor : undefined,
+      backgroundColor: isDisabled
+        ? ""
+        : isSelected
+          ? styleProps.primaryColor
+          : isFocused
+            ? styleProps.primaryActiveColor
+            : undefined,
+      color: isDisabled
+        ? styleProps.secondaryColor
+        : isSelected
+          ? styleProps.thirdColor
+          : isFocused
+            ? styleProps.thirdColor
+            : undefined,
       cursor: isDisabled ? "not-allowed" : "default",
       ":active": {
         ...base[":active"],
@@ -162,8 +174,11 @@ const Table = ({
           Object.values(items).some(
             (item: any) =>
               !React.isValidElement(item) &&
-              (item?.label ?? item?.value ?? item)?.toString().toLocaleLowerCase("TR").includes(search.toLocaleLowerCase("TR"))
-          )
+              (item?.label ?? item?.value ?? item)
+                ?.toString()
+                .toLocaleLowerCase("TR")
+                .includes(search.toLocaleLowerCase("TR")),
+          ),
         )
         ?.sort((x: any, y: any) => {
           const a = x[sorting?.key]?.value ?? x[sorting?.key];
@@ -401,10 +416,15 @@ const Table = ({
       page == null ? (
         <Pagination.Ellipsis linkClassName="bg-transparent border-0" key={key} disabled />
       ) : (
-        <Pagination.Item linkClassName="shadow-none" key={key} onClick={() => page != currentPage && setPage(page)} active={page == currentPage}>
+        <Pagination.Item
+          linkClassName="shadow-none"
+          key={key}
+          onClick={() => page != currentPage && setPage(page)}
+          active={page == currentPage}
+        >
           {page}
         </Pagination.Item>
-      )
+      ),
     );
   };
   //! PAGINATION END
@@ -453,14 +473,26 @@ const Table = ({
         )}
         {searchable && !isAsync && (
           <Col xs="12" sm="6" lg="3">
-            <Form.Control value={search} onChange={(e: any) => setSearch(e.target.value)} type="search" placeholder="Arama" className="shadow-none" />
+            <Form.Control
+              value={search}
+              onChange={(e: any) => setSearch(e.target.value)}
+              type="search"
+              placeholder="Arama"
+              className="shadow-none"
+            />
           </Col>
         )}
         {creatable && (
           <Col xs="12" sm="auto">
             <Button
               className="w-100"
-              onClick={() => reset(head.reduce((x: any, y: any) => ({ ...x, [y?.key]: "" }), { key: body.length }))}
+              onClick={() =>
+                reset(
+                  head.reduce((x: any, y: any) => ({ ...x, [y?.key]: "" }), {
+                    key: body.length,
+                  }),
+                )
+              }
               // onClick={() => setCreateValue(head.reduce((x: any, y: any) => ({ ...x, [y?.key]: "" }), {}))}
               // onClick={() => setCreateValue(head.reduce((x: any, y: any) => [...x, { key: y?.key, value: "" }], []))}
             >
@@ -486,7 +518,12 @@ const Table = ({
                     onClick={() => {
                       if (item?.sortable) {
                         const key = item?.key;
-                        const orderBy = sorting?.key === key && sorting.orderBy !== "" ? (sorting.orderBy === "asc" ? "desc" : "") : "asc";
+                        const orderBy =
+                          sorting?.key === key && sorting.orderBy !== ""
+                            ? sorting.orderBy === "asc"
+                              ? "desc"
+                              : ""
+                            : "asc";
                         const sortValue = {
                           key: key,
                           orderBy: orderBy,
@@ -545,7 +582,9 @@ const Table = ({
                 <td colSpan={"100%" as any}>
                   <div className="d-flex flex-column align-items-center">
                     <div className="w-25">{!hideNoDataIcon && (noDataIcon ?? <NoData />)}</div>
-                    <h3 className="page-subtitle text-center">{filteredData?.length === 0 ? emptyMessage : error ?? "Bir hata oluştu..."}</h3>
+                    <h3 className="page-subtitle text-center">
+                      {filteredData?.length === 0 ? emptyMessage : error ?? "Bir hata oluştu..."}
+                    </h3>
                   </div>
                 </td>
               </tr>
@@ -585,7 +624,7 @@ const Table = ({
                             type="button"
                             className={classNames(
                               "d-inline-flex align-items-center justify-content-center cursor-pointer bg-transparent border-0 w-100 h-100",
-                              item?.className
+                              item?.className,
                             )}
                             onClick={() => item?.onClick?.(data)}
                           >

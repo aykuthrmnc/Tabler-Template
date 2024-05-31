@@ -96,8 +96,20 @@ const styles: StylesConfig = {
   }),
   option: (base: any, { isDisabled, isFocused, isSelected }: any) => ({
     ...base,
-    backgroundColor: isDisabled ? "" : isSelected ? styleProps.primaryColor : isFocused ? styleProps.primaryActiveColor : undefined,
-    color: isDisabled ? styleProps.secondaryColor : isSelected ? styleProps.thirdColor : isFocused ? styleProps.thirdColor : undefined,
+    backgroundColor: isDisabled
+      ? ""
+      : isSelected
+        ? styleProps.primaryColor
+        : isFocused
+          ? styleProps.primaryActiveColor
+          : undefined,
+    color: isDisabled
+      ? styleProps.secondaryColor
+      : isSelected
+        ? styleProps.thirdColor
+        : isFocused
+          ? styleProps.thirdColor
+          : undefined,
     cursor: isDisabled ? "not-allowed" : "default",
     ":active": {
       ...base[":active"],
@@ -170,7 +182,12 @@ const Control = ({
       )}
       <div className="position-relative h-100">
         {type === "search" && (
-          <div className={classNames(classNameSearch, "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2")}>
+          <div
+            className={classNames(
+              classNameSearch,
+              "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2",
+            )}
+          >
             {searchIcon ?? <FaSearch />}
           </div>
         )}
@@ -196,7 +213,7 @@ const Control = ({
             // 'border-0 bg-transparent position-absolute top-0 bottom-0 end-0 d-flex align-items-center px-2 text-reset'
             className={classNames(
               classNamePassword,
-              "position-absolute top-0 bottom-0 end-0 d-flex align-items-center border-0 bg-transparent link-secondary pe-3"
+              "position-absolute top-0 bottom-0 end-0 d-flex align-items-center border-0 bg-transparent link-secondary pe-3",
             )}
           >
             {inputType === "password" ? <TbEye size="20" /> : <TbEyeClosed size="20" />}
@@ -745,7 +762,16 @@ const DateTime = ({
   </Form.Group>
 );
 
-const PhoneInput = ({ id, label, classNameLabel, classNameContainer, classNameSubContainer, required, value, onChange }: InputPhoneProps) => (
+const PhoneInput = ({
+  id,
+  label,
+  classNameLabel,
+  classNameContainer,
+  classNameSubContainer,
+  required,
+  value,
+  onChange,
+}: InputPhoneProps) => (
   <Form.Group className={classNameContainer}>
     {label && (
       <Form.Label className={classNameLabel} htmlFor={id}>
@@ -810,7 +836,12 @@ const ReactDropZone = ({
               <aside className="dropzone-showcase">
                 {value?.map((file: any, key: number) => (
                   <div className="dropzone-showcase-item" key={key}>
-                    <img alt={file.name} src={file.preview} className={classNameFile} onLoad={() => URL.revokeObjectURL(file.preview)} />
+                    <img
+                      alt={file.name}
+                      src={file.preview}
+                      className={classNameFile}
+                      onLoad={() => URL.revokeObjectURL(file.preview)}
+                    />
                   </div>
                 ))}
               </aside>
@@ -845,13 +876,19 @@ const Counter = ({
       </Form.Label>
     )}
     <div className={classNameSubContainer}>
-      <Button onClick={() => value > min && onChange?.(+value - 1)} className="d-flex align-items-center justify-content-center rounded-end-0">
+      <Button
+        onClick={() => value > min && onChange?.(+value - 1)}
+        className="d-flex align-items-center justify-content-center rounded-end-0"
+      >
         <FaMinus size="12" />
       </Button>
       <div className={classNames("text-center py-2 px-3", className)} style={{ minWidth: "50px" }}>
         {value}
       </div>
-      <Button onClick={() => value < max && onChange?.(+value + 1)} className="d-flex align-items-center justify-content-center rounded-start-0">
+      <Button
+        onClick={() => value < max && onChange?.(+value + 1)}
+        className="d-flex align-items-center justify-content-center rounded-start-0"
+      >
         <FaPlus size="12" />
       </Button>
     </div>
@@ -859,7 +896,17 @@ const Counter = ({
 );
 
 // USING WITH CUSTOM ELEMENT
-const Custom = ({ as, id, label, classNameLabel, classNameContainer, required, value, onChange, ...props }: InputCustomProps) => (
+const Custom = ({
+  as,
+  id,
+  label,
+  classNameLabel,
+  classNameContainer,
+  required,
+  value,
+  onChange,
+  ...props
+}: InputCustomProps) => (
   <Form.Group className={classNameContainer}>
     {label && (
       <Form.Label className={classNameLabel} htmlFor={id}>

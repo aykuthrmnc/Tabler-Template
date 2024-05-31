@@ -10,7 +10,6 @@ const Account = () => {
     formState: { isSubmitting },
   } = useForm();
 
-
   const submit = async (values: any) => {
     console.log(values);
     // await updateUserProfile({
@@ -82,14 +81,27 @@ const Account = () => {
             <FormInput.Control name="surname" label="Soyisim" classNameContainer="mb-3" required control={control} />
           </Col>
           <Col>
-            <FormInput.Control type="email" name="email" label="E-posta" classNameContainer="mb-3" required control={control} />
+            <FormInput.Control
+              type="email"
+              name="email"
+              label="E-posta"
+              classNameContainer="mb-3"
+              required
+              control={control}
+            />
           </Col>
           <Col></Col>
           <Col>
             <FormInput.Control as="textarea" name="address" label="Adres" classNameContainer="mb-3" control={control} />
           </Col>
           <Col>
-            <FormInput.Control as="textarea" name="description" label="Açıklama" classNameContainer="mb-3" control={control} />
+            <FormInput.Control
+              as="textarea"
+              name="description"
+              label="Açıklama"
+              classNameContainer="mb-3"
+              control={control}
+            />
           </Col>
         </Row>
         {/* <label className="form-check form-switch form-switch-lg">

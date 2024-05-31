@@ -16,7 +16,7 @@ const TableMobile = ({ head, body }: any) => {
                 <td>{head[index].name}</td>
                 <td className="text-end">{item}</td>
               </tr>
-            )
+            ),
           )}
         </tbody>
       ))}

@@ -9,7 +9,9 @@ import { AuthRegisterSchema } from "~/validation";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { control, handleSubmit } = useForm({ resolver: yupResolver(AuthRegisterSchema) });
+  const { control, handleSubmit } = useForm({
+    resolver: yupResolver(AuthRegisterSchema),
+  });
 
   // API
   const [registerHandle] = useRegisterMutation();

@@ -73,8 +73,20 @@ const styles: StylesConfig = {
   option: (base: any, { isDisabled, isFocused, isSelected }: any) => {
     return {
       ...base,
-      backgroundColor: isDisabled ? "" : isSelected ? styleProps.primaryColor : isFocused ? styleProps.primaryActiveColor : undefined,
-      color: isDisabled ? styleProps.secondaryColor : isSelected ? styleProps.thirdColor : isFocused ? styleProps.thirdColor : undefined,
+      backgroundColor: isDisabled
+        ? ""
+        : isSelected
+          ? styleProps.primaryColor
+          : isFocused
+            ? styleProps.primaryActiveColor
+            : undefined,
+      color: isDisabled
+        ? styleProps.secondaryColor
+        : isSelected
+          ? styleProps.thirdColor
+          : isFocused
+            ? styleProps.thirdColor
+            : undefined,
       cursor: isDisabled ? "not-allowed" : "default",
       ":active": {
         ...base[":active"],
@@ -162,8 +174,9 @@ const DataGrid = ({
             ?.filter((items: any) =>
               Object.values(items).some(
                 (item: any) =>
-                  !React.isValidElement(item) && (item?.value ?? item)?.toString().toLocaleLowerCase("TR").includes(search.toLocaleLowerCase("TR"))
-              )
+                  !React.isValidElement(item) &&
+                  (item?.value ?? item)?.toString().toLocaleLowerCase("TR").includes(search.toLocaleLowerCase("TR")),
+              ),
             )
             ?.sort((x: any, y: any) => {
               const a = x[sorting?.key]?.value ?? x[sorting?.key];
@@ -176,7 +189,7 @@ const DataGrid = ({
               }
               return 1;
             }),
-    [body, asyncSearchable, search, sorting]
+    [body, asyncSearchable, search, sorting],
   );
 
   useEffect(() => {
@@ -423,7 +436,9 @@ const DataGrid = ({
       case "Dropdown":
         return (
           <Dropdown align="end" className="position-absolute inset-0">
-            <Dropdown.Toggle className="w-100 h-100 shadow-none">{data?.[item?.key]?.label ?? "Seçiniz"}</Dropdown.Toggle>
+            <Dropdown.Toggle className="w-100 h-100 shadow-none">
+              {data?.[item?.key]?.label ?? "Seçiniz"}
+            </Dropdown.Toggle>
             <Dropdown.Menu className="w-100">
               {item?.options?.map((e: any, key: number) => (
                 <Dropdown.Item
@@ -493,7 +508,7 @@ const DataGrid = ({
         <Pagination.Item key={key} onClick={() => page != currentPage && setPage(page)} active={page == currentPage}>
           {page}
         </Pagination.Item>
-      )
+      ),
     );
   };
   //! PAGINATION END
@@ -533,7 +548,13 @@ const DataGrid = ({
         )}
         {searchable && !asyncSearchable && (
           <Col xs="12" sm="6" lg="3">
-            <Form.Control value={search} onChange={(e: any) => setSearch(e.target.value)} type="search" placeholder="Arama" className="shadow-none" />
+            <Form.Control
+              value={search}
+              onChange={(e: any) => setSearch(e.target.value)}
+              type="search"
+              placeholder="Arama"
+              className="shadow-none"
+            />
           </Col>
         )}
         {creatable && (
@@ -620,7 +641,9 @@ const DataGrid = ({
                 <td colSpan={"100%" as any}>
                   <div className="d-flex flex-column align-items-center">
                     <div className="w-25">{!hideNoDataIcon && (noDataIcon ?? <NoData />)}</div>
-                    <h3 className="page-subtitle text-center">{fields?.length === 0 ? emptyMessage : error ?? "Bir hata oluştu..."}</h3>
+                    <h3 className="page-subtitle text-center">
+                      {fields?.length === 0 ? emptyMessage : error ?? "Bir hata oluştu..."}
+                    </h3>
                   </div>
                 </td>
               </tr>
@@ -643,7 +666,7 @@ const DataGrid = ({
                         type="button"
                         className={classNames(
                           "d-inline-flex align-items-center justify-content-center cursor-pointer bg-transparent border-0",
-                          item?.className
+                          item?.className,
                         )}
                         onClick={() => item?.onClick?.(watch(`array.${key}`))}
                       >

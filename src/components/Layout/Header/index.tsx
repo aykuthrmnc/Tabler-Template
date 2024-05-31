@@ -89,7 +89,12 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
   };
 
   return (
-    <NavbarPosition isSticky={position === LayoutPosition.STICKY && ![LayoutType.OVERLAP, LayoutType.VERTICAL, LayoutType.COMBINED].includes(type)}>
+    <NavbarPosition
+      isSticky={
+        position === LayoutPosition.STICKY &&
+        ![LayoutType.OVERLAP, LayoutType.VERTICAL, LayoutType.COMBINED].includes(type)
+      }
+    >
       <Navbar
         id="topbar"
         variant=""
@@ -98,7 +103,8 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
         className={classNames("d-print-none", {
           "navbar-overlap": type === LayoutType.OVERLAP,
           "navbar-vertical": [LayoutType.VERTICAL, LayoutType.COMBINED].includes(type),
-          "navbar-transparent": color === LayoutColor.TRANSPARENT && [LayoutType.VERTICAL, LayoutType.COMBINED].includes(type),
+          "navbar-transparent":
+            color === LayoutColor.TRANSPARENT && [LayoutType.VERTICAL, LayoutType.COMBINED].includes(type),
           "navbar-right": verticalLocation === LayoutVerticalLocation.RIGHT,
         })}
         data-bs-theme={color === LayoutColor.DARK ? LayoutColor.DARK : undefined}
@@ -124,16 +130,17 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
             />
           </Link>
           <NavbarUserContent hideProfileMenu={[LayoutType.COMBINED, LayoutType.VERTICAL].includes(type)} />
-          {VITE_SHOW_MENU && [LayoutType.COMBINED, LayoutType.CONDENSED, LayoutType.OVERLAP, LayoutType.VERTICAL].includes(type) && (
-            <Navbar.Collapse
-              id="navbar-menu"
-              className={classNames({
-                "pt-lg-3": type === LayoutType.VERTICAL,
-              })}
-            >
-              <HeaderMenu menuItems={MENU} />
-            </Navbar.Collapse>
-          )}
+          {VITE_SHOW_MENU &&
+            [LayoutType.COMBINED, LayoutType.CONDENSED, LayoutType.OVERLAP, LayoutType.VERTICAL].includes(type) && (
+              <Navbar.Collapse
+                id="navbar-menu"
+                className={classNames({
+                  "pt-lg-3": type === LayoutType.VERTICAL,
+                })}
+              >
+                <HeaderMenu menuItems={MENU} />
+              </Navbar.Collapse>
+            )}
         </Container>
       </Navbar>
       {type === LayoutType.COMBINED && (

@@ -38,17 +38,26 @@ const DynaPagination = ({
       page == null ? (
         <Pagination.Ellipsis linkClassName="bg-transparent border-0" key={key} disabled />
       ) : (
-        <Pagination.Item linkClassName="shadow-none" key={key} onClick={() => page != currentPage && setPage(page)} active={page == currentPage}>
+        <Pagination.Item
+          linkClassName="shadow-none"
+          key={key}
+          onClick={() => page != currentPage && setPage(page)}
+          active={page == currentPage}
+        >
           {page}
         </Pagination.Item>
-      )
+      ),
     );
   };
 
   return (
     <Pagination size={size}>
       {firstLastVisible && (
-        <Pagination.First linkClassName="shadow-none" disabled={(page || pagination?.currentPage) == 1} onClick={() => setPage(1)} />
+        <Pagination.First
+          linkClassName="shadow-none"
+          disabled={(page || pagination?.currentPage) == 1}
+          onClick={() => setPage(1)}
+        />
       )}
       <Pagination.Prev
         linkClassName="shadow-none"

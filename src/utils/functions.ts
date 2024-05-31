@@ -11,7 +11,7 @@ export const dateFormatter = (e?: string) => moment(e).format("LLL");
 export const dateDifferenceFormatter = (
   start: string | moment.Moment,
   now?: string | moment.Moment,
-  show?: { day?: boolean; hour?: boolean; minute?: boolean; second?: boolean }
+  show?: { day?: boolean; hour?: boolean; minute?: boolean; second?: boolean },
 ) => {
   show = { day: true, hour: true, minute: true, second: true, ...show };
   start = moment(start);
@@ -72,12 +72,21 @@ export const currencyFormatter = new Intl.NumberFormat("tr-TR", {
 
 export const CurrencyFormat = (paraMiktari: number, paraBirimi: string) => {
   return paraBirimi == "TL"
-    ? new Intl.NumberFormat("tr-TR", { currency: "TRY", style: "currency" }).format(paraMiktari || 0)
+    ? new Intl.NumberFormat("tr-TR", {
+        currency: "TRY",
+        style: "currency",
+      }).format(paraMiktari || 0)
     : paraBirimi == "EUR"
-    ? new Intl.NumberFormat("de-DE", { currency: "EUR", style: "currency" }).format(paraMiktari || 0)
-    : paraBirimi == "USD"
-    ? new Intl.NumberFormat("en-US", { currency: "USD", style: "currency" }).format(paraMiktari || 0)
-    : new Intl.NumberFormat("tr-TR", { currency: "TRY" }).format(paraMiktari || 0);
+      ? new Intl.NumberFormat("de-DE", {
+          currency: "EUR",
+          style: "currency",
+        }).format(paraMiktari || 0)
+      : paraBirimi == "USD"
+        ? new Intl.NumberFormat("en-US", {
+            currency: "USD",
+            style: "currency",
+          }).format(paraMiktari || 0)
+        : new Intl.NumberFormat("tr-TR", { currency: "TRY" }).format(paraMiktari || 0);
 };
 
 //! JSON PARSER
@@ -100,7 +109,9 @@ export const encryptValue = (value: any) => {
 
 export const decryptValue = (value: any) => {
   try {
-    const decryptedValue = CryptoJS.AES.decrypt(value, import.meta.env.VITE_AUTH_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    const decryptedValue = CryptoJS.AES.decrypt(value, import.meta.env.VITE_AUTH_SECRET_KEY).toString(
+      CryptoJS.enc.Utf8,
+    );
     return decryptedValue;
   } catch (error) {
     return;
@@ -111,7 +122,9 @@ export const decryptValue = (value: any) => {
 export const getColor = (color: string, opacity = "1", prefix = "tblr-") => {
   const hexToRgba = (hex: string, opacity: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? `rgba(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}, ${opacity})` : null;
+    return result
+      ? `rgba(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}, ${opacity})`
+      : null;
   };
 
   const hex = getComputedStyle(document.body).getPropertyValue(`--${prefix}${color}`).trim();
@@ -202,7 +215,10 @@ export const secondScreen = () => {
 };
 
 //! DOWNLOAD FILE
-export const downloadFile = (e: any, fileName: string = `${import.meta.env.VITE_APP_NAME || "download"}_${moment().valueOf()}`) => {
+export const downloadFile = (
+  e: any,
+  fileName: string = `${import.meta.env.VITE_APP_NAME || "download"}_${moment().valueOf()}`,
+) => {
   const url = window.URL.createObjectURL(e);
   const link = document.createElement("a");
   link.href = url;

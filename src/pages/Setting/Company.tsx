@@ -10,7 +10,6 @@ const Company = () => {
     formState: { isSubmitting },
   } = useForm();
 
-
   const submit = async (values: any) => {
     console.log(values);
     // await updateCompany({
@@ -63,7 +62,12 @@ const Company = () => {
                   Terms: search,
                 },
               })}
-              getOptionValues={(e) => e?.Users.map((user: any) => ({ value: user?.Id, label: `${user?.Name} ${user?.Surname}` }))}
+              getOptionValues={(e) =>
+                e?.Users.map((user: any) => ({
+                  value: user?.Id,
+                  label: `${user?.Name} ${user?.Surname}`,
+                }))
+              }
               required
               control={control}
             />

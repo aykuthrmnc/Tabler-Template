@@ -21,14 +21,14 @@ import {
   LayoutVerticalLocation,
   LayoutWidth,
 } from "~/types";
-import Input from "../Custom/FormInput";
+import FormInput from "../Custom/FormInput";
 import { toast } from "react-toastify";
 import { getThemeHandle } from "~/utils/storeHandle";
 
 const ThemeOffcanvas = () => {
   const { dispatch, appSelector } = useRedux();
   const { color, languageMode, position, theme, type, width, verticalLocation, settingMenuShow } = appSelector(
-    (state: RootState) => state.theme
+    (state: RootState) => state.theme,
   );
   const { control, handleSubmit } = useForm();
 
@@ -55,7 +55,7 @@ const ThemeOffcanvas = () => {
       <Offcanvas.Body className="pt-0">
         <form onSubmit={handleSubmit(submit)}>
           <h4>Sayfa Teması</h4>
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="theme"
             title="Aydınlık Mod"
@@ -65,7 +65,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setTheme(LayoutTheme.LIGHT))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="theme"
             title="Karanlık Mod"
@@ -77,7 +77,7 @@ const ThemeOffcanvas = () => {
           />
           <hr />
           <h4>Sayfa Düzeni</h4>
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="type"
             title="Yatay (Geniş)"
@@ -87,7 +87,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setType(LayoutType.HORIZONTAL))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="type"
             title="Yatay"
@@ -97,7 +97,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setType(LayoutType.CONDENSED))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="type"
             title="Örtülü"
@@ -107,7 +107,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setType(LayoutType.OVERLAP))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="type"
             title="Dikey"
@@ -117,7 +117,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setType(LayoutType.VERTICAL))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="type"
             title="Birleşik"
@@ -129,7 +129,7 @@ const ThemeOffcanvas = () => {
           />
           <hr />
           <h4>Menü Genişliği</h4>
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="width"
             title="Varsayılan"
@@ -139,7 +139,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setWidth(LayoutWidth.DEFAULT))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="width"
             title="Geniş"
@@ -149,7 +149,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setWidth(LayoutWidth.FLUID))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="width"
             title="Ortalı"
@@ -161,7 +161,7 @@ const ThemeOffcanvas = () => {
           />
           <hr />
           <h4>Menü Rengi</h4>
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="color"
             title="Varsayılan"
@@ -171,7 +171,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setColor(LayoutColor.DEFAULT))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="color"
             title="Koyu"
@@ -182,7 +182,7 @@ const ThemeOffcanvas = () => {
             onClick={() => dispatch(setColor(LayoutColor.DARK))}
           />
           {[LayoutType.VERTICAL, LayoutType.COMBINED].includes(type) && (
-            <Input.Check
+            <FormInput.Check
               type="radio"
               name="color"
               title="Şeffaf"
@@ -195,7 +195,7 @@ const ThemeOffcanvas = () => {
           )}
           <hr />
           <h4>Menü Pozisyonu</h4>
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="position"
             title="Kaydırılabilir"
@@ -205,7 +205,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setPosition(LayoutPosition.DEFAULT))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="position"
             title="Sabit"
@@ -217,7 +217,7 @@ const ThemeOffcanvas = () => {
           />
           <hr />
           <h4>Menü Yönü</h4>
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="languageMode"
             title="LTR"
@@ -227,7 +227,7 @@ const ThemeOffcanvas = () => {
             control={control}
             onClick={() => dispatch(setLanguageMode(LayoutLanguageMode.LTR))}
           />
-          <Input.Check
+          <FormInput.Check
             type="radio"
             name="languageMode"
             title="RTL"
@@ -241,7 +241,7 @@ const ThemeOffcanvas = () => {
             <>
               <hr />
               <h4>Dikey Menü Konumu</h4>
-              <Input.Check
+              <FormInput.Check
                 type="radio"
                 name="verticalLocation"
                 title="Sol"
@@ -251,7 +251,7 @@ const ThemeOffcanvas = () => {
                 control={control}
                 onClick={() => dispatch(setVerticalLocation(LayoutVerticalLocation.LEFT))}
               />
-              <Input.Check
+              <FormInput.Check
                 type="radio"
                 name="verticalLocation"
                 title="Sağ"

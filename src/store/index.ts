@@ -11,7 +11,8 @@ const store = configureStore({
     pageTitle,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat([apiSlice.middleware]),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat([apiSlice.middleware]),
   // devTools: import.meta.env.NODE_ENV === "development",
 });
 export type RootState = ReturnType<typeof store.getState>;

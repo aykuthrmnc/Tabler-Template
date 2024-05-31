@@ -60,7 +60,9 @@ const HeaderNotification = () => {
                   <Link to="#" className="text-body d-block">
                     Lorem, ipsum.
                   </Link>
-                  <div className="d-block text-muted text-truncate mt-n1">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</div>
+                  <div className="d-block text-muted text-truncate mt-n1">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  </div>
                 </Col>
                 <Col xs="auto">
                   <Link to="#" className="list-group-item-actions">

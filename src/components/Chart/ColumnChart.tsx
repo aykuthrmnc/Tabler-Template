@@ -127,7 +127,9 @@ const ColumnChart = ({
   };
 
   return loading ? (
-    <div className="d-flex align-items-center justify-content-center h-100">{loadingIcon ?? <Spinner animation="border" variant="primary" />}</div>
+    <div className="d-flex align-items-center justify-content-center h-100">
+      {loadingIcon ?? <Spinner animation="border" variant="primary" />}
+    </div>
   ) : series.length ? (
     <Chart series={series} options={customOptions} type="bar" />
   ) : (

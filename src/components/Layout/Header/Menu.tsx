@@ -18,7 +18,7 @@ const findAllParent = (menuItems: MenuItemTypes[], menuItem: MenuItemTypes): str
 
 const findMenuItem = (
   menuItems: MenuItemTypes[] | undefined,
-  menuItemKey: MenuItemTypes["key"] | undefined
+  menuItemKey: MenuItemTypes["key"] | undefined,
 ): MenuItemTypes | null => {
   if (menuItems && menuItemKey) {
     for (let i = 0; i < menuItems.length; i++) {
@@ -137,7 +137,7 @@ const MenuItemWithChildren = ({
             />
           ) : (
             <DropdownItem item={subItem} key={key} />
-          )
+          ),
         )}
       </Dropdown.Menu>
     </Dropdown>
