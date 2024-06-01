@@ -53,6 +53,7 @@ export const UIMENU: MenuItemTypes[] = [
     label: "Home",
     icon: <TbHome className="icon" />,
     url: "/ui",
+    end: true,
   },
   {
     key: "interface",
@@ -79,61 +80,61 @@ export const UIMENU: MenuItemTypes[] = [
           {
             key: "signin",
             label: "Sign in",
-            url: "/ui/signin",
+            url: "/ui/auth/signin",
             parentKey: "authentication",
           },
           {
             key: "signinlink",
             label: "Sign In link",
-            url: "/ui/signinlink",
+            url: "/ui/auth/signinlink",
             parentKey: "authentication",
           },
           {
             key: "signinwithillustration",
             label: "Sign in with illustration",
-            url: "/ui/signinwithillustration",
+            url: "/ui/auth/signinwithillustration",
             parentKey: "authentication",
           },
           {
             key: "signinwithcover",
             label: "Sign in with cover",
-            url: "/ui/signinwithcover",
+            url: "/ui/auth/signinwithcover",
             parentKey: "authentication",
           },
           {
             key: "signup",
             label: "Sign up",
-            url: "/ui/signup",
+            url: "/ui/auth/signup",
             parentKey: "authentication",
           },
           {
             key: "forgotpassword",
             label: "Forgot password",
-            url: "/ui/forgotpassword",
+            url: "/ui/auth/forgotpassword",
             parentKey: "authentication",
           },
           {
             key: "termsofservice",
             label: "Terms of service",
-            url: "/ui/termsofservice",
+            url: "/ui/auth/termsofservice",
             parentKey: "authentication",
           },
           {
             key: "lockscreen",
             label: "Lock screen",
-            url: "/ui/lockscreen",
+            url: "/ui/auth/lockscreen",
             parentKey: "authentication",
           },
           {
             key: "twostepverification",
             label: "2 step verification",
-            url: "/ui/twostepverification",
+            url: "/ui/auth/twostepverification",
             parentKey: "authentication",
           },
           {
-            key: "twostepverification",
+            key: "twostepverificationcode",
             label: "2 step verification code",
-            url: "/ui/twostepverificationcode",
+            url: "/ui/auth/twostepverificationcode",
             parentKey: "authentication",
           },
         ],
@@ -267,21 +268,21 @@ export const UIMENU: MenuItemTypes[] = [
         parentKey: "interface",
         children: [
           {
-            key: "404page",
+            key: "page404",
             label: "404 page",
-            url: "/ui/404page",
+            url: "/ui/errorpages/page404",
             parentKey: "errorpages",
           },
           {
-            key: "500page",
+            key: "page500",
             label: "500 page",
-            url: "/ui/500page",
+            url: "/ui/errorpages/page500",
             parentKey: "errorpages",
           },
           {
             key: "maintenancepage",
             label: "Maintenance page",
-            url: "/ui/maintenancepage",
+            url: "/ui/errorpages/maintenancepage",
             parentKey: "errorpages",
           },
         ],
@@ -582,7 +583,7 @@ export const UIMENU: MenuItemTypes[] = [
       {
         key: "wizard",
         label: "Wizard",
-        url: "/ui/wizard",
+        url: "/ui/extrapages/wizard",
         parentKey: "extra",
       },
       {
@@ -598,7 +599,7 @@ export const UIMENU: MenuItemTypes[] = [
       {
         key: "trialended",
         label: "Trial ended",
-        url: "/ui/trialended",
+        url: "/ui/extrapages/trialended",
         parentKey: "extra",
         badge: {
           text: "New",
@@ -618,7 +619,7 @@ export const UIMENU: MenuItemTypes[] = [
       {
         key: "pageloader",
         label: "Page loader",
-        url: "/ui/pageloader",
+        url: "/ui/extrapages/pageloader",
         parentKey: "extra",
         badge: {
           text: "New",

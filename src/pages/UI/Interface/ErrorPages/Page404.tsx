@@ -1,14 +1,10 @@
-const MaintenancePage = () => {
+const Page404 = () => {
   return (
     <div className="container-tight py-4">
       <div className="empty">
-        <div className="empty-img">
-          <img src="./static/illustrations/undraw_quitting_time_dm8t.svg" height={128} alt="" />
-        </div>
-        <p className="empty-title">Temporarily down for maintenance</p>
-        <p className="empty-subtitle text-secondary">
-          Sorry for the inconvenience but we’re performing some maintenance at the moment. We’ll be back online shortly!
-        </p>
+        <div className="empty-header">404</div>
+        <p className="empty-title">Oops… You just found an error page</p>
+        <p className="empty-subtitle text-secondary">We are sorry but the page you are looking for was not found</p>
         <div className="empty-action">
           <a href="./." className="btn btn-primary">
             {/* Download SVG icon from http://tabler-icons.io/i/arrow-left */}
@@ -36,4 +32,4 @@ const MaintenancePage = () => {
     </div>
   );
 };
-export default MaintenancePage;
+export default Page404;
