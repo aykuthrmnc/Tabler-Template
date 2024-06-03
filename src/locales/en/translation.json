@@ -1,8 +1,8 @@
 {
-  "Login": "Login",
-  "Register": "Register",
   "Create Account": "Create Account",
   "Forgot Password": "Forgot Password",
+  "Home Page": "Home Page",
+  "Login": "Login",
   "Logout": "Logout",
-  "Home Page": "Home Page"
+  "Register": "Register"
 }
