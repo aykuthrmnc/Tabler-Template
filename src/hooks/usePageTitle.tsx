@@ -1,33 +1,19 @@
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { useRedux } from ".";
-import { setPageTitle } from "~/store/pageTitle";
-import { IconType } from "react-icons/lib";
+import { PageTitle, setPageTitle } from "~/store/pageTitle";
 
-const usePageTitle = (value: {
-  title?: string;
-  subtitle?: string;
-  search?: string;
-  linkItems?: {
-    label: ReactNode;
-    path: string;
-    icon?: IconType;
-    className?: string;
-    isHidden?: boolean;
-  }[];
-  breadCrumbItems: {
-    label: ReactNode;
-    subLabel?: ReactNode;
-    path: string;
-    active?: boolean;
-  }[];
-}) => {
+const usePageTitle = (value: PageTitle) => {
   const { dispatch } = useRedux();
 
   useEffect(() => {
     dispatch(setPageTitle(value));
+    if (value?.title) {
+      document.title = `${import.meta.env.VITE_APP_NAME} | ${value?.title}`;
+    }
 
     return () => {
       dispatch(setPageTitle(null));
+      document.title = import.meta.env.VITE_APP_NAME;
     };
   }, [dispatch, value]);
 };

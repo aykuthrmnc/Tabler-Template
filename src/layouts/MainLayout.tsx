@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Breadcrumbs from "~/components/Breadcrumbs";
 import Header from "~/components/Layout/Header";
 import ThemeOffcanvas from "~/components/Layout/ThemeOffcanvas";
 import { MenuItemTypes } from "~/types";
@@ -9,6 +10,7 @@ const MainLayout = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearc
       <div className="page min-vh-100">
         <Header MENU={MENU} isSearch={isSearch} />
         <div className="page-wrapper">
+          <Breadcrumbs />
           <Outlet />
         </div>
       </div>

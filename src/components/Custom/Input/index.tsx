@@ -333,7 +333,6 @@ const Check = ({
   </Form.Group>
 );
 
-// eslint-disable-next-line no-redeclare
 const Range = ({
   // min, max, step,
   id,

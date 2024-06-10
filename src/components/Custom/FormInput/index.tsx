@@ -189,12 +189,9 @@ const Control = ({
             </Form.Label>
           )}
           <div className="position-relative h-100">
-            {type === "search" && (
+            {searchIcon && (
               <div
-                className={classNames(
-                  classNameSearch,
-                  "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2",
-                )}
+                className={classNameSearch ?? "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2"}
               >
                 {searchIcon ?? <FaSearch />}
               </div>
@@ -204,10 +201,9 @@ const Control = ({
               id={id}
               name={name}
               type={inputType}
-              className={classNames(className, {
-                "ps-4": type === "search",
-              })}
+              className={className}
               style={{
+                paddingLeft: searchIcon ? "2.5rem" : undefined,
                 paddingRight: showPasswordButton ? "2.5rem" : undefined,
               }}
               isInvalid={invalid}
@@ -361,7 +357,7 @@ const Check = ({
 }: FormInputCheckProps) => (
   <Controller
     control={control}
-    defaultValue={false}
+    defaultValue={value !== true && value}
     name={name}
     render={({ field: { onBlur, onChange, ref, value: val }, fieldState: { invalid, error } }) => (
       <Form.Group className={classNameContainer}>
@@ -379,12 +375,12 @@ const Check = ({
             isInvalid={invalid}
             value={value}
             checked={Array.isArray(val) ? val.includes(value) : value === val}
-            onChange={() => {
+            onChange={(e) => {
               const currentValue = Array.isArray(val)
                 ? val.includes(value)
                   ? val.filter((x) => x !== value)
                   : [...new Set([...val, value])].sort()
-                : value !== val && value;
+                : e;
 
               onChange(currentValue);
               onChangeValue?.(currentValue);
@@ -405,7 +401,6 @@ const Check = ({
   />
 );
 
-// eslint-disable-next-line no-redeclare
 const Range = ({
   // min, max, step,
   id,

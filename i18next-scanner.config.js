@@ -1,7 +1,7 @@
-var fs = require("fs");
-var chalk = require("chalk");
+// var fs = require("fs");
+// var chalk = require("chalk");
 
-const defaultLng = "en";
+const defaultLng = "tr";
 
 module.exports = {
   input: [
@@ -15,7 +15,7 @@ module.exports = {
   options: {
     compatibilityJSON: "v3",
     debug: true,
-    removeUnusedKeys: false,
+    removeUnusedKeys: true,
     sort: true,
     func: {
       list: ["i18next.t", "i18n.t", "t"],
@@ -29,7 +29,7 @@ module.exports = {
     //   i18nKey: "i18nKey",
     //   defaultsKey: "defaults",
     //   extensions: [".ts", ".tsx"],
-    //   fallbackKey: function (ns, value) {
+    //   fallbackKey: (ns, value) => {
     //     return value;
     //   },
     //   acorn: {
@@ -54,6 +54,7 @@ module.exports = {
       jsonIndent: 2,
       lineEnding: "\n",
     },
+    // plural: false,
     nsSeparator: false, // namespace separator
     keySeparator: false, // key separator
     interpolation: {

@@ -119,9 +119,9 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
           >
             <img
               src={import.meta.env.VITE_APP_ICON}
+              alt={import.meta.env.VITE_APP_NAME}
               width={110}
               height={32}
-              alt={import.meta.env.VITE_APP_NAME}
               className="navbar-brand-image"
               // onError={({ currentTarget }) => {
               //   currentTarget.onerror = null;

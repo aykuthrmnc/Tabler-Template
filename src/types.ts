@@ -79,10 +79,8 @@ export interface Theme {
 export type MenuItemTypes = {
   key: string;
   label: string;
-  isTitle?: boolean;
   icon?: any;
   className?: string;
-  variant?: string;
   url?: string;
   end?: boolean;
   onClick?: (e: any) => any;
@@ -91,6 +89,6 @@ export type MenuItemTypes = {
     text: string;
   };
   parentKey?: string;
-  target?: string;
+  align?: "start" | "end";
   children?: MenuItemTypes[];
 };

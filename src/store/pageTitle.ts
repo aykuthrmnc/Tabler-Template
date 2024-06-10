@@ -1,29 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import { IconType } from "react-icons/lib";
 
-interface PageTitle {
-  pageTitle?: {
-    title?: string;
-    subtitle?: string;
-    search?: string;
-    linkItems?: {
-      label: ReactNode;
-      path: string;
-      icon?: IconType;
+export interface PageTitle {
+  title?: string;
+  pretitle?: string;
+  subtitle?: string;
+  search?: {
+    placeholder?: string;
+    className?: string;
+    value?: string;
+    onChange?: (e: any) => any;
+  };
+  linkItems?: {
+    label: ReactNode;
+    url?: string;
+    icon?: {
+      type: IconType;
       className?: string;
-      isHidden?: boolean;
-    }[];
-    breadCrumbItems: {
-      label: ReactNode;
-      subLabel?: ReactNode;
-      path: string;
-      active?: boolean;
-    }[];
-  } | null;
+    };
+    variant?: string;
+    className?: string;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+  }[];
+  breadCrumbItems?: {
+    label: ReactNode;
+    subLabel?: ReactNode;
+    path: string;
+    active?: boolean;
+  }[];
 }
 
-const initialState: PageTitle = {
+const initialState: { pageTitle?: PageTitle | null } = {
   pageTitle: null,
 };
 

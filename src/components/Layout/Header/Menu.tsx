@@ -102,20 +102,11 @@ const MenuItemWithChildren = ({
       >
         {item?.icon && <span className="nav-link-icon d-md-none d-lg-inline-block">{item?.icon}</span>}{" "}
         {item?.label && <span className="nav-link-title">{item?.label}</span>}
-        {item?.badge && (
-          <span
-            className={`badge badge-sm bg-${
-              item?.badge?.variant || "green"
-            }-lt text-uppercase ms-auto position-relative top-0 end-0`}
-            style={{ transform: "none" }}
-          >
-            {item?.badge?.text}
-          </span>
-        )}
       </Dropdown.Toggle>
 
       <Dropdown.Menu
         renderOnMount
+        align={item?.align}
         style={
           item?.children?.length! > 8
             ? {
