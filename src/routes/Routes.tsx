@@ -1,4 +1,4 @@
-import { lazy, memo, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "~/components/Custom/ErrorBoundary";
 import Loader from "~/components/Loader";
@@ -34,6 +34,7 @@ import Error500 from "~/pages/Error/Error500";
 
 // MENUS
 import { MENU, UIMENU } from "~/constants/menu";
+import RoleBasedRoute from "./RoleBasedRoute";
 
 const UI = {
   Alerts: lazy(() => import("~/pages/UI/Interface/Alerts")),
@@ -535,10 +536,13 @@ const routes: Route[] = [
   },
 ];
 
-const authCheck = (routes: Route[]) =>
-  routes?.map((route: Route) => {
+const authCheck = (routes: Route[]) => {
+  return routes?.map((route: Route) => {
     if (route.auth) {
       route.element = <PrivateRoute route={route?.returnPath}>{route.element}</PrivateRoute>;
+    }
+    if (route.roles) {
+      route.element = <RoleBasedRoute roles={route.roles}>{route.element}</RoleBasedRoute>;
     }
     if (route.children) {
       route.children = authCheck(route.children);
@@ -558,7 +562,6 @@ const authCheck = (routes: Route[]) =>
     }
     return route;
   });
+};
 
-const Routes = memo(() => <RouterProvider router={createBrowserRouter(authCheck(routes))} />);
-
-export default Routes;
+export default () => <RouterProvider router={createBrowserRouter(authCheck(routes))} />;

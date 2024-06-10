@@ -82,10 +82,24 @@ const NavbarUserContent = ({ hideProfileMenu }: { hideProfileMenu?: boolean }) =
 const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: boolean }) => {
   const VITE_SHOW_MENU = import.meta.env.VITE_SHOW_MENU !== "false";
   const { appSelector } = useRedux();
+  const user = appSelector((state: RootState) => state.auth.user);
   const { color, position, type, verticalLocation } = appSelector((state: RootState) => state.theme);
   const searchForm = useForm();
   const searchSubmit = (values: any) => {
     console.log(values);
+  };
+
+  const filterMenuByRoles = (menu: MenuItemTypes[], role?: string | string[]): MenuItemTypes[] => {
+    if (role) {
+      return menu
+        .filter(
+          (item) =>
+            !item?.roles ||
+            item?.roles?.some((menuRole) => (Array.isArray(role) ? role?.includes(menuRole) : role === menuRole)),
+        )
+        .map((item) => ({ ...item, ...(item?.children && { children: filterMenuByRoles(item.children, role) }) }));
+    }
+    return menu;
   };
 
   return (
@@ -138,7 +152,7 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
                   "pt-lg-3": type === LayoutType.VERTICAL,
                 })}
               >
-                <HeaderMenu menuItems={MENU} />
+                <HeaderMenu menuItems={filterMenuByRoles(MENU, user?.role)} />
               </Navbar.Collapse>
             )}
         </Container>
@@ -172,7 +186,7 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
               <Container fluid="xl">
                 <Row className="flex-fill align-items-center">
                   <Col>
-                    <HeaderMenu menuItems={MENU} />
+                    <HeaderMenu menuItems={filterMenuByRoles(MENU, user?.role)} />
                   </Col>
                   {isSearch && (
                     <Col xs="2" className="d-none d-xxl-block">

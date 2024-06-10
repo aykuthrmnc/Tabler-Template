@@ -8,6 +8,7 @@ export const MENU: MenuItemTypes[] = [
     label: "Ana Sayfa",
     icon: <TbHome className="icon" />,
     url: "/",
+    roles: ["admin", "user"],
   },
   {
     key: "profile",

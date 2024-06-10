@@ -7,6 +7,7 @@ export interface Route extends NonIndexRouteObject {
   layout?: boolean;
   name?: string;
   returnPath?: string;
+  roles?: string[];
 }
 
 //! NODATA
@@ -90,5 +91,6 @@ export type MenuItemTypes = {
   };
   parentKey?: string;
   align?: "start" | "end";
+  roles?: string[];
   children?: MenuItemTypes[];
 };
