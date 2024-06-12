@@ -10,8 +10,9 @@ import { TbBrandGithub, TbBrandTwitter } from "react-icons/tb";
 const Login = () => {
   const {
     control,
+    register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm({ resolver: yupResolver(AuthLoginSchema) });
 
   // API
@@ -78,7 +79,8 @@ const Login = () => {
               name="rememberMe"
               title="Beni Hatırla"
               classNameContainer="mb-3"
-              control={control}
+              register={register}
+              errors={errors}
             />
 
             <Button type="submit" className="w-100 mt-4" disabled={isSubmitting}>

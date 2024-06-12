@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, memo, Suspense } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "~/components/Custom/ErrorBoundary";
 import Loader from "~/components/Loader";
@@ -564,4 +564,6 @@ const authCheck = (routes: Route[]) => {
   });
 };
 
-export default () => <RouterProvider router={createBrowserRouter(authCheck(routes))} />;
+const Routes = memo(() => <RouterProvider router={createBrowserRouter(authCheck(routes))} />);
+
+export default Routes;

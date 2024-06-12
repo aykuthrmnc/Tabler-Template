@@ -88,7 +88,8 @@ const Register = () => {
                 </>
               }
               classNameContainer="mb-3"
-              control={control}
+              register={register}
+              errors={errors}
             /> */}
 
             <Button type="submit" className="w-100 mt-4">

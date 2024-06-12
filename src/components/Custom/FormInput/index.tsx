@@ -1,6 +1,11 @@
+import axios from "axios";
+import "moment/dist/locale/tr";
+import moment from "moment";
+import classNames from "classnames";
 import { cloneElement, useState } from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { Controller } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import BaseReactSelect, { StylesConfig } from "react-select";
 import BaseReactSelectAsync from "react-select/async";
 import BaseReactSelectCreatable from "react-select/creatable";
@@ -10,11 +15,7 @@ import BaseReactDatetime from "react-datetime";
 import BaseReactDropzone from "react-dropzone";
 import BasePhoneInput from "react-phone-number-input";
 import phoneInputTr from "react-phone-number-input/locale/tr.json";
-import "moment/dist/locale/tr";
-import moment from "moment";
-import classNames from "classnames";
-import { FaMinus, FaPlus } from "react-icons/fa6";
-import { TbEye, TbEyeClosed } from "react-icons/tb";
+import { TbEye, TbEyeClosed, TbPlus, TbMinus } from "react-icons/tb";
 import { FaSearch } from "react-icons/fa";
 import { NumericFormat as BaseNumericFormat, PatternFormat as BasePatternFormat } from "react-number-format";
 import {
@@ -38,7 +39,6 @@ import {
   FormInputPatternFormatProps,
   FormInputCustomProps,
 } from "./FormInputTypes";
-import axios from "axios";
 
 const styleProps = {
   color: "var(--tblr-body-color)",
@@ -349,56 +349,44 @@ const Check = ({
   required,
   type,
   title,
-  control,
-  value = true,
-  onChangeValue,
+  register,
+  errors,
   hideErrorMessage,
   ...props
 }: FormInputCheckProps) => (
-  <Controller
-    control={control}
-    defaultValue={value !== true && value}
-    name={name}
-    render={({ field: { onBlur, onChange, ref, value: val }, fieldState: { invalid, error } }) => (
-      <Form.Group className={classNameContainer}>
-        {label && (
-          <Form.Label className={classNameLabel} htmlFor={id}>
-            {label} {required && <span className="text-danger">*</span>}
-          </Form.Label>
-        )}
-        <Form.Check className={classNameSubContainer} type={type}>
-          <Form.Check.Input
-            id={id}
-            name={name}
-            type={type != "switch" ? type : undefined}
-            className={className}
-            isInvalid={invalid}
-            value={value}
-            checked={Array.isArray(val) ? val.includes(value) : value === val}
-            onChange={(e) => {
-              const currentValue = Array.isArray(val)
-                ? val.includes(value)
-                  ? val.filter((x) => x !== value)
-                  : [...new Set([...val, value])].sort()
-                : e;
-
-              onChange(currentValue);
-              onChangeValue?.(currentValue);
-            }}
-            ref={ref}
-            onBlur={onBlur}
-            {...props}
-          />
-          {title && (
-            <Form.Check.Label className={classNameTitle} htmlFor={id}>
-              {title}
-            </Form.Check.Label>
-          )}
-          {!hideErrorMessage && error && <Form.Control.Feedback type="invalid">{error?.message}</Form.Control.Feedback>}
-        </Form.Check>
-      </Form.Group>
+  <Form.Group className={classNameContainer}>
+    {label && (
+      <Form.Label className={classNameLabel} htmlFor={id}>
+        {label} {required && <span className="text-danger">*</span>}
+      </Form.Label>
     )}
-  />
+    <Form.Check className={classNameSubContainer} type={type}>
+      <Form.Check.Input
+        id={id}
+        name={name}
+        type={type != "switch" ? type : undefined}
+        className={className}
+        isInvalid={errors?.[name] ? true : false}
+        {...(name &&
+          register?.(name, {
+            /* FOR BOOLEAN VALUE */
+          }))}
+        {...props}
+      />
+      {title && (
+        <Form.Check.Label className={classNameTitle} htmlFor={id}>
+          {title}
+        </Form.Check.Label>
+      )}
+      {!hideErrorMessage && errors && (
+        <ErrorMessage
+          errors={errors}
+          name={name}
+          render={({ message }: any) => <Form.Control.Feedback type="invalid">{message}</Form.Control.Feedback>}
+        />
+      )}
+    </Form.Check>
+  </Form.Group>
 );
 
 const Range = ({
@@ -1138,7 +1126,7 @@ const Counter = ({
             className="d-flex align-items-center justify-content-center rounded-end-0"
             disabled={disabled}
           >
-            <FaMinus size="12" />
+            <TbMinus size="12" />
           </Button>
           <div className={classNames("text-center py-2 px-3", className)} style={{ minWidth: "50px" }}>
             {format?.(value) || value}
@@ -1148,7 +1136,7 @@ const Counter = ({
             className="d-flex align-items-center justify-content-center rounded-start-0"
             disabled={disabled}
           >
-            <FaPlus size="12" />
+            <TbPlus size="12" />
           </Button>
         </div>
         {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
@@ -1288,52 +1276,3 @@ export default FormInput;
 //     </Form.Group>
 //   );
 // };
-
-// const RegisterCheck = ({
-//   id,
-//   name,
-//   label,
-//   className,
-//   classNameLabel,
-//   classNameTitle,
-//   classNameContainer,
-//   classNameSubContainer,
-//   required,
-//   type,
-//   title,
-//   register,
-//   errors,
-//   hideErrorMessage,
-//   ...props
-// }: FormInputCheckProps) => (
-//   <Form.Group className={classNameContainer}>
-//     {label && (
-//       <Form.Label className={classNameLabel} htmlFor={id}>
-//         {label} {required && <span className="text-danger">*</span>}
-//       </Form.Label>
-//     )}
-//     <Form.Check className={classNameSubContainer} type={type}>
-//       <Form.Check.Input
-//         id={id}
-//         name={name}
-//         type={type != "switch" ? type : undefined}
-//         className={className}
-//         isInvalid={errors?.[name] ? true : false}
-//         {...(name &&
-//           register?.(name, {
-//             /* FOR BOOLEAN VALUE */
-//           }))}
-//         {...props}
-//       />
-//       {title && (
-//         <Form.Check.Label className={classNameTitle} htmlFor={id}>
-//           {title}
-//         </Form.Check.Label>
-//       )}
-//     </Form.Check>
-
-//     {/* {!hideErrorMessage && errors && (
-//       <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
-//     )} */}
-//   </Form.Group>
-// );

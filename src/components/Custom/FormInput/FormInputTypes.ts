@@ -8,7 +8,7 @@ import { CreatableProps as ReactSelectCreatableProps } from "react-select/creata
 import { AsyncCreatableProps as ReactSelectAsyncCreatableProps } from "react-select/async-creatable";
 import { FormControlProps, FormSelectProps, FormCheckProps } from "react-bootstrap";
 // import { Props as ReactPhoneNumberInputProps } from 'react-phone-number-input';
-import { Control } from "react-hook-form";
+import { Control, UseFormRegister } from "react-hook-form";
 import { DropzoneProps } from "react-dropzone";
 import { AxiosRequestConfig } from "axios";
 
@@ -83,11 +83,11 @@ export interface FormInputCheckProps extends FormCheckProps {
   classNameContainer?: string;
   classNameSubContainer?: string;
   title?: string | any;
-  // register?: UseFormRegister<any>;
-  // errors?: any;
-  control?: Control<any, any>;
-  value?: any;
-  onChangeValue?: (e: any) => any;
+  register?: UseFormRegister<any>;
+  errors?: any;
+  // control?: Control<any, any>;
+  // value?: any;
+  // onChangeValue?: (e: any) => any;
   hideErrorMessage?: boolean;
 }
 

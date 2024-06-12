@@ -30,16 +30,20 @@ const ThemeOffcanvas = () => {
   const { color, languageMode, position, theme, type, width, verticalLocation, settingMenuShow } = appSelector(
     (state: RootState) => state.theme,
   );
-  const { control, handleSubmit } = useForm();
+  const { handleSubmit, register, watch } = useForm();
 
   const submit = (values: any) => {
-    localStorage.setItem(import.meta.env.VITE_THEME_KEY, JSON.stringify(values));
+    console.log(values);
+
+    // localStorage.setItem(import.meta.env.VITE_THEME_KEY, JSON.stringify(values));
     toast.success("Tema ayarları kaydedildi.");
   };
 
   const reset = () => {
     getThemeHandle();
   };
+
+  console.log(watch());
 
   return (
     <Offcanvas
@@ -62,7 +66,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutTheme.LIGHT}
             checked={LayoutTheme.LIGHT === theme}
-            control={control}
+            register={register}
             onClick={() => dispatch(setTheme(LayoutTheme.LIGHT))}
           />
           <FormInput.Check
@@ -72,7 +76,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutTheme.DARK}
             checked={LayoutTheme.DARK === theme}
-            control={control}
+            register={register}
             onClick={() => dispatch(setTheme(LayoutTheme.DARK))}
           />
           <hr />
@@ -84,7 +88,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutType.HORIZONTAL}
             checked={LayoutType.HORIZONTAL === type}
-            control={control}
+            register={register}
             onClick={() => dispatch(setType(LayoutType.HORIZONTAL))}
           />
           <FormInput.Check
@@ -94,7 +98,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutType.CONDENSED}
             checked={LayoutType.CONDENSED === type}
-            control={control}
+            register={register}
             onClick={() => dispatch(setType(LayoutType.CONDENSED))}
           />
           <FormInput.Check
@@ -104,7 +108,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutType.OVERLAP}
             checked={LayoutType.OVERLAP === type}
-            control={control}
+            register={register}
             onClick={() => dispatch(setType(LayoutType.OVERLAP))}
           />
           <FormInput.Check
@@ -114,7 +118,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutType.VERTICAL}
             checked={LayoutType.VERTICAL === type}
-            control={control}
+            register={register}
             onClick={() => dispatch(setType(LayoutType.VERTICAL))}
           />
           <FormInput.Check
@@ -124,7 +128,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutType.COMBINED}
             checked={LayoutType.COMBINED === type}
-            control={control}
+            register={register}
             onClick={() => dispatch(setType(LayoutType.COMBINED))}
           />
           <hr />
@@ -136,7 +140,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutWidth.DEFAULT}
             checked={LayoutWidth.DEFAULT === width}
-            control={control}
+            register={register}
             onClick={() => dispatch(setWidth(LayoutWidth.DEFAULT))}
           />
           <FormInput.Check
@@ -146,7 +150,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutWidth.FLUID}
             checked={LayoutWidth.FLUID === width}
-            control={control}
+            register={register}
             onClick={() => dispatch(setWidth(LayoutWidth.FLUID))}
           />
           <FormInput.Check
@@ -156,7 +160,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutWidth.BOXED}
             checked={LayoutWidth.BOXED === width}
-            control={control}
+            register={register}
             onClick={() => dispatch(setWidth(LayoutWidth.BOXED))}
           />
           <hr />
@@ -168,7 +172,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutColor.DEFAULT}
             checked={LayoutColor.DEFAULT === color}
-            control={control}
+            register={register}
             onClick={() => dispatch(setColor(LayoutColor.DEFAULT))}
           />
           <FormInput.Check
@@ -178,7 +182,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutColor.DARK}
             checked={LayoutColor.DARK === color}
-            control={control}
+            register={register}
             onClick={() => dispatch(setColor(LayoutColor.DARK))}
           />
           {[LayoutType.VERTICAL, LayoutType.COMBINED].includes(type) && (
@@ -189,7 +193,7 @@ const ThemeOffcanvas = () => {
               classNameSubContainer="form-switch"
               value={LayoutColor.TRANSPARENT}
               checked={LayoutColor.TRANSPARENT === color}
-              control={control}
+              register={register}
               onClick={() => dispatch(setColor(LayoutColor.TRANSPARENT))}
             />
           )}
@@ -202,7 +206,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutPosition.DEFAULT}
             checked={LayoutPosition.DEFAULT === position}
-            control={control}
+            register={register}
             onClick={() => dispatch(setPosition(LayoutPosition.DEFAULT))}
           />
           <FormInput.Check
@@ -212,7 +216,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutPosition.STICKY}
             checked={LayoutPosition.STICKY === position}
-            control={control}
+            register={register}
             onClick={() => dispatch(setPosition(LayoutPosition.STICKY))}
           />
           <hr />
@@ -224,7 +228,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutLanguageMode.LTR}
             checked={LayoutLanguageMode.LTR === languageMode}
-            control={control}
+            register={register}
             onClick={() => dispatch(setLanguageMode(LayoutLanguageMode.LTR))}
           />
           <FormInput.Check
@@ -234,7 +238,7 @@ const ThemeOffcanvas = () => {
             classNameSubContainer="form-switch"
             value={LayoutLanguageMode.RTL}
             checked={LayoutLanguageMode.RTL === languageMode}
-            control={control}
+            register={register}
             onClick={() => dispatch(setLanguageMode(LayoutLanguageMode.RTL))}
           />
           {[LayoutType.VERTICAL, LayoutType.COMBINED].includes(type) && (
@@ -248,7 +252,7 @@ const ThemeOffcanvas = () => {
                 classNameSubContainer="form-switch"
                 value={LayoutVerticalLocation.LEFT}
                 checked={LayoutVerticalLocation.LEFT === verticalLocation}
-                control={control}
+                register={register}
                 onClick={() => dispatch(setVerticalLocation(LayoutVerticalLocation.LEFT))}
               />
               <FormInput.Check
@@ -258,7 +262,7 @@ const ThemeOffcanvas = () => {
                 classNameSubContainer="form-switch"
                 value={LayoutVerticalLocation.RIGHT}
                 checked={LayoutVerticalLocation.RIGHT === verticalLocation}
-                control={control}
+                register={register}
                 onClick={() => dispatch(setVerticalLocation(LayoutVerticalLocation.RIGHT))}
               />
             </>
