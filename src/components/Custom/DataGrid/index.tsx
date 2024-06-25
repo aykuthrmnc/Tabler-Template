@@ -134,18 +134,21 @@ const styles: StylesConfig = {
 
 const DataGrid = ({
   title,
+  className,
   head,
-  body,
+  body = [],
   searchable,
-  asyncSearchable,
+  isAsync,
+  // asyncSortable,
   emptyMessage = "Gösterilecek veri bulunmamaktadır.",
+  errorMessage = "Bir hata oluştu...",
   isError = false,
-  error,
   loading = false,
   pagination,
-  sizePerPageList,
+  sizePerPageList = [],
   hideNoDataIcon,
   noDataIcon,
+  createIcon,
   deleteIcon,
   creatable,
   editable,
@@ -168,7 +171,7 @@ const DataGrid = ({
 
   const filteredData = useMemo(
     () =>
-      asyncSearchable
+      isAsync
         ? body
         : [...body]
             ?.filter((items: any) =>
@@ -189,7 +192,7 @@ const DataGrid = ({
               }
               return 1;
             }),
-    [body, asyncSearchable, search, sorting],
+    [body, isAsync, search, sorting],
   );
 
   useEffect(() => {
@@ -546,7 +549,7 @@ const DataGrid = ({
             <h4 className="mb-0">{title}</h4>
           </Col>
         )}
-        {searchable && !asyncSearchable && (
+        {searchable && !isAsync && (
           <Col xs="12" sm="6" lg="3">
             <Form.Control
               value={search}
@@ -560,20 +563,20 @@ const DataGrid = ({
         {creatable && (
           <Col xs="12" sm="auto">
             <Button
-              className="w-100"
+              className="d-flex align-items-center gap-2 w-100"
               onClick={() => {
                 append(head.reduce((x: any, y: any) => ({ ...x, [y?.key]: "" }), {}));
                 // reset(head.reduce((x: any, y: any) => ({ ...x, [y?.key]: '' }), { key: body.length }));
               }}
             >
-              Ekle
+              {createIcon} Ekle
             </Button>
           </Col>
         )}
       </Row>
 
       <form onSubmit={handleSubmit(submitForm)} autoComplete="off">
-        <RSTable responsive id="dynagrid" className="text-nowrap">
+        <RSTable responsive id="dynagrid" className={classNames("text-nowrap", className)}>
           <thead>
             <tr>
               {head?.map((value: any, key: any) => (
@@ -641,9 +644,7 @@ const DataGrid = ({
                 <td colSpan={"100%" as any}>
                   <div className="d-flex flex-column align-items-center">
                     <div className="w-25">{!hideNoDataIcon && (noDataIcon ?? <NoData />)}</div>
-                    <h3 className="page-subtitle text-center">
-                      {fields?.length === 0 ? emptyMessage : error ?? "Bir hata oluştu..."}
-                    </h3>
+                    <h3 className="page-subtitle text-center">{fields?.length === 0 ? emptyMessage : errorMessage}</h3>
                   </div>
                 </td>
               </tr>

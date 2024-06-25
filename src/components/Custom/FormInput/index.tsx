@@ -1,11 +1,11 @@
-import axios from "axios";
 import "moment/dist/locale/tr";
+import axios from "axios";
 import moment from "moment";
 import classNames from "classnames";
+import { ErrorMessage } from "@hookform/error-message";
 import { cloneElement, useState } from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import BaseReactSelect, { StylesConfig } from "react-select";
 import BaseReactSelectAsync from "react-select/async";
 import BaseReactSelectCreatable from "react-select/creatable";
@@ -191,7 +191,9 @@ const Control = ({
           <div className="position-relative h-100">
             {searchIcon && (
               <div
-                className={classNameSearch ?? "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2"}
+                className={classNames(
+                  classNameSearch ?? "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2",
+                )}
               >
                 {searchIcon ?? <FaSearch />}
               </div>
@@ -232,7 +234,11 @@ const Control = ({
             )}
           </div>
 
-          {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+          {!hideErrorMessage && error && (
+            <div className="d-block invalid-feedback">
+              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            </div>
+          )}
         </Form.Group>
       )}
     />
@@ -278,7 +284,11 @@ const FloatingControl = ({
             {...props}
           />
         </FloatingLabel>
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </>
     )}
   />
@@ -331,7 +341,11 @@ const Select = ({
           {children}
         </Form.Select>
 
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -428,7 +442,11 @@ const Range = ({
           {...props}
         />
 
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -484,7 +502,11 @@ const ReactSelect = ({
           onBlur={onBlur}
           {...props}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -546,7 +568,11 @@ const ReactSelectAsync = ({
           onBlur={onBlur}
           {...props}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -606,7 +632,11 @@ const ReactSelectCreatable = ({
           onBlur={onBlur}
           {...props}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -668,7 +698,11 @@ const ReactSelectAsyncCreatable = ({
           onBlur={onBlur}
           {...props}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -703,7 +737,7 @@ const ReactSelectAsyncUrl = ({
         clearTimeout(timeout);
         timeout = setTimeout(() => {
           axios(optionsUrl?.(e), { method: "get", ...optionConfig?.(e) }).then((res: any) =>
-            resolve(getOptionValues?.(res.data) || res.data),
+            resolve(getOptionValues?.(res?.data) || res?.data),
           );
         }, 700);
       });
@@ -751,7 +785,11 @@ const ReactSelectAsyncUrl = ({
             onBlur={onBlur}
             {...props}
           />
-          {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+          {!hideErrorMessage && error && (
+            <div className="d-block invalid-feedback">
+              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            </div>
+          )}
         </Form.Group>
       )}
     />
@@ -796,7 +834,11 @@ const NumericFormat = ({
           onBlur={onBlur}
           {...props}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -841,7 +883,11 @@ const PatternFormat = ({
           onBlur={onBlur}
           {...props}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -909,7 +955,11 @@ const ReactDatePicker = ({
           onBlur={onBlur}
           {...props}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -924,6 +974,7 @@ const DateTime = ({
   classNameContainer,
   classNameSubContainer,
   placeholder = "Seçiniz",
+  disabled,
   required,
   control,
   hideErrorMessage,
@@ -952,6 +1003,7 @@ const DateTime = ({
           inputProps={{
             id,
             placeholder,
+            disabled,
             className: classNames(className, "form-control", {
               "is-invalid": invalid,
             }),
@@ -967,7 +1019,11 @@ const DateTime = ({
           ref={ref}
           {...props}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -1012,7 +1068,11 @@ const PhoneInput = ({
           ref={ref}
           onBlur={onBlur}
         />
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -1030,11 +1090,12 @@ const ReactDropZone = ({
   control,
   hideErrorMessage,
   multiple = false,
-  acceptedFiles = {
-    "image/png": [".png"],
-    "image/jpeg": [".jpg", ".jpeg"],
-    "image/webp": [".webp"],
-  },
+  accept, // accept = {
+  //   "image/png": [".png"],
+  //   "image/jpeg": [".jpg", ".jpeg"],
+  //   "image/webp": [".webp"],
+  // },
+  ...props
 }: FormInputDropZoneProps) => (
   <Controller
     control={control}
@@ -1048,11 +1109,12 @@ const ReactDropZone = ({
         )}
         <BaseReactDropzone
           multiple={multiple}
-          accept={acceptedFiles}
+          accept={accept}
           onDrop={(files: any) => {
             onChange(files.map((file: any) => Object.assign(file, { preview: URL.createObjectURL(file) })));
           }}
           ref={ref}
+          {...props}
         >
           {({ getRootProps, getInputProps, isFocused, isDragAccept, isDragReject }) => (
             <div
@@ -1087,7 +1149,11 @@ const ReactDropZone = ({
             </div>
           )}
         </BaseReactDropzone>
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -1139,7 +1205,11 @@ const Counter = ({
             <TbPlus size="12" />
           </Button>
         </div>
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -1180,7 +1250,11 @@ const Custom = ({
           onBlur,
           ...props,
         })}
-        {!hideErrorMessage && error && <div className="d-block invalid-feedback">{error?.message}</div>}
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
       </Form.Group>
     )}
   />
@@ -1207,7 +1281,7 @@ FormInput.Custom = Custom;
 
 export default FormInput;
 
-// const RegisterControl = ({
+// const Control = ({
 //   as,
 //   id,
 //   name,
@@ -1276,3 +1350,55 @@ export default FormInput;
 //     </Form.Group>
 //   );
 // };
+
+// const Check2 = ({
+//   id,
+//   name,
+//   label,
+//   className,
+//   classNameLabel,
+//   classNameTitle,
+//   classNameContainer,
+//   classNameSubContainer,
+//   required,
+//   type,
+//   title,
+//   register,
+//   errors,
+//   hideErrorMessage,
+//   ...props
+// }: FormInputCheckProps) => (
+//   <Form.Group className={classNameContainer}>
+//     {label && (
+//       <Form.Label className={classNameLabel} htmlFor={id}>
+//         {label} {required && <span className="text-danger">*</span>}
+//       </Form.Label>
+//     )}
+//     <Form.Check className={classNameSubContainer} type={type}>
+//       <Form.Check.Input
+//         id={id}
+//         name={name}
+//         type={type != "switch" ? type : undefined}
+//         className={className}
+//         isInvalid={errors?.[name] ? true : false}
+//         {...(name &&
+//           register?.(name, {
+//             /* FOR BOOLEAN VALUE */
+//           }))}
+//         {...props}
+//       />
+//       {title && (
+//         <Form.Check.Label className={classNameTitle} htmlFor={id}>
+//           {title}
+//         </Form.Check.Label>
+//       )}
+//       {!hideErrorMessage && errors && (
+//         <ErrorMessage
+//           errors={errors}
+//           name={name}
+//           render={({ message }: any) => <Form.Control.Feedback type="invalid">{message}</Form.Control.Feedback>}
+//         />
+//       )}
+//     </Form.Check>
+//   </Form.Group>
+// );

@@ -42,26 +42,45 @@ const MenuItem = ({ item }: { item: MenuItemTypes }) => (
     >
       {item?.icon && <span className="nav-link-icon d-md-none d-lg-inline-block color-inherit">{item?.icon}</span>}{" "}
       {item?.label && <span className="nav-link-title">{item?.label}</span>}
+      {item?.badge && (
+        <span className={`badge badge-sm bg-${item?.badge?.variant || "green"}-lt text-uppercase ms-auto`}>
+          {item?.badge?.text}
+        </span>
+      )}
     </Nav.Link>
   </Nav.Item>
 );
 
-const DropdownItem = ({ item }: { item: MenuItemTypes }) => (
-  <Dropdown.Item
-    onClick={item?.onClick}
-    to={item?.url!}
-    {...(item?.url && { as: NavLink, end: item?.end })}
-    className={item?.className}
-  >
-    {item?.icon && <span className="nav-link-icon d-md-none d-lg-inline-block color-inherit">{item?.icon}</span>}{" "}
-    {item?.label && <span className="nav-link-title">{item?.label}</span>}
-    {item?.badge && (
-      <span className={`badge badge-sm bg-${item?.badge?.variant || "green"}-lt text-uppercase ms-auto`}>
-        {item?.badge?.text}
-      </span>
-    )}
-  </Dropdown.Item>
-);
+const DropdownItem = ({ item }: { item: MenuItemTypes }) =>
+  item?.isDropdownDivider ? (
+    <Dropdown.Divider />
+  ) : item?.isDropdownHeader ? (
+    <Dropdown.Header className={classNames("d-flex align-items-center", item?.className)}>
+      {item?.icon && <span className="nav-link-icon d-md-none d-lg-inline-block color-inherit">{item?.icon}</span>}{" "}
+      {item?.label && <span className="nav-link-title">{item?.label}</span>}
+      {item?.badge && (
+        <span className={`badge badge-sm bg-${item?.badge?.variant || "green"}-lt text-uppercase ms-auto`}>
+          {item?.badge?.text}
+        </span>
+      )}
+    </Dropdown.Header>
+  ) : (
+    <Dropdown.Item
+      onClick={item?.onClick}
+      to={item?.url!}
+      {...(item?.url && { as: NavLink, end: item?.end })}
+      className={item?.className}
+    >
+      {item?.icon && <span className="nav-link-icon d-md-none d-lg-inline-block color-inherit">{item?.icon}</span>}{" "}
+      {item?.label && <span className="nav-link-title">{item?.label}</span>}
+      {item?.badge && (
+        <span className={`badge badge-sm bg-${item?.badge?.variant || "green"}-lt text-uppercase ms-auto`}>
+          {item?.badge?.text}
+        </span>
+      )}
+    </Dropdown.Item>
+  );
+
 const MenuItemWithChildren = ({
   item,
   activeMenuItems,
@@ -100,7 +119,7 @@ const MenuItemWithChildren = ({
           // active: open,
         })}
       >
-        {item?.icon && <span className="nav-link-icon d-md-none d-lg-inline-block">{item?.icon}</span>}{" "}
+        {item?.icon && <span className="nav-link-icon d-md-none d-lg-inline-block color-inherit">{item?.icon}</span>}{" "}
         {item?.label && <span className="nav-link-title">{item?.label}</span>}
       </Dropdown.Toggle>
 

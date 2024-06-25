@@ -79,7 +79,7 @@ export interface Theme {
 //! MENU
 export type MenuItemTypes = {
   key: string;
-  label: string;
+  label?: string;
   icon?: any;
   className?: string;
   url?: string;
@@ -89,6 +89,8 @@ export type MenuItemTypes = {
     variant: string;
     text: string;
   };
+  isDropdownHeader?: boolean;
+  isDropdownDivider?: boolean;
   parentKey?: string;
   align?: "start" | "end";
   roles?: string[];

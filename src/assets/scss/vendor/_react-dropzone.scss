@@ -1,0 +1,51 @@
+// REACT-DROPZONE
+.dropzone {
+  @extend .form-control;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px dashed #dfe3e8;
+  color: #bdbdbd;
+  outline: none;
+  transition: border 0.24s ease-in-out;
+
+  &.isFocused {
+    border-color: $primary;
+  }
+
+  &.isAccept {
+    border-color: #00e676;
+  }
+
+  &.isReject {
+    border-color: #ff1744;
+  }
+
+  .dropzone-showcase {
+    // display: flex;
+    // flex-flow: wrap;
+    width: 100%;
+    display: grid;
+    gap: 0.5rem;
+    place-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  .dropzone-showcase-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(234, 234, 234);
+    width: 100px;
+    height: 100px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

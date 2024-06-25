@@ -3,6 +3,7 @@
   // background: var(--#{$prefix}bg-forms) !important;
   // border: $input-border-color !important;
   @extend .form-control;
+  width: auto;
   display: none;
   padding: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);

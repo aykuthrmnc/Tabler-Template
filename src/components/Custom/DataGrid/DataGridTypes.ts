@@ -3,6 +3,7 @@ import { HTMLInputTypeAttribute, ReactNode } from "react";
 //! DATAGRID
 export interface DataGridObject {
   title?: string;
+  className?: string;
   head: (
     | DataGridHeadObject
     | DataGridHeadReactSelectObject
@@ -13,8 +14,9 @@ export interface DataGridObject {
   )[];
   body: (DataGridBodyObject | any)[];
   searchable?: boolean;
-  asyncSearchable?: boolean;
+  isAsync?: boolean;
   emptyMessage?: string;
+  errorMessage?: string;
   isError?: boolean;
   error?: any;
   loading?: boolean;
@@ -25,6 +27,7 @@ export interface DataGridObject {
   }[];
   hideNoDataIcon?: boolean;
   noDataIcon?: ReactNode;
+  createIcon?: ReactNode;
   deleteIcon?: ReactNode;
   creatable?: boolean | ((e: any) => any);
   editable?: boolean | ((e: any) => any);

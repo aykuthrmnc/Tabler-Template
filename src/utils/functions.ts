@@ -61,6 +61,26 @@ export const dateLocaleFormatter = (e?: string | Moment, format?: string) =>
     // .locale(i18n.language || "tr")
     .format(format || "LLL");
 
+export const dateFormatToReadiableTime = (value: any) => {
+  const date = new Date(
+    // @ts-ignore
+    null,
+    null,
+    null,
+    parseInt(value.split(":")[0]),
+    parseInt(value.split(":")[1]),
+    parseInt(value.split(":")[2]),
+  );
+
+  const readiableTime = (
+    (date.getHours() ? date.getHours() + "sa" : "") +
+    " " +
+    (date.getMinutes() ? date.getMinutes() + "dk" : "")
+  ).trim();
+
+  return readiableTime || "";
+};
+
 //! CURRENCY FORMAT
 export const currencyFormatter = new Intl.NumberFormat("tr-TR", {
   style: "currency",

@@ -49,8 +49,8 @@ module.exports = {
       return "__NOT_TRANSLATED__";
     },
     resource: {
-      loadPath: "locales/{{lng}}/{{ns}}.json",
-      savePath: "locales/{{lng}}/{{ns}}.json",
+      loadPath: "i18n/{{lng}}/{{ns}}.json",
+      savePath: "i18n/{{lng}}/{{ns}}.json",
       jsonIndent: 2,
       lineEnding: "\n",
     },
@@ -63,27 +63,27 @@ module.exports = {
     },
     allowDynamicKeys: true,
   },
-  transform: function customTransform(file, enc, done) {
-    "use strict";
-    const parser = this.parser;
-    const content = fs.readFileSync(file.path, enc);
-    let count = 0;
+  // transform: function customTransform(file, enc, done) {
+  //   "use strict";
+  //   const parser = this.parser;
+  //   const content = fs.readFileSync(file.path, enc);
+  //   let count = 0;
 
-    parser.parseFuncFromString(content, { list: ["i18next.t", "i18n.t", "t"] }, (key, options) => {
-      parser.set(
-        key,
-        Object.assign({}, options, {
-          nsSeparator: false,
-          keySeparator: false,
-        }),
-      );
-      ++count;
-    });
+  //   parser.parseFuncFromString(content, { list: ["i18next.t", "i18n.t", "t"] }, (key, options) => {
+  //     parser.set(
+  //       key,
+  //       Object.assign({}, options, {
+  //         nsSeparator: false,
+  //         keySeparator: false,
+  //       })
+  //     );
+  //     ++count;
+  //   });
 
-    if (count > 0) {
-      console.log(`i18next-scanner: count=${chalk.cyan(count)}, file=${chalk.yellow(JSON.stringify(file.relative))}`);
-    }
+  //   if (count > 0) {
+  //     console.log(`i18next-scanner: count=${chalk.cyan(count)}, file=${chalk.yellow(JSON.stringify(file.relative))}`);
+  //   }
 
-    done();
-  },
+  //   done();
+  // },
 };

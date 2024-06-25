@@ -3,6 +3,7 @@ import { HTMLInputTypeAttribute, ReactNode } from "react";
 //! TABLE
 export interface TableObject {
   title?: string;
+  className?: string;
   head: (
     | TableHeadObject
     | TableHeadReactSelectObject
@@ -16,8 +17,8 @@ export interface TableObject {
   isAsync?: boolean;
   asyncSortable?: (e: { key: any; orderBy: "" | "asc" | "desc" | string }) => boolean;
   emptyMessage?: string;
+  errorMessage?: string;
   isError?: boolean;
-  error?: any;
   loading?: boolean;
   pagination?: TablePaginationObject;
   sizePerPageList?: {

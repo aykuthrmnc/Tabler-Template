@@ -33,9 +33,7 @@ const ThemeOffcanvas = () => {
   const { handleSubmit, register, watch } = useForm();
 
   const submit = (values: any) => {
-    console.log(values);
-
-    // localStorage.setItem(import.meta.env.VITE_THEME_KEY, JSON.stringify(values));
+    localStorage.setItem(import.meta.env.VITE_THEME_KEY, JSON.stringify(values));
     toast.success("Tema ayarları kaydedildi.");
   };
 

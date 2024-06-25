@@ -1,0 +1,55 @@
+.react-daterange-picker {
+  width: 100%;
+
+  .react-daterange-picker__calendar--open,
+  .react-daterange-picker__calendar--closed,
+  .react-daterange-picker__clock--open,
+  .react-daterange-picker__clock--closed {
+    position: absolute;
+  }
+
+  .react-daterange-picker__wrapper {
+    @extend .form-control;
+    display: flex;
+
+    .react-daterange-picker__inputGroup {
+      overflow-x: auto;
+      overflow-y: hidden;
+      // text-overflow: ellipsis;
+      white-space: nowrap;
+      min-width: auto;
+    }
+
+    .react-daterange-picker__button.react-daterange-picker__clear-button {
+      padding-top: 0;
+      padding-right: 0;
+      padding-bottom: 0;
+
+      svg {
+        stroke: var(--#{$prefix}body-color);
+      }
+    }
+  }
+
+  .react-calendar {
+    @extend .card;
+
+    .react-calendar__navigation button:disabled {
+      background: none;
+      color: #757575;
+    }
+
+    .react-calendar__tile--now:not(:is(.react-calendar__tile--active, .react-calendar__tile--hasActive)) {
+      color: #151f2c;
+    }
+
+    .react-calendar__navigation__label:is(:hover, :focus),
+    .react-calendar__navigation__arrow:is(:hover, :focus),
+    .react-calendar__tile:not(:is(.react-calendar__tile--hasActive, .react-calendar__tile--active, .react-calendar__tile--now)):hover,
+    .react-calendar__tile--hover:not(:is(.react-calendar__tile--hoverStart)) {
+      color: inherit;
+      text-decoration: none;
+      background-color: rgba(var(--#{$prefix}secondary-rgb), 0.08);
+    }
+  }
+}

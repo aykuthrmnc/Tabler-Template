@@ -134,14 +134,15 @@ const styles: StylesConfig = {
 
 const Table = ({
   title,
+  className,
   head,
   body = [],
   searchable,
   isAsync,
   asyncSortable,
   emptyMessage = "Gösterilecek veri bulunmamaktadır.",
+  errorMessage = "Bir hata oluştu...",
   isError = false,
-  error,
   loading = false,
   pagination,
   sizePerPageList = [],
@@ -486,13 +487,7 @@ const Table = ({
           <Col xs="12" sm="auto">
             <Button
               className="w-100"
-              onClick={() =>
-                reset(
-                  head.reduce((x: any, y: any) => ({ ...x, [y?.key]: "" }), {
-                    key: body.length,
-                  }),
-                )
-              }
+              onClick={() => reset(head.reduce((x: any, y: any) => ({ ...x, [y?.key]: "" }), { key: body.length }))}
               // onClick={() => setCreateValue(head.reduce((x: any, y: any) => ({ ...x, [y?.key]: "" }), {}))}
               // onClick={() => setCreateValue(head.reduce((x: any, y: any) => [...x, { key: y?.key, value: "" }], []))}
             >
@@ -503,7 +498,7 @@ const Table = ({
       </Row>
 
       <form onSubmit={handleSubmit(submitForm)}>
-        <RSTable responsive id="dynatable" className="text-nowrap">
+        <RSTable responsive id="dynatable" className={classNames("text-nowrap", className)}>
           <thead>
             <tr>
               {head?.map((item: any, key: any) => (
@@ -582,9 +577,7 @@ const Table = ({
                 <td colSpan={"100%" as any}>
                   <div className="d-flex flex-column align-items-center">
                     <div className="w-25">{!hideNoDataIcon && (noDataIcon ?? <NoData />)}</div>
-                    <h3 className="page-subtitle text-center">
-                      {filteredData?.length === 0 ? emptyMessage : error ?? "Bir hata oluştu..."}
-                    </h3>
+                    <h3 className="page-subtitle text-center">{isError ? errorMessage : emptyMessage}</h3>
                   </div>
                 </td>
               </tr>

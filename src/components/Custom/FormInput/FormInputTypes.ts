@@ -219,6 +219,7 @@ export interface FormInputDateTimeProps extends DatetimepickerProps {
   classNameContainer?: string;
   classNameSubContainer?: string;
   placeholder?: string;
+  disabled?: boolean;
   required?: boolean;
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
@@ -256,7 +257,6 @@ export interface FormInputDropZoneProps extends DropzoneProps {
   required?: boolean;
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
-  acceptedFiles?: any;
 }
 
 export interface FormInputCounterProps {
