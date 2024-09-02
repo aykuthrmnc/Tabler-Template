@@ -15,8 +15,7 @@ import BaseReactDatetime from "react-datetime";
 import BaseReactDropzone from "react-dropzone";
 import BasePhoneInput from "react-phone-number-input";
 import phoneInputTr from "react-phone-number-input/locale/tr.json";
-import { TbEye, TbEyeClosed, TbPlus, TbMinus } from "react-icons/tb";
-import { FaSearch } from "react-icons/fa";
+import { TbEye, TbEyeClosed, TbPlus, TbMinus, TbSearch } from "react-icons/tb";
 import { NumericFormat as BaseNumericFormat, PatternFormat as BasePatternFormat } from "react-number-format";
 import {
   FormInputFloatingProps,
@@ -38,7 +37,10 @@ import {
   FormInputReactSelectAsyncUrlProps,
   FormInputPatternFormatProps,
   FormInputCustomProps,
+  FormInputDateRangeProps,
 } from "./FormInputTypes";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import { FileIcon } from "react-file-icon";
 
 const styleProps = {
   color: "var(--tblr-body-color)",
@@ -195,7 +197,7 @@ const Control = ({
                   classNameSearch ?? "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2",
                 )}
               >
-                {searchIcon ?? <FaSearch />}
+                {searchIcon ?? <TbSearch />}
               </div>
             )}
             <Form.Control
@@ -403,6 +405,7 @@ const Check = ({
   </Form.Group>
 );
 
+// eslint-disable-next-line no-redeclare
 const Range = ({
   // min, max, step,
   id,
@@ -736,9 +739,9 @@ const ReactSelectAsyncUrl = ({
       return new Promise((resolve) => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-          axios(optionsUrl?.(e), { method: "get", ...optionConfig?.(e) }).then((res: any) =>
-            resolve(getOptionValues?.(res?.data) || res?.data),
-          );
+          axios(optionsUrl?.(e), { method: "get", ...optionConfig?.(e) })
+            .then((res: any) => resolve(getOptionValues?.(res?.data) || res?.data))
+            .catch(() => resolve([]));
         }, 700);
       });
     }
@@ -940,8 +943,8 @@ const ReactDatePicker = ({
           // disabledKeyboardNavigation
           isClearable
           // locale={tr}
-          minDate={min ? new Date(min) : null}
-          maxDate={max ? new Date(max) : null}
+          minDate={min ? new Date(min) : undefined}
+          maxDate={max ? new Date(max) : undefined}
           showTimeSelect={showTimeSelect}
           showMonthYearPicker={showMonthYearPicker}
           // value={value}
@@ -1029,6 +1032,67 @@ const DateTime = ({
   />
 );
 
+const DateRange = ({
+  id,
+  name,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
+  disabled,
+  required,
+  control,
+  hideErrorMessage,
+  onChangeValue,
+  dateFormat = "dd.MM.yyyy",
+  dateChangeFormat = "YYYY-MM-DD",
+  ...props
+}: FormInputDateRangeProps) => (
+  <Controller
+    control={control}
+    name={name}
+    render={({ field: { onBlur, onChange, value }, fieldState: { invalid, error } }) => (
+      <Form.Group className={classNameContainer}>
+        {label && (
+          <Form.Label className={classNameLabel} htmlFor={id}>
+            {label} {required && <span className="text-danger">*</span>}
+          </Form.Label>
+        )}
+        <DateRangePicker
+          className={classNames(className, {
+            "is-invalid": invalid,
+          })}
+          locale="tr-TR"
+          format={dateFormat}
+          calendarIcon={null}
+          // dayPlaceholder="__"
+          // monthPlaceholder="__"
+          // yearPlaceholder="____"
+          // minDetail="decade"
+          // clearIcon={
+          //   <div className="bg-white rounded-circle">
+          //     <TbTrash color="#71b6f9" />
+          //   </div>
+          // }
+          disabled={disabled}
+          value={value}
+          onChange={(e: any) => {
+            onChange(e ? [moment(e?.[0]).format(dateChangeFormat), moment(e?.[1]).format(dateChangeFormat)] : e);
+            onChangeValue?.(e ? [moment(e?.[0]).format(dateChangeFormat), moment(e?.[1]).format(dateChangeFormat)] : e);
+          }}
+          onBlur={onBlur}
+          {...props}
+        />
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+          </div>
+        )}
+      </Form.Group>
+    )}
+  />
+);
+
 const PhoneInput = ({
   id,
   name,
@@ -1086,6 +1150,9 @@ const ReactDropZone = ({
   classNameLabel,
   classNameContainer,
   classNameFile,
+  classNameFileContainer = "dropzone-showcase",
+  classNameFileSubContainer = "dropzone-showcase-item",
+  placeholder = "Dosyaları Seçin veya Sürükleyin",
   required,
   control,
   hideErrorMessage,
@@ -1095,6 +1162,7 @@ const ReactDropZone = ({
   //   "image/jpeg": [".jpg", ".jpeg"],
   //   "image/webp": [".webp"],
   // },
+  fileShowType = "image",
   ...props
 }: FormInputDropZoneProps) => (
   <Controller
@@ -1128,23 +1196,41 @@ const ReactDropZone = ({
             >
               <input {...getInputProps({ id })} />
               {value?.length ? (
-                <>
-                  <aside className="dropzone-showcase">
-                    {value?.map((file: any, key: number) => (
-                      <div className="dropzone-showcase-item" key={key}>
-                        <img
-                          alt={file.name}
-                          src={file.preview}
-                          className={classNameFile}
-                          onLoad={() => URL.revokeObjectURL(file.preview)}
-                        />
-                      </div>
-                    ))}
-                  </aside>
-                  {value.length > 1 && <div>{value.length} dosya eklendi.</div>}
-                </>
+                fileShowType ? (
+                  <>
+                    <aside className={classNameFileContainer}>
+                      {value?.map((file: any, key: number) => (
+                        <div className={classNameFileSubContainer} key={key}>
+                          {fileShowType === "image" && (
+                            <img
+                              alt={file.name}
+                              src={file.preview}
+                              className={classNameFile}
+                              onLoad={() => URL.revokeObjectURL(file.preview)}
+                            />
+                          )}
+                          {fileShowType === "icon" && (
+                            <>
+                              <div className="w-5">
+                                <FileIcon
+                                  extension={file?.name?.substring(file?.name?.lastIndexOf(".") + 1)}
+                                  labelColor="tomato"
+                                  labelUppercase
+                                />
+                              </div>
+                              <span>{file?.name}</span>
+                            </>
+                          )}
+                        </div>
+                      ))}
+                    </aside>
+                    {value?.length > 1 && <div>{value?.length} dosya eklendi.</div>}
+                  </>
+                ) : (
+                  value?.length && <div>{value?.length} dosya eklendi.</div>
+                )
               ) : (
-                <div>Dosyaları Seçin veya Sürükleyin</div>
+                <div>{placeholder}</div>
               )}
             </div>
           )}
@@ -1232,7 +1318,8 @@ const Custom = ({
   <Controller
     control={control}
     name={name}
-    render={({ field: { onBlur, onChange, ref, value }, fieldState: { error } }) => (
+    defaultValue=""
+    render={({ field: { onBlur, onChange, value }, fieldState: { error } }) => (
       <Form.Group className={classNameContainer}>
         {label && (
           <Form.Label className={classNameLabel} htmlFor={id}>
@@ -1246,7 +1333,6 @@ const Custom = ({
             onChange(e);
             onChangeValue?.(e);
           },
-          ref,
           onBlur,
           ...props,
         })}
@@ -1274,6 +1360,7 @@ FormInput.NumericFormat = NumericFormat;
 FormInput.PatternFormat = PatternFormat;
 FormInput.DatePicker = ReactDatePicker;
 FormInput.DateTime = DateTime;
+FormInput.DateRange = DateRange;
 FormInput.PhoneInput = PhoneInput;
 FormInput.ReactDropZone = ReactDropZone;
 FormInput.Counter = Counter;

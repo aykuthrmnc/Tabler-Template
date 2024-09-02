@@ -1,6 +1,9 @@
 import CryptoJS from "crypto-js";
 import React from "react";
 import moment, { Moment } from "moment";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 // import "moment/locale/tr";
 moment.locale();
 // import i18n from "~/i18n";
@@ -56,10 +59,10 @@ export const secondToTime = (second = 0) => {
   return `${h} Saat ${m} Dakika ${s} Saniye`;
 };
 
-export const dateLocaleFormatter = (e?: string | Moment, format?: string) =>
+export const dateLocaleFormatter = (e?: string | Moment, format: string = "DD.MM.YYYY HH:mm") =>
   moment(e)
     // .locale(i18n.language || "tr")
-    .format(format || "LLL");
+    .format(format);
 
 export const dateFormatToReadiableTime = (value: any) => {
   const date = new Date(
@@ -73,9 +76,9 @@ export const dateFormatToReadiableTime = (value: any) => {
   );
 
   const readiableTime = (
-    (date.getHours() ? date.getHours() + "sa" : "") +
+    (date.getHours() ? date.getHours() + t("sa") : "") +
     " " +
-    (date.getMinutes() ? date.getMinutes() + "dk" : "")
+    (date.getMinutes() ? date.getMinutes() + t("dk") : "")
   ).trim();
 
   return readiableTime || "";
@@ -92,20 +95,11 @@ export const currencyFormatter = new Intl.NumberFormat("tr-TR", {
 
 export const CurrencyFormat = (paraMiktari: number, paraBirimi: string) => {
   return paraBirimi == "TL"
-    ? new Intl.NumberFormat("tr-TR", {
-        currency: "TRY",
-        style: "currency",
-      }).format(paraMiktari || 0)
+    ? new Intl.NumberFormat("tr-TR", { currency: "TRY", style: "currency" }).format(paraMiktari || 0)
     : paraBirimi == "EUR"
-      ? new Intl.NumberFormat("de-DE", {
-          currency: "EUR",
-          style: "currency",
-        }).format(paraMiktari || 0)
+      ? new Intl.NumberFormat("de-DE", { currency: "EUR", style: "currency" }).format(paraMiktari || 0)
       : paraBirimi == "USD"
-        ? new Intl.NumberFormat("en-US", {
-            currency: "USD",
-            style: "currency",
-          }).format(paraMiktari || 0)
+        ? new Intl.NumberFormat("en-US", { currency: "USD", style: "currency" }).format(paraMiktari || 0)
         : new Intl.NumberFormat("tr-TR", { currency: "TRY" }).format(paraMiktari || 0);
 };
 
@@ -133,6 +127,14 @@ export const decryptValue = (value: any) => {
       CryptoJS.enc.Utf8,
     );
     return decryptedValue;
+  } catch (error) {
+    return;
+  }
+};
+
+export const jwtDecodeValue = (value: any) => {
+  try {
+    return jwtDecode(value);
   } catch (error) {
     return;
   }
@@ -238,11 +240,12 @@ export const secondScreen = () => {
 export const downloadFile = (
   e: any,
   fileName: string = `${import.meta.env.VITE_APP_NAME || "download"}_${moment().valueOf()}`,
+  extension?: string,
 ) => {
   const url = window.URL.createObjectURL(e);
   const link = document.createElement("a");
   link.href = url;
-  link.setAttribute("download", fileName);
+  link.setAttribute("download", extension ? `${fileName}.${extension}` : fileName);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -294,4 +297,11 @@ export const camelCaseTranslator = (text: string) => {
     .toLowerCase()
     .replace(/[ğüşıöçĞÜŞİÖÇ]/g, (m) => turkish_letters[m])
     .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
+};
+
+// CLIPBOARD
+export const copy = (value: string, text = "Kod kopyalandı.") => {
+  navigator.clipboard.writeText(value).then(() => {
+    toast.success(text);
+  });
 };

@@ -122,7 +122,7 @@ interface TableBodyObject {
 
 interface TablePaginationObject {
   currentPage: number;
-  totalCount: number;
+  totalCount?: number;
   totalPages: number;
-  pageSize: number;
+  pageSize?: number;
 }

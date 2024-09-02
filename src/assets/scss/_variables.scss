@@ -168,7 +168,7 @@ $body-emphasis-color: $gray-700 !default;
 $color-contrast-dark: $body-color !default;
 $color-contrast-light: $light !default;
 
-$blue: #206bc4 !default;
+$blue: #066fd1 !default;
 $azure: #4299e1 !default;
 $indigo: #4263eb !default;
 $purple: #ae3ec9 !default;
@@ -181,7 +181,7 @@ $green: #2fb344 !default;
 $teal: #0ca678 !default;
 $cyan: #17a2b8 !default;
 
-$color-blue: #206bc4;
+$color-blue: #066fd1;
 $color-azure: #3586c9;
 $color-indigo: #4263eb;
 $color-purple: #ae3ec9;
@@ -253,6 +253,7 @@ $extra-colors: (
 ) !default;
 
 $social-colors: (
+  "x": #000000,
   "facebook": #1877f2,
   "twitter": #1da1f2,
   "linkedin": #0a66c2,
@@ -267,7 +268,7 @@ $social-colors: (
   "rss": #ffa500,
   "flickr": #0063dc,
   "bitbucket": #0052cc,
-  "tabler": #0054a6,
+  "tabler": #066fd1,
 ) !default;
 
 $gray-colors: (
@@ -475,7 +476,7 @@ $box-shadows: (
   box-shadow: $box-shadow,
   box-shadow-border: $box-shadow-border,
   box-shadow-transparent: $box-shadow-transparent,
-  //! BOX SHADOW CHANGED FOR UI DESIGN
+  // * BOX SHADOW CHANGED FOR UI DESIGN
   // box-shadow-input: $box-shadow-input, 
   box-shadow-card: $box-shadow-card,
   box-shadow-card-hover: $box-shadow-card-hover,
@@ -517,7 +518,7 @@ $alert-border-color: var(--#{$prefix}border-color-translucent) !default;
 $alert-shadow: rgba($dark, 0.04) 0 2px 4px 0 !default;
 
 // Breadcrumb
-$breadcrumb-divider-color: var(--#{$prefix}secondary) !default;
+$breadcrumb-divider-color: var(--#{$prefix}gray-500) !default;
 $breadcrumb-link-color: var(--#{$prefix}link-color) !default;
 $breadcrumb-active-color: inherit !default;
 $breadcrumb-active-font-weight: var(--#{$prefix}font-weight-bold) !default;
@@ -536,7 +537,7 @@ $badge-font-weight: var(--#{$prefix}font-weight-medium) !default;
 $badge-padding-y: 0.25em !default;
 $badge-padding-x: 0.5em !default;
 $badge-empty-size: 0.5rem !default;
-$badge-color: var(--#{$prefix}secondary) !default;
+$badge-color: var(--#{$prefix}gray-500) !default;
 $badge-bg-color: var(--#{$prefix}bg-surface-secondary) !default;
 
 // Buttons
@@ -658,7 +659,7 @@ $loader-size: 2.5rem !default;
 
 // Lists
 $list-group-header-bg: var(--#{$prefix}bg-surface-tertiary) !default;
-$list-group-header-color: var(--#{$prefix}secondary) !default;
+$list-group-header-color: var(--#{$prefix}gray-500) !default;
 
 $list-group-border-color: var(--#{$prefix}border-color) !default;
 $list-group-item-padding-y: $card-cap-padding-y !default;
@@ -697,7 +698,7 @@ $modal-sm: 380px !default;
 // Nav
 $nav-link-padding-y: 0.5rem !default;
 $nav-link-padding-x: 0.75rem !default;
-$nav-link-color: var(--#{$prefix}secondary) !default;
+$nav-link-color: var(--#{$prefix}gray-500) !default;
 $nav-link-disabled-color: var(--#{$prefix}disabled-color) !default;
 $nav-link-icon-size: $icon-size !default;
 $nav-link-icon-color: var(--#{$prefix}icon-color) !default;
@@ -775,13 +776,13 @@ $popover-body-color: inherit !default;
 $footer-padding-y: 2rem !default;
 $footer-bg: $white !default;
 $footer-border-color: var(--#{$prefix}border-color) !default;
-$footer-color: var(--#{$prefix}secondary) !default;
+$footer-color: var(--#{$prefix}gray-500) !default;
 
 // Pagination
 $pagination-border-width: 0 !default;
 $pagination-padding-y: 0.25rem !default;
 $pagination-padding-x: 0.25rem !default;
-$pagination-color: var(--#{$prefix}secondary) !default;
+$pagination-color: var(--#{$prefix}gray-500) !default;
 $pagination-bg: transparent !default;
 $pagination-disabled-bg: transparent !default;
 $pagination-disabled-color: var(--#{$prefix}disabled-color) !default;
@@ -817,7 +818,7 @@ $table-border-color: var(--#{$prefix}border-color-translucent) !default;
 $table-th-border-color: var(--#{$prefix}border-color-translucent) !default;
 $table-th-padding-x: $table-cell-padding-x !default;
 $table-th-padding-y: 0.5rem !default;
-$table-th-color: var(--#{$prefix}secondary) !default;
+$table-th-color: var(--#{$prefix}gray-500) !default;
 $table-th-bg: var(--#{$prefix}bg-surface-tertiary) !default;
 $table-striped-order: even !default;
 $table-striped-bg: var(--#{$prefix}bg-surface-tertiary) !default;
@@ -829,7 +830,7 @@ $table-sort-desc-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org
 
 // Toasts
 $toast-border-color: var(--#{$prefix}border-color) !default;
-$toast-header-color: var(--#{$prefix}secondary) !default;
+$toast-header-color: var(--#{$prefix}gray-500) !default;
 
 // Tracking
 $tracking-height: 1.5rem !default;
@@ -858,7 +859,7 @@ $input-border-color-translucent: var(--#{$prefix}border-color-translucent) !defa
 $input-placeholder-color: $text-secondary-light !default;
 
 $input-group-addon-bg: var(--#{$prefix}bg-surface-secondary) !default;
-$input-group-addon-color: var(--#{$prefix}secondary) !default;
+$input-group-addon-color: var(--#{$prefix}gray-500) !default;
 
 $input-border-radius: var(--#{$prefix}border-radius) !default;
 
@@ -914,6 +915,8 @@ $form-feedback-icon-invalid: str-replace(
 
 $form-label-font-size: $h4-font-size !default;
 $form-label-font-weight: var(--#{$prefix}font-weight-medium) !default;
+
+$form-secondary-color: var(--#{$prefix}gray-500) !default;
 
 // Legend
 $legend-bg: var(--#{$prefix}border-color) !default;

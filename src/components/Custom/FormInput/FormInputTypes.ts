@@ -11,6 +11,7 @@ import { FormControlProps, FormSelectProps, FormCheckProps } from "react-bootstr
 import { Control, UseFormRegister } from "react-hook-form";
 import { DropzoneProps } from "react-dropzone";
 import { AxiosRequestConfig } from "axios";
+import { DateRangePickerProps } from "@wojtekmaj/react-daterange-picker";
 
 //! REACT HOOK FORM INPUT COMPONENT
 export interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -54,10 +55,10 @@ export interface FormInputControlProps extends FormControlProps {
 
 export interface FormInputFloatingProps extends FormControlProps {
   name: string;
-  label: any;
   type?: HTMLInputTypeAttribute;
-  classNameContainer?: string;
+  label: any;
   placeholder?: string;
+  classNameContainer?: string;
   control?: Control<any, any>;
   onChangeValue?: (e: any) => any;
   hideErrorMessage?: boolean;
@@ -230,6 +231,23 @@ export interface FormInputDateTimeProps extends DatetimepickerProps {
   // [x: string]: any;
 }
 
+export interface FormInputDateRangeProps extends DateRangePickerProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  disabled?: boolean;
+  required?: boolean;
+  control?: Control<any, any>;
+  hideErrorMessage?: boolean;
+  onChangeValue?: (e: any) => any;
+  dateFormat?: string;
+  dateChangeFormat?: string;
+  // [x: string]: any;
+}
+
 export interface FormInputPhoneProps {
   id?: string;
   name: string;
@@ -254,7 +272,11 @@ export interface FormInputDropZoneProps extends DropzoneProps {
   classNameLabel?: string;
   classNameContainer?: string;
   classNameFile?: string;
+  classNameFileContainer?: string;
+  classNameFileSubContainer?: string;
+  placeholder?: string;
   required?: boolean;
+  fileShowType?: "image" | "icon" | null;
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
 }
@@ -288,4 +310,5 @@ export interface FormInputCustomProps {
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
+  [x: string]: any;
 }

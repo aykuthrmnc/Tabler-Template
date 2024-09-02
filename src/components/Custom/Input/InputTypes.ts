@@ -10,6 +10,7 @@ import { FormControlProps, FormSelectProps, FormCheckProps } from "react-bootstr
 // import { Props as ReactPhoneNumberInputProps } from 'react-phone-number-input';
 import { DropzoneProps } from "react-dropzone";
 import { AxiosRequestConfig } from "axios";
+import { DateRangePickerProps } from "@wojtekmaj/react-daterange-picker";
 
 //! INPUT COMPONENT
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -210,6 +211,21 @@ export interface InputDateTimeProps extends DatetimepickerProps {
   // [x: string]: any;
 }
 
+export interface InputDateRangeProps extends DateRangePickerProps {
+  id?: string;
+  name?: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  required?: boolean;
+  dateFormat?: string;
+  dateChangeFormat?: string;
+  value?: any;
+  onChange?: (e: any) => any;
+  // [x: string]: any;
+}
+
 export interface InputPhoneProps {
   id?: string;
   name?: string;
@@ -233,6 +249,7 @@ export interface InputDropZoneProps extends DropzoneProps {
   classNameLabel?: string;
   classNameContainer?: string;
   classNameFile?: string;
+  placeholder?: string;
   required?: boolean;
   acceptedFiles?: any;
   value?: any;

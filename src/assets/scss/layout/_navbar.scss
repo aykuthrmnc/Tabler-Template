@@ -317,7 +317,7 @@ Navbar vertical
             z-index: $zindex-fixed;
             align-items: flex-start;
             @include transition(transform $transition-time);
-            overflow-y: scroll;
+            overflow-y: auto;
             padding: 0;
 
             &.navbar-right {

@@ -3,7 +3,7 @@
     background-color: currentColor !important;
   }
 
-  &:not(.avatar):not([class*="card-img-"]), {
+  &:not(.avatar):not([class*="card-img-"]) {
     border-radius: var(--#{$prefix}border-radius);
   }
 }

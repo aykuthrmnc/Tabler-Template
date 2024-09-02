@@ -12,9 +12,8 @@ import phoneInputTr from "react-phone-number-input/locale/tr.json";
 import "moment/dist/locale/tr";
 import moment from "moment";
 import classNames from "classnames";
-import { FaMinus, FaPlus } from "react-icons/fa6";
-import { TbEye, TbEyeClosed } from "react-icons/tb";
-import { FaSearch } from "react-icons/fa";
+import { TbEye, TbEyeClosed, TbMinus, TbPlus, TbSearch } from "react-icons/tb";
+
 import { NumericFormat as BaseNumericFormat, PatternFormat as BasePatternFormat } from "react-number-format";
 import {
   InputFloatingProps,
@@ -36,8 +35,10 @@ import {
   InputReactSelectAsyncUrlProps,
   InputPatternFormatProps,
   InputCustomProps,
+  InputDateRangeProps,
 } from "./InputTypes";
 import axios from "axios";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 
 const styleProps = {
   color: "var(--tblr-body-color)",
@@ -181,24 +182,24 @@ const Control = ({
         </Form.Label>
       )}
       <div className="position-relative h-100">
-        {type === "search" && (
+        {searchIcon && (
           <div
             className={classNames(
-              classNameSearch,
-              "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2",
+              classNameSearch ?? "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2",
             )}
           >
-            {searchIcon ?? <FaSearch />}
+            {searchIcon ?? <TbSearch />}
           </div>
         )}
         <Form.Control
           as={as}
           id={id}
           type={inputType}
-          className={classNames(className, {
-            "ps-4": type === "search",
-          })}
-          style={{ paddingRight: showPasswordButton ? "2.5rem" : undefined }}
+          className={className}
+          style={{
+            paddingLeft: searchIcon ? "2.5rem" : undefined,
+            paddingRight: showPasswordButton ? "2.5rem" : undefined,
+          }}
           value={value}
           onChange={(e: any) => {
             onChange?.(e.target.value);
@@ -333,6 +334,7 @@ const Check = ({
   </Form.Group>
 );
 
+// eslint-disable-next-line no-redeclare
 const Range = ({
   // min, max, step,
   id,
@@ -566,7 +568,7 @@ const ReactSelectAsyncUrl = ({
         clearTimeout(timeout);
         timeout = setTimeout(() => {
           axios(optionsUrl?.(e), { method: "get", ...optionConfig?.(e) })
-            .then((res: any) => resolve(getOptionValues?.(res.data) || res.data))
+            .then((res: any) => resolve(getOptionValues?.(res?.data) || res?.data))
             .catch(() => resolve([]));
         }, 700);
       });
@@ -704,8 +706,8 @@ const ReactDatePicker = ({
       // disabledKeyboardNavigation
       isClearable
       // locale={tr}
-      minDate={min ? new Date(min) : null}
-      maxDate={max ? new Date(max) : null}
+      minDate={min ? new Date(min) : undefined}
+      maxDate={max ? new Date(max) : undefined}
       showTimeSelect={showTimeSelect}
       showMonthYearPicker={showMonthYearPicker}
       // value={value}
@@ -761,6 +763,50 @@ const DateTime = ({
   </Form.Group>
 );
 
+const DateRange = ({
+  id,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
+  disabled,
+  required,
+  dateFormat = "dd.MM.yyyy",
+  dateChangeFormat = "YYYY-MM-DD",
+  value,
+  onChange,
+  ...props
+}: InputDateRangeProps) => (
+  <Form.Group className={classNameContainer}>
+    {label && (
+      <Form.Label className={classNameLabel} htmlFor={id}>
+        {label} {required && <span className="text-danger">*</span>}
+      </Form.Label>
+    )}
+    <DateRangePicker
+      className={className}
+      locale="tr-TR"
+      format={dateFormat}
+      calendarIcon={null}
+      // dayPlaceholder="__"
+      // monthPlaceholder="__"
+      // yearPlaceholder="____"
+      // minDetail="decade"
+      // clearIcon={
+      //   <div className="bg-white rounded-circle">
+      //     <TbTrash color="#71b6f9" />
+      //   </div>
+      // }
+      disabled={disabled}
+      value={value}
+      onChange={(e: any) => {
+        onChange?.(e ? [moment(e?.[0]).format(dateChangeFormat), moment(e?.[1]).format(dateChangeFormat)] : e);
+      }}
+      {...props}
+    />
+  </Form.Group>
+);
+
 const PhoneInput = ({
   id,
   label,
@@ -796,6 +842,7 @@ const ReactDropZone = ({
   classNameLabel,
   classNameContainer,
   classNameFile,
+  placeholder = "Dosyaları Seçin veya Sürükleyin",
   required,
   multiple = false,
   acceptedFiles = {
@@ -847,7 +894,7 @@ const ReactDropZone = ({
               {value.length > 1 && <div>{value.length} dosya eklendi.</div>}
             </>
           ) : (
-            <div>Dosyaları Seçin veya Sürükleyin</div>
+            <div>{placeholder}</div>
           )}
         </div>
       )}
@@ -879,7 +926,7 @@ const Counter = ({
         onClick={() => value > min && onChange?.(+value - 1)}
         className="d-flex align-items-center justify-content-center rounded-end-0"
       >
-        <FaMinus size="12" />
+        <TbMinus size="12" />
       </Button>
       <div className={classNames("text-center py-2 px-3", className)} style={{ minWidth: "50px" }}>
         {value}
@@ -888,7 +935,7 @@ const Counter = ({
         onClick={() => value < max && onChange?.(+value + 1)}
         className="d-flex align-items-center justify-content-center rounded-start-0"
       >
-        <FaPlus size="12" />
+        <TbPlus size="12" />
       </Button>
     </div>
   </Form.Group>
@@ -935,6 +982,7 @@ Input.NumericFormat = NumericFormat;
 Input.PatternFormat = PatternFormat;
 Input.DatePicker = ReactDatePicker;
 Input.DateTime = DateTime;
+Input.DateRange = DateRange;
 Input.PhoneInput = PhoneInput;
 Input.ReactDropZone = ReactDropZone;
 Input.Counter = Counter;

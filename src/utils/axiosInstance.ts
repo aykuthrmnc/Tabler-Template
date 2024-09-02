@@ -25,34 +25,25 @@ instance.interceptors.response.use(
   (response) => response,
   (error) => {
     let message;
-
-    if (error && error.response && error.response.status === 404) {
-      message = error?.response.data;
-      // window.location.href = '/not-found';
-    } else if (error && error.response && error.response.status === 403) {
-      // window.location.href = '/access-denied';
-      message = error;
-    } else {
-      switch (error.response.status) {
-        case 401:
-          message = "Yetki Yok";
-          logoutUserHandle();
-          break;
-        case 403:
-          message = "Access Forbidden";
-          break;
-        case 404:
-          message = "Sorry! the data you are looking for could not be found";
-          break;
-        case 505:
-          window.location.href = "/error-500";
-          break;
-        default: {
-          message = error;
-        }
-      }
-      //Alert
-      // return message;
+    switch (error?.response?.status) {
+      case 401:
+        // message = "Yetki Yok";
+        logoutUserHandle();
+        break;
+      // case 403:
+      //   message = "Access Forbidden";
+      //   window.location.href = '/access-denied';
+      //   break;
+      // case 404:
+      //   message = error?.response?.data;
+      //   message = "Sorry! The data you are looking for could not be found";
+      //   window.location.href = '/not-found';
+      //   break;
+      // case 505:
+      //   window.location.href = "/error-500";
+      //   break;
+      default:
+        message = error;
     }
     return Promise.reject(message);
   },

@@ -30,7 +30,7 @@ const ThemeOffcanvas = () => {
   const { color, languageMode, position, theme, type, width, verticalLocation, settingMenuShow } = appSelector(
     (state: RootState) => state.theme,
   );
-  const { handleSubmit, register, watch } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const submit = (values: any) => {
     localStorage.setItem(import.meta.env.VITE_THEME_KEY, JSON.stringify(values));
@@ -40,8 +40,6 @@ const ThemeOffcanvas = () => {
   const reset = () => {
     getThemeHandle();
   };
-
-  console.log(watch());
 
   return (
     <Offcanvas

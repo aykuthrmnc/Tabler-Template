@@ -22,8 +22,10 @@
   td.rdtHour,
   td.rdtMinute,
   td.rdtSecond,
-  .rdtTimeToggle {
+  .rdtTimeToggle,
+  .rdtSwitch {
     &:not(.rdtActive):hover {
+      cursor: pointer;
       color: inherit;
       text-decoration: none;
       background-color: rgba(var(--#{$prefix}secondary-rgb), 0.08);

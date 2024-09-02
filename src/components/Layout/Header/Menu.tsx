@@ -124,12 +124,13 @@ const MenuItemWithChildren = ({
       </Dropdown.Toggle>
 
       <Dropdown.Menu
+        className={classNames({ "dropdown-menu-grid": item?.children?.length! > 8 })}
         renderOnMount
         align={item?.align}
         style={
           item?.children?.length! > 8
             ? {
-                display: "grid",
+                // display: "grid",
                 gridTemplateRows: `repeat(${Math.round(item?.children?.length! / 2)}, 1fr)`,
                 gridAutoFlow: "column",
               }

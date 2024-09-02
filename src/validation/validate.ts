@@ -22,6 +22,7 @@ Yup.setLocale({
     email: "Geçerli bir e-posta adresi girin.",
     length: "Bu alan ${length} karakter olmalıdır.",
     min: "Minimum ${min} karakter olmalıdır.",
+    max: "Maksimum ${max} karakter olmalıdır.",
   },
   array: {
     min: "En az bir seçenek içermelidir.",

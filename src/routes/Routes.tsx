@@ -536,8 +536,8 @@ const routes: Route[] = [
   },
 ];
 
-const authCheck = (routes: Route[]) => {
-  return routes?.map((route: Route) => {
+const authCheck = (routes: Route[]) =>
+  routes?.map((route: Route) => {
     if (route.auth) {
       route.element = <PrivateRoute route={route?.returnPath}>{route.element}</PrivateRoute>;
     }
@@ -562,7 +562,6 @@ const authCheck = (routes: Route[]) => {
     }
     return route;
   });
-};
 
 const Routes = memo(() => <RouterProvider router={createBrowserRouter(authCheck(routes))} />);
 

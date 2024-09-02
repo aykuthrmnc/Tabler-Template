@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import { ReactNode } from "react";
 import { Col, Container, Dropdown, Form, Nav, Navbar, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { TbAdjustments, TbLogout, TbSearch, TbUserCircle } from "react-icons/tb";
@@ -11,7 +11,7 @@ import { LayoutColor, LayoutPosition, LayoutType, LayoutVerticalLocation, MenuIt
 import { logoutUserHandle, setSettingMenuHandle } from "~/utils/storeHandle";
 // import languages from "~/locales/languages.json";
 
-const NavbarPosition = ({ children, isSticky }: { children: React.ReactNode; isSticky: boolean }) => {
+const NavbarPosition = ({ children, isSticky }: { children: ReactNode; isSticky: boolean }) => {
   return isSticky ? <div className="sticky-top">{children}</div> : children;
 };
 
@@ -138,6 +138,7 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
               width={110}
               height={32}
               className="navbar-brand-image"
+              style={{ filter: "none" }}
               // onError={({ currentTarget }) => {
               //   currentTarget.onerror = null;
               //   currentTarget.src = import.meta.env.VITE_DEFAULT_IMAGE;
@@ -180,7 +181,7 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
           </Container>
         </Navbar>
       )}
-      {VITE_SHOW_MENU && type === LayoutType.HORIZONTAL && (
+      {type === LayoutType.HORIZONTAL && (
         <div className="navbar-expand-md">
           <Navbar.Collapse id="navbar-menu">
             <Navbar expand={false} variant="" collapseOnSelect>
@@ -190,7 +191,7 @@ const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: 
                     <HeaderMenu menuItems={filterMenuByRoles(MENU, userRoles)} />
                   </Col>
                   {isSearch && (
-                    <Col xs="2" className="d-none d-xxl-block">
+                    <Col xs="auto" className="d-none d-xxl-block">
                       <div className="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
                         <form onSubmit={searchForm.handleSubmit(searchSubmit)} autoComplete="off">
                           <div className="input-icon">

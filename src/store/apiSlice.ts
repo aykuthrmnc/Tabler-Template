@@ -29,7 +29,7 @@ const axiosBaseQuery =
         responseType,
       });
 
-      return { data: result.data };
+      return result;
     } catch (axiosError) {
       const err = axiosError as AxiosError;
       return {
@@ -48,7 +48,7 @@ export const apiSlice = createApi({
   baseQuery: axiosBaseQuery({
     baseURL: import.meta.env.VITE_BASE_URL,
   }),
-  // fetchBaseQuery({
+  // baseQuery: fetchBaseQuery({
   //   baseUrl: import.meta.env.VITE_BASE_URL,
   //   prepareHeaders: (headers, { getState }) => {
   //     const token = (getState() as RootState).auth.user?.[import.meta.env.VITE_AUTH_TOKEN_NAME];

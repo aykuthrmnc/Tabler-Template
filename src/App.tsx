@@ -7,6 +7,7 @@ import Routes from "./routes/Routes";
 import { useTranslation } from "react-i18next";
 
 const App = () => {
+  // const showRoutes = useRoutes(routes);
   const theme = useSelector((state: RootState) => state.theme.theme);
   const { i18n } = useTranslation();
   const dir = i18n.dir();

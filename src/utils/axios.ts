@@ -26,7 +26,7 @@ axios.interceptors.response.use(
     let message;
     switch (error?.response?.status) {
       case 401:
-        // message = "Yetki Yok";
+        message = "Yetki Yok";
         logoutUserHandle();
         break;
       // case 403:

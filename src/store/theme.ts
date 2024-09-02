@@ -140,8 +140,10 @@ const theme = createSlice({
     setTheme: (state, action: { payload: LayoutTheme }) => {
       state.theme = action.payload;
       document.documentElement.setAttribute("data-bs-theme", action.payload);
-
-      // localStorage.setItem(import.meta.env.VITE_THEME_KEY, JSON.stringify({ ...state, theme: action.payload }));
+      localStorage.setItem(
+        import.meta.env.VITE_THEME_KEY,
+        JSON.stringify({ ...(state?.settingMenuShow && state), theme: action.payload }),
+      );
     },
     setType: (state, action: { payload: LayoutType }) => {
       // if (LayoutColor.TRANSPARENT == state.color && [LayoutType.CONDENSED, LayoutType.HORIZONTAL, LayoutType.OVERLAP].includes(action.payload)) {
