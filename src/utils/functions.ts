@@ -6,20 +6,37 @@ import { toast } from "react-toastify";
 import { t } from "i18next";
 // import "moment/locale/tr";
 moment.locale();
-// import i18n from "~/i18n";
+import i18n from "~/i18n";
 
 //! DATE FORMAT
 export const dateFormatter = (e?: string) => moment(e).format("LLL");
 
-export const dateDifferenceFormatter = (
-  start: string | moment.Moment,
-  now?: string | moment.Moment,
-  show?: { day?: boolean; hour?: boolean; minute?: boolean; second?: boolean },
-) => {
+export const dateDifferenceFormatter = ({
+  start,
+  end,
+  show,
+  suffix,
+  pad,
+}: {
+  start: string | moment.MomentInput;
+  end?: string | moment.MomentInput;
+  show?: { day?: boolean; hour?: boolean; minute?: boolean; second?: boolean };
+  suffix?: { day?: string; hour?: string; minute?: string; second?: string };
+  pad?: { startLength: number; startFill?: string };
+}) => {
   show = { day: true, hour: true, minute: true, second: true, ...show };
+  suffix = {
+    day: ` ${i18n.t("Gün")} `,
+    hour: ` ${i18n.t("Saat")} `,
+    minute: ` ${i18n.t("Dakika")} `,
+    second: ` ${i18n.t("Saniye")}`,
+    ...suffix,
+  };
+  pad = { startLength: 0, startFill: "", ...pad };
+
   start = moment(start);
-  now = moment(now);
-  const dif = moment.duration(now.diff(start));
+  end = moment(end);
+  const dif = moment.duration(end.diff(start));
   let value = "";
 
   let day = dif.days();
@@ -28,27 +45,80 @@ export const dateDifferenceFormatter = (
   let second = dif.seconds();
 
   if (show.day) {
-    value += day + " Gün ";
+    value += day?.toString()?.padStart(pad.startLength, pad?.startFill) + suffix.day!;
   } else {
     hour = day * 24 + hour;
   }
 
   if (show.hour) {
-    value += hour + " Saat ";
+    value += hour?.toString()?.padStart(pad.startLength, pad?.startFill) + suffix.hour!;
   } else {
     minute = hour * 60 + minute;
   }
   if (show.minute) {
-    value += minute + " Dakika ";
+    value += minute?.toString()?.padStart(pad.startLength, pad?.startFill) + suffix.minute!;
   } else {
     second = minute * 60 + second;
   }
 
   if (show.second) {
-    value += second + " Saniye";
+    value += second?.toString()?.padStart(pad.startLength, pad?.startFill) + suffix.second!;
   }
 
   return value.trim();
+};
+
+export const dateObjectFormatter = ({
+  day = 0,
+  hour = 0,
+  minute = 0,
+  second = 0,
+  show,
+  suffix,
+  pad,
+}: {
+  day?: number;
+  hour?: number;
+  minute?: number;
+  second?: number;
+  show?: { day?: boolean; hour?: boolean; minute?: boolean; second?: boolean };
+  suffix?: { day?: string; hour?: string; minute?: string; second?: string };
+  pad?: { startLength: number; startFill?: string };
+}) => {
+  let value = "";
+  show = { day: true, hour: true, minute: true, second: true, ...show };
+  suffix = {
+    day: ` ${i18n.t("gün")} `,
+    hour: ` ${i18n.t("sa")} `,
+    minute: ` ${i18n.t("dk")} `,
+    second: ` ${i18n.t("sn")}`,
+    ...suffix,
+  };
+  pad = { startLength: 0, startFill: "", ...pad };
+
+  if (show.day) {
+    value += day?.toString()?.padStart(pad.startLength, pad?.startFill) + suffix.day!;
+  } else {
+    hour = day * 24 + hour;
+  }
+
+  if (show.hour) {
+    value += hour?.toString()?.padStart(pad.startLength, pad?.startFill) + suffix.hour!;
+  } else {
+    minute = hour * 60 + minute;
+  }
+
+  if (show.minute) {
+    value += minute?.toString()?.padStart(pad.startLength, pad?.startFill) + suffix.minute!;
+  } else {
+    second = minute * 60 + second;
+  }
+
+  if (show.second) {
+    value += second?.toString()?.padStart(pad.startLength, pad?.startFill) + suffix.second!;
+  }
+
+  return value;
 };
 
 export const secondToTime = (second = 0) => {
@@ -59,10 +129,10 @@ export const secondToTime = (second = 0) => {
   return `${h} Saat ${m} Dakika ${s} Saniye`;
 };
 
-export const dateLocaleFormatter = (e?: string | Moment, format: string = "DD.MM.YYYY HH:mm") =>
+export const dateLocaleFormatter = (e?: string | Moment, format?: string) =>
   moment(e)
-    // .locale(i18n.language || "tr")
-    .format(format);
+    .locale(i18n.resolvedLanguage || "tr")
+    .format(format || "LLL");
 
 export const dateFormatToReadiableTime = (value: any) => {
   const date = new Date(
