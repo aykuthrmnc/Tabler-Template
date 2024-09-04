@@ -68,6 +68,7 @@ export const dateDifferenceFormatter = ({
   return value.trim();
 };
 
+// moment({ h: 5, minute: 6, seconds: 3 }).add({ h: 12, m: 35, s: 15 }).format("H:m:s")
 export const dateObjectFormatter = ({
   day = 0,
   hour = 0,
