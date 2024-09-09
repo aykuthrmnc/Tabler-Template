@@ -1,0 +1,29 @@
+// Created by Aykut | CLAMP CREATOR
+$clamp-length: 5;
+
+@mixin custom-clamp-state($value) {
+  display: -webkit-box;
+  overflow: hidden;
+  line-clamp: $value;
+  -webkit-line-clamp: $value;
+  -webkit-box-orient: vertical;
+}
+
+@mixin make-clamps($columns: $clamp-length, $breakpoints: $grid-breakpoints) {
+  @each $breakpoint in map-keys($breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      @if $columns > 0 {
+        @for $i from 1 through $columns {
+          .line-clamp#{$infix}-#{$i} {
+            @include custom-clamp-state($i);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include make-clamps();
+// CLAMP CREATOR END
