@@ -164,14 +164,25 @@ export const currencyFormatter = new Intl.NumberFormat("tr-TR", {
   // maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
-export const CurrencyFormat = (paraMiktari: number, paraBirimi: string) => {
-  return paraBirimi == "TL"
-    ? new Intl.NumberFormat("tr-TR", { currency: "TRY", style: "currency" }).format(paraMiktari || 0)
-    : paraBirimi == "EUR"
-      ? new Intl.NumberFormat("de-DE", { currency: "EUR", style: "currency" }).format(paraMiktari || 0)
-      : paraBirimi == "USD"
-        ? new Intl.NumberFormat("en-US", { currency: "USD", style: "currency" }).format(paraMiktari || 0)
-        : new Intl.NumberFormat("tr-TR", { currency: "TRY" }).format(paraMiktari || 0);
+export const currencyFormat = (price = 0, currency: "TL" | "USD" | "EUR" = "TL") => {
+  const currencyType = {
+    TL: {
+      locale: "tr-TR",
+      currency: "TRY",
+    },
+    USD: {
+      locale: "en-US",
+      currency: "USD",
+    },
+    EUR: {
+      locale: "de-DE",
+      currency: "EUR",
+    },
+  };
+
+  const value = currencyType[currency];
+
+  return new Intl.NumberFormat(value.locale, { currency: value.currency, style: "currency" }).format(price);
 };
 
 //! JSON PARSER
@@ -375,4 +386,27 @@ export const copy = (value: string, text = "Kod kopyalandı.") => {
   navigator.clipboard.writeText(value).then(() => {
     toast.success(text);
   });
+};
+
+//! CANVAS
+export const canvasDrawImage = async (
+  canvas: HTMLCanvasElement | null,
+  options: { image?: Uint8Array; url?: string },
+) => {
+  const ctx = canvas?.getContext("2d");
+  if (options?.url) {
+    const img = new Image();
+    img.src = options?.url;
+
+    img.onload = () => {
+      canvas!.width = img?.width;
+      canvas!.height = img?.height;
+      ctx!.drawImage(img, 0, 0);
+    };
+  } else if (options?.image) {
+    const bitmap = await createImageBitmap(new Blob([options?.image], { type: "image/jpeg" }));
+    canvas!.width = bitmap.width;
+    canvas!.height = bitmap.height;
+    ctx!.drawImage(bitmap, 0, 0);
+  }
 };

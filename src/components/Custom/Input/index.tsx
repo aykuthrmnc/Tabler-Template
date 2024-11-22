@@ -13,7 +13,6 @@ import "moment/dist/locale/tr";
 import moment from "moment";
 import classNames from "classnames";
 import { TbEye, TbEyeClosed, TbMinus, TbPlus, TbSearch } from "react-icons/tb";
-
 import { NumericFormat as BaseNumericFormat, PatternFormat as BasePatternFormat } from "react-number-format";
 import {
   InputFloatingProps,
@@ -863,7 +862,7 @@ const ReactDropZone = ({
       multiple={multiple}
       accept={acceptedFiles}
       onDrop={(files: any) => {
-        onChange?.(files.map((file: any) => Object.assign(file, { preview: URL.createObjectURL(file) })));
+        onChange?.(files?.map((file: any) => Object.assign(file, { preview: URL.createObjectURL(file) })));
       }}
     >
       {({ getRootProps, getInputProps, isFocused, isDragAccept, isDragReject }) => (

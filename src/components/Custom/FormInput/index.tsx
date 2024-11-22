@@ -15,7 +15,7 @@ import BaseReactDatetime from "react-datetime";
 import BaseReactDropzone from "react-dropzone";
 import BasePhoneInput from "react-phone-number-input";
 import phoneInputTr from "react-phone-number-input/locale/tr.json";
-import { TbEye, TbEyeClosed, TbPlus, TbMinus, TbSearch } from "react-icons/tb";
+import { TbEye, TbEyeClosed, TbPlus, TbMinus, TbSearch, TbX } from "react-icons/tb";
 import { NumericFormat as BaseNumericFormat, PatternFormat as BasePatternFormat } from "react-number-format";
 import {
   FormInputFloatingProps,
@@ -38,9 +38,11 @@ import {
   FormInputPatternFormatProps,
   FormInputCustomProps,
   FormInputDateRangeProps,
+  FormInputTimePickerProps,
 } from "./FormInputTypes";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { FileIcon } from "react-file-icon";
+import BaseTimePicker from "rc-time-picker";
 
 const styleProps = {
   color: "var(--tblr-body-color)",
@@ -1093,6 +1095,63 @@ const DateRange = ({
   />
 );
 
+const TimePicker = ({
+  id,
+  name,
+  label,
+  className,
+  classNameLabel,
+  classNameContainer,
+  required,
+  control,
+  hideErrorMessage,
+  timeFormat = "HH:mm:ss",
+  timeChangeFormat = "HH:mm:ss",
+  clearIcon,
+  onChangeValue,
+  ...props
+}: FormInputTimePickerProps) => {
+  return (
+    <Controller
+      control={control}
+      defaultValue=""
+      name={name}
+      render={({ field: { onChange, ref, value }, fieldState: { error } }) => (
+        <Form.Group className={classNameContainer}>
+          {label && (
+            <Form.Label className={classNameLabel} htmlFor={id}>
+              {label} {required && <span className="text-danger">*</span>}
+            </Form.Label>
+          )}
+          <BaseTimePicker
+            id={id}
+            name={name}
+            className={className}
+            defaultOpenValue={moment("00:00:00", timeFormat)}
+            value={value ? moment(value, timeFormat) : undefined}
+            onChange={(e: any) => {
+              onChange(e ? e.format(timeChangeFormat) : "");
+              onChangeValue?.(e ? e.format(timeChangeFormat) : "");
+            }}
+            clearIcon={
+              clearIcon ?? <TbX className="icon position-absolute top-0 end-0 bottom-0 h-100 me-2 cursor-pointer" />
+            }
+            format={timeFormat}
+            ref={ref}
+            {...props}
+          />
+
+          {!hideErrorMessage && error && (
+            <div className="d-block invalid-feedback">
+              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            </div>
+          )}
+        </Form.Group>
+      )}
+    />
+  );
+};
+
 const PhoneInput = ({
   id,
   name,
@@ -1361,6 +1420,7 @@ FormInput.PatternFormat = PatternFormat;
 FormInput.DatePicker = ReactDatePicker;
 FormInput.DateTime = DateTime;
 FormInput.DateRange = DateRange;
+FormInput.TimePicker = TimePicker;
 FormInput.PhoneInput = PhoneInput;
 FormInput.ReactDropZone = ReactDropZone;
 FormInput.Counter = Counter;

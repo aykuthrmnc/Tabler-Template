@@ -10,7 +10,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
     "preview": "vite preview",
-    "scan-language": "pnpx i18next-scanner"
+    "scan-language": "pnpx i18next-scanner",
+    "publish": "node scripts/commit-and-push.js",
+    "check-packages": "npx depcheck"
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.1",
@@ -29,6 +31,7 @@
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",
     "qs": "^6.12.3",
+    "rc-time-picker": "^3.7.3",
     "react": "^18.3.1",
     "react-apexcharts": "^1.4.1",
     "react-bootstrap": "^2.10.4",

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
-const useClickOutside = (callback: () => void) => {
-  const ref = useRef<any>();
+const useClickOutside = <T extends Element>(callback: () => void) => {
+  const ref = useRef<T | null>();
 
   useEffect(() => {
     const clickHandle = (e: any) => {

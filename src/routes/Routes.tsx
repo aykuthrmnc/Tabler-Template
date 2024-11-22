@@ -539,10 +539,11 @@ const routes: Route[] = [
 const authCheck = (routes: Route[]) =>
   routes?.map((route: Route) => {
     if (route.auth) {
-      route.element = <PrivateRoute route={route?.returnPath}>{route.element}</PrivateRoute>;
-    }
-    if (route.roles) {
-      route.element = <RoleBasedRoute roles={route.roles}>{route.element}</RoleBasedRoute>;
+      route.element = (
+        <PrivateRoute route={route?.returnPath} userType={route?.userType}>
+          {route.element}
+        </PrivateRoute>
+      );
     }
     if (route.children) {
       route.children = authCheck(route.children);

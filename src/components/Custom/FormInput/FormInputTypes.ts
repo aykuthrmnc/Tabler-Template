@@ -12,6 +12,7 @@ import { Control, UseFormRegister } from "react-hook-form";
 import { DropzoneProps } from "react-dropzone";
 import { AxiosRequestConfig } from "axios";
 import { DateRangePickerProps } from "@wojtekmaj/react-daterange-picker";
+import { TimePickerProps } from "rc-time-picker";
 
 //! REACT HOOK FORM INPUT COMPONENT
 export interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -245,6 +246,24 @@ export interface FormInputDateRangeProps extends DateRangePickerProps {
   onChangeValue?: (e: any) => any;
   dateFormat?: string;
   dateChangeFormat?: string;
+  // [x: string]: any;
+}
+
+export interface FormInputTimePickerProps extends TimePickerProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  // placeholder?: string;
+  // disabled?: boolean;
+  required?: boolean;
+  control?: Control<any, any>;
+  hideErrorMessage?: boolean;
+  timeFormat?: string;
+  timeChangeFormat?: string;
+  onChangeValue?: (e: any) => any;
   // [x: string]: any;
 }
 
