@@ -3,10 +3,12 @@ import React from "react";
 import moment, { Moment } from "moment";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
-import { t } from "i18next";
+import { t, TFunction } from "i18next";
 // import "moment/locale/tr";
 moment.locale();
 import i18n from "~/i18n";
+
+type TranslateType = ((x: string) => string) | TFunction;
 
 //! DATE FORMAT
 export const dateFormatter = (e?: string) => moment(e).format("LLL");
@@ -17,19 +19,21 @@ export const dateDifferenceFormatter = ({
   show,
   suffix,
   pad,
+  t = (x: string) => x,
 }: {
   start: string | moment.MomentInput;
   end?: string | moment.MomentInput;
   show?: { day?: boolean; hour?: boolean; minute?: boolean; second?: boolean };
   suffix?: { day?: string; hour?: string; minute?: string; second?: string };
   pad?: { startLength: number; startFill?: string };
+  t?: TranslateType;
 }) => {
   show = { day: true, hour: true, minute: true, second: true, ...show };
   suffix = {
-    day: ` ${i18n.t("Gün")} `,
-    hour: ` ${i18n.t("Saat")} `,
-    minute: ` ${i18n.t("Dakika")} `,
-    second: ` ${i18n.t("Saniye")}`,
+    day: ` ${t("Gün")} `,
+    hour: ` ${t("Saat")} `,
+    minute: ` ${t("Dakika")} `,
+    second: ` ${t("Saniye")}`,
     ...suffix,
   };
   pad = { startLength: 0, startFill: "", ...pad };
@@ -77,6 +81,7 @@ export const dateObjectFormatter = ({
   show,
   suffix,
   pad,
+  t = (x: string) => x,
 }: {
   day?: number;
   hour?: number;
@@ -85,16 +90,11 @@ export const dateObjectFormatter = ({
   show?: { day?: boolean; hour?: boolean; minute?: boolean; second?: boolean };
   suffix?: { day?: string; hour?: string; minute?: string; second?: string };
   pad?: { startLength: number; startFill?: string };
+  t?: TranslateType;
 }) => {
   let value = "";
   show = { day: true, hour: true, minute: true, second: true, ...show };
-  suffix = {
-    day: ` ${i18n.t("gün")} `,
-    hour: ` ${i18n.t("sa")} `,
-    minute: ` ${i18n.t("dk")} `,
-    second: ` ${i18n.t("sn")}`,
-    ...suffix,
-  };
+  suffix = { day: ` ${t("gün")} `, hour: ` ${t("sa")} `, minute: ` ${t("dk")} `, second: ` ${t("sn")}`, ...suffix };
   pad = { startLength: 0, startFill: "", ...pad };
 
   if (show.day) {
@@ -322,12 +322,11 @@ export const secondScreen = () => {
 export const downloadFile = (
   e: any,
   fileName: string = `${import.meta.env.VITE_APP_NAME || "download"}_${moment().valueOf()}`,
-  extension?: string,
 ) => {
   const url = window.URL.createObjectURL(e);
   const link = document.createElement("a");
   link.href = url;
-  link.setAttribute("download", extension ? `${fileName}.${extension}` : fileName);
+  link.setAttribute("download", fileName);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -379,6 +378,23 @@ export const camelCaseTranslator = (text: string) => {
     .toLowerCase()
     .replace(/[ğüşıöçĞÜŞİÖÇ]/g, (m) => turkish_letters[m])
     .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
+};
+
+export const caseTranslator = {
+  toCamelCase: (text: string) =>
+    text.replace(/[-_ ]+(\w)/g, (_, char) => char.toUpperCase()).replace(/^([A-Z])/, (_, char) => char.toLowerCase()),
+  toPascalCase: (text: string) => text.replace(/(?:^|[-_]+)(\w)/g, (_, char) => char.toUpperCase()),
+  toSnakeCase: (text: string) =>
+    text
+      .replace(/([a-z])([A-Z])/g, "$1_$2")
+      .replace(/[- ]+/g, "_")
+      .toLowerCase(),
+  toKebabCase: (text: string) =>
+    text
+      .replace(/([a-z])([A-Z])/g, "$1-$2")
+      .replace(/[_ ]+/g, "-")
+      .toLowerCase(),
+  toConstantCase: (text: string) => caseTranslator.toSnakeCase(text).toUpperCase(),
 };
 
 // CLIPBOARD

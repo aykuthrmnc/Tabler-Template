@@ -13,6 +13,7 @@ import { DropzoneProps } from "react-dropzone";
 import { AxiosRequestConfig } from "axios";
 import { DateRangePickerProps } from "@wojtekmaj/react-daterange-picker";
 import { TimePickerProps } from "rc-time-picker";
+import { TFunction } from "i18next";
 
 //! REACT HOOK FORM INPUT COMPONENT
 export interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -51,6 +52,7 @@ export interface FormInputControlProps extends FormControlProps {
   control?: Control<any, any>;
   onChangeValue?: (e: any) => any;
   hideErrorMessage?: boolean;
+  t?: ((x: string) => string) | TFunction;
   [x: string]: any;
 }
 
@@ -63,6 +65,7 @@ export interface FormInputFloatingProps extends FormControlProps {
   control?: Control<any, any>;
   onChangeValue?: (e: any) => any;
   hideErrorMessage?: boolean;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputSelectProps extends FormSelectProps {
@@ -74,6 +77,7 @@ export interface FormInputSelectProps extends FormSelectProps {
   onChangeValue?: (e: any) => any;
   hideErrorMessage?: boolean;
   // children: React.ReactNode;
+  t?: ((x: string) => string) | TFunction;
   [x: string]: any;
 }
 
@@ -89,8 +93,9 @@ export interface FormInputCheckProps extends FormCheckProps {
   errors?: any;
   // control?: Control<any, any>;
   // value?: any;
-  // onChangeValue?: (e: any) => any;
+  onChangeValue?: (e: any) => any;
   hideErrorMessage?: boolean;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputRangeProps {
@@ -108,6 +113,7 @@ export interface FormInputRangeProps {
   control?: Control<any, any>;
   onChangeValue?: (e: any) => any;
   hideErrorMessage?: boolean;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputReactSelectProps extends ReactSelectProps {
@@ -119,6 +125,7 @@ export interface FormInputReactSelectProps extends ReactSelectProps {
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
   baseStyles?: StylesConfig<any, any, any>;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputReactSelectAsyncProps extends ReactSelectAsyncProps<any, any, any> {
@@ -131,6 +138,7 @@ export interface FormInputReactSelectAsyncProps extends ReactSelectAsyncProps<an
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
   baseStyles?: StylesConfig<any, any, any>;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputReactSelectCreatableProps extends ReactSelectCreatableProps<any, any, any> {
@@ -143,6 +151,7 @@ export interface FormInputReactSelectCreatableProps extends ReactSelectCreatable
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
   baseStyles?: StylesConfig<any, any, any>;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputReactSelectAsyncCreatableProps extends ReactSelectAsyncCreatableProps<any, any, any> {
@@ -155,6 +164,7 @@ export interface FormInputReactSelectAsyncCreatableProps extends ReactSelectAsyn
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
   baseStyles?: StylesConfig<any, any, any>;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputReactSelectAsyncUrlProps extends ReactSelectAsyncProps<any, any, any> {
@@ -170,6 +180,7 @@ export interface FormInputReactSelectAsyncUrlProps extends ReactSelectAsyncProps
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
   baseStyles?: StylesConfig<any, any, any>;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputNumericFormatProps extends NumericFormatProps {
@@ -180,6 +191,7 @@ export interface FormInputNumericFormatProps extends NumericFormatProps {
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputPatternFormatProps extends PatternFormatProps {
@@ -190,6 +202,7 @@ export interface FormInputPatternFormatProps extends PatternFormatProps {
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputDatePickerProps {
@@ -209,6 +222,7 @@ export interface FormInputDatePickerProps {
   showTimeSelect?: boolean;
   showMonthYearPicker?: boolean;
   onChangeValue?: (e: any) => any;
+  t?: ((x: string) => string) | TFunction;
   // [x: string]: any;
 }
 
@@ -229,6 +243,7 @@ export interface FormInputDateTimeProps extends DatetimepickerProps {
   dateFormat?: string;
   timeFormat?: string | boolean;
   dateChangeFormat?: string;
+  t?: ((x: string) => string) | TFunction;
   // [x: string]: any;
 }
 
@@ -246,6 +261,7 @@ export interface FormInputDateRangeProps extends DateRangePickerProps {
   onChangeValue?: (e: any) => any;
   dateFormat?: string;
   dateChangeFormat?: string;
+  t?: ((x: string) => string) | TFunction;
   // [x: string]: any;
 }
 
@@ -264,6 +280,7 @@ export interface FormInputTimePickerProps extends TimePickerProps {
   timeFormat?: string;
   timeChangeFormat?: string;
   onChangeValue?: (e: any) => any;
+  t?: ((x: string) => string) | TFunction;
   // [x: string]: any;
 }
 
@@ -280,6 +297,7 @@ export interface FormInputPhoneProps {
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
+  t?: ((x: string) => string) | TFunction;
   [x: string]: any;
 }
 
@@ -298,6 +316,7 @@ export interface FormInputDropZoneProps extends DropzoneProps {
   fileShowType?: "image" | "icon" | null;
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputCounterProps {
@@ -316,6 +335,7 @@ export interface FormInputCounterProps {
   format?: (e: any) => string;
   min?: number;
   max?: number;
+  t?: ((x: string) => string) | TFunction;
 }
 
 export interface FormInputCustomProps {
@@ -329,5 +349,25 @@ export interface FormInputCustomProps {
   control?: Control<any, any>;
   hideErrorMessage?: boolean;
   onChangeValue?: (e: any) => any;
+  t?: ((x: string) => string) | TFunction;
   [x: string]: any;
+}
+
+export interface FormInputTimePickerProps extends TimePickerProps {
+  id?: string;
+  name: string;
+  label?: any;
+  className?: string;
+  classNameLabel?: string;
+  classNameContainer?: string;
+  // placeholder?: string;
+  // disabled?: boolean;
+  required?: boolean;
+  control?: Control<any, any>;
+  hideErrorMessage?: boolean;
+  timeFormat?: string;
+  timeChangeFormat?: string;
+  onChangeValue?: (e: any) => any;
+  t?: ((x: string) => string) | TFunction;
+  // [x: string]: any;
 }

@@ -15,8 +15,10 @@ import BaseReactDatetime from "react-datetime";
 import BaseReactDropzone from "react-dropzone";
 import BasePhoneInput from "react-phone-number-input";
 import phoneInputTr from "react-phone-number-input/locale/tr.json";
+import { FileIcon } from "react-file-icon";
 import { TbEye, TbEyeClosed, TbPlus, TbMinus, TbSearch, TbX } from "react-icons/tb";
 import { NumericFormat as BaseNumericFormat, PatternFormat as BasePatternFormat } from "react-number-format";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import {
   FormInputFloatingProps,
   FormInputControlProps,
@@ -40,8 +42,7 @@ import {
   FormInputDateRangeProps,
   FormInputTimePickerProps,
 } from "./FormInputTypes";
-import DateRangePicker from "@wojtekmaj/react-daterange-picker";
-import { FileIcon } from "react-file-icon";
+
 import BaseTimePicker from "rc-time-picker";
 
 const styleProps = {
@@ -176,6 +177,7 @@ const Control = ({
   control,
   onChangeValue,
   hideErrorMessage,
+  t = (x: string) => x,
   ...props
 }: FormInputControlProps) => {
   const [inputType, setInputType] = useState(type);
@@ -240,7 +242,7 @@ const Control = ({
 
           {!hideErrorMessage && error && (
             <div className="d-block invalid-feedback">
-              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
             </div>
           )}
         </Form.Group>
@@ -261,6 +263,7 @@ const FloatingControl = ({
   control,
   onChangeValue,
   hideErrorMessage,
+  t = (x: string) => x,
   ...props
 }: FormInputFloatingProps) => (
   <Controller
@@ -290,14 +293,13 @@ const FloatingControl = ({
         </FloatingLabel>
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </>
     )}
   />
 );
-
 const Select = ({
   id,
   name,
@@ -310,6 +312,7 @@ const Select = ({
   control,
   onChangeValue,
   hideErrorMessage,
+  t = (x: string) => x,
   children,
   ...props
 }: FormInputSelectProps) => (
@@ -347,7 +350,7 @@ const Select = ({
 
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -369,7 +372,9 @@ const Check = ({
   title,
   register,
   errors,
+  onChangeValue,
   hideErrorMessage,
+  t = (x: string) => x,
   ...props
 }: FormInputCheckProps) => (
   <Form.Group className={classNameContainer}>
@@ -385,11 +390,12 @@ const Check = ({
         type={type != "switch" ? type : undefined}
         className={className}
         isInvalid={errors?.[name] ? true : false}
+        {...props}
         {...(name &&
           register?.(name, {
             /* FOR BOOLEAN VALUE */
+            onChange: onChangeValue,
           }))}
-        {...props}
       />
       {title && (
         <Form.Check.Label className={classNameTitle} htmlFor={id}>
@@ -400,7 +406,7 @@ const Check = ({
         <ErrorMessage
           errors={errors}
           name={name}
-          render={({ message }: any) => <Form.Control.Feedback type="invalid">{message}</Form.Control.Feedback>}
+          render={({ message }: any) => <Form.Control.Feedback type="invalid">{t(message)}</Form.Control.Feedback>}
         />
       )}
     </Form.Check>
@@ -420,6 +426,7 @@ const Range = ({
   control,
   onChangeValue,
   hideErrorMessage,
+  t = (x: string) => x,
   ...props
 }: FormInputRangeProps) => (
   <Controller
@@ -449,7 +456,7 @@ const Range = ({
 
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -473,6 +480,7 @@ const ReactSelect = ({
   baseStyles = styles,
   isMulti = false,
   isClearable = true,
+  t = (x: string) => x,
   ...props
 }: FormInputReactSelectProps) => (
   <Controller
@@ -509,7 +517,7 @@ const ReactSelect = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -534,6 +542,7 @@ const ReactSelectAsync = ({
   isMulti = false,
   isClearable = true,
   isLoading = false,
+  t = (x: string) => x,
   ...props
 }: FormInputReactSelectAsyncProps) => (
   <Controller
@@ -575,7 +584,7 @@ const ReactSelectAsync = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -600,6 +609,7 @@ const ReactSelectCreatable = ({
   isMulti = false,
   isClearable = true,
   isLoading = false,
+  t = (x: string) => x,
   ...props
 }: FormInputReactSelectCreatableProps) => (
   <Controller
@@ -639,7 +649,7 @@ const ReactSelectCreatable = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -664,6 +674,7 @@ const ReactSelectAsyncCreatable = ({
   isMulti = false,
   isClearable = true,
   isLoading = false,
+  t = (x: string) => x,
   ...props
 }: FormInputReactSelectAsyncCreatableProps) => (
   <Controller
@@ -705,7 +716,7 @@ const ReactSelectAsyncCreatable = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -733,6 +744,7 @@ const ReactSelectAsyncUrl = ({
   optionsUrl,
   optionConfig,
   isValidOptionsUrl = true,
+  t = (x: string) => x,
   ...props
 }: FormInputReactSelectAsyncUrlProps) => {
   let timeout: any = null;
@@ -792,7 +804,7 @@ const ReactSelectAsyncUrl = ({
           />
           {!hideErrorMessage && error && (
             <div className="d-block invalid-feedback">
-              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
             </div>
           )}
         </Form.Group>
@@ -812,6 +824,7 @@ const NumericFormat = ({
   control,
   hideErrorMessage,
   onChangeValue,
+  t = (x: string) => x,
   ...props
 }: FormInputNumericFormatProps) => (
   <Controller
@@ -841,7 +854,7 @@ const NumericFormat = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -860,6 +873,7 @@ const PatternFormat = ({
   control,
   hideErrorMessage,
   onChangeValue,
+  t = (x: string) => x,
   ...props
 }: FormInputPatternFormatProps) => (
   <Controller
@@ -890,7 +904,7 @@ const PatternFormat = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -914,6 +928,7 @@ const ReactDatePicker = ({
   showTimeSelect,
   showMonthYearPicker,
   onChangeValue,
+  t = (x: string) => x,
   ...props
 }: FormInputDatePickerProps) => (
   <Controller
@@ -962,7 +977,7 @@ const ReactDatePicker = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -987,6 +1002,7 @@ const DateTime = ({
   dateFormat = "DD.MM.YYYY",
   timeFormat = false,
   dateChangeFormat = "YYYY-MM-DD",
+  t = (x: string) => x,
   ...props
 }: FormInputDateTimeProps) => (
   <Controller
@@ -1013,6 +1029,7 @@ const DateTime = ({
               "is-invalid": invalid,
             }),
             onBlur,
+            value: value ? moment(value).format(timeFormat ? dateFormat + " " + timeFormat : dateFormat) : "",
           }}
           locale="tr-TR"
           closeOnSelect
@@ -1026,7 +1043,7 @@ const DateTime = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -1048,6 +1065,7 @@ const DateRange = ({
   onChangeValue,
   dateFormat = "dd.MM.yyyy",
   dateChangeFormat = "YYYY-MM-DD",
+  t = (x: string) => x,
   ...props
 }: FormInputDateRangeProps) => (
   <Controller
@@ -1087,7 +1105,7 @@ const DateRange = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -1107,50 +1125,47 @@ const TimePicker = ({
   hideErrorMessage,
   timeFormat = "HH:mm:ss",
   timeChangeFormat = "HH:mm:ss",
-  clearIcon,
+  clearIcon = <TbX className="icon position-absolute top-0 end-0 bottom-0 h-100 me-2 cursor-pointer" />,
   onChangeValue,
+  t = (x: string) => x,
   ...props
-}: FormInputTimePickerProps) => {
-  return (
-    <Controller
-      control={control}
-      defaultValue=""
-      name={name}
-      render={({ field: { onChange, ref, value }, fieldState: { error } }) => (
-        <Form.Group className={classNameContainer}>
-          {label && (
-            <Form.Label className={classNameLabel} htmlFor={id}>
-              {label} {required && <span className="text-danger">*</span>}
-            </Form.Label>
-          )}
-          <BaseTimePicker
-            id={id}
-            name={name}
-            className={className}
-            defaultOpenValue={moment("00:00:00", timeFormat)}
-            value={value ? moment(value, timeFormat) : undefined}
-            onChange={(e: any) => {
-              onChange(e ? e.format(timeChangeFormat) : "");
-              onChangeValue?.(e ? e.format(timeChangeFormat) : "");
-            }}
-            clearIcon={
-              clearIcon ?? <TbX className="icon position-absolute top-0 end-0 bottom-0 h-100 me-2 cursor-pointer" />
-            }
-            format={timeFormat}
-            ref={ref}
-            {...props}
-          />
+}: FormInputTimePickerProps) => (
+  <Controller
+    control={control}
+    defaultValue=""
+    name={name}
+    render={({ field: { onChange, ref, value }, fieldState: { error } }) => (
+      <Form.Group className={classNameContainer}>
+        {label && (
+          <Form.Label className={classNameLabel} htmlFor={id}>
+            {label} {required && <span className="text-danger">*</span>}
+          </Form.Label>
+        )}
+        <BaseTimePicker
+          id={id}
+          name={name}
+          className={className}
+          defaultOpenValue={moment("00:00:00", timeFormat)}
+          value={value ? moment(value, timeFormat) : undefined}
+          onChange={(e: any) => {
+            onChange(e ? e.format(timeChangeFormat) : "");
+            onChangeValue?.(e ? e.format(timeChangeFormat) : "");
+          }}
+          clearIcon={clearIcon}
+          format={timeFormat}
+          ref={ref}
+          {...props}
+        />
 
-          {!hideErrorMessage && error && (
-            <div className="d-block invalid-feedback">
-              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
-            </div>
-          )}
-        </Form.Group>
-      )}
-    />
-  );
-};
+        {!hideErrorMessage && error && (
+          <div className="d-block invalid-feedback">
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
+          </div>
+        )}
+      </Form.Group>
+    )}
+  />
+);
 
 const PhoneInput = ({
   id,
@@ -1163,6 +1178,7 @@ const PhoneInput = ({
   control,
   hideErrorMessage,
   onChangeValue,
+  t = (x: string) => x,
 }: FormInputPhoneProps) => (
   <Controller
     control={control}
@@ -1193,7 +1209,7 @@ const PhoneInput = ({
         />
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -1222,6 +1238,7 @@ const ReactDropZone = ({
   //   "image/webp": [".webp"],
   // },
   fileShowType = "image",
+  t = (x: string) => x,
   ...props
 }: FormInputDropZoneProps) => (
   <Controller
@@ -1296,7 +1313,7 @@ const ReactDropZone = ({
         </BaseReactDropzone>
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -1320,6 +1337,7 @@ const Counter = ({
   min = 0,
   max = 99,
   disabled,
+  t = (x: string) => x,
 }: FormInputCounterProps) => (
   <Controller
     control={control}
@@ -1352,7 +1370,7 @@ const Counter = ({
         </div>
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
@@ -1372,6 +1390,7 @@ const Custom = ({
   control,
   hideErrorMessage,
   onChangeValue,
+  t = (x: string) => x,
   ...props
 }: FormInputCustomProps) => (
   <Controller
@@ -1397,7 +1416,7 @@ const Custom = ({
         })}
         {!hideErrorMessage && error && (
           <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{msg}</div>) : error?.message}
+            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
           </div>
         )}
       </Form.Group>
