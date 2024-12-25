@@ -383,18 +383,22 @@ export const camelCaseTranslator = (text: string) => {
 export const caseTranslator = {
   toCamelCase: (text: string) =>
     text.replace(/[-_ ]+(\w)/g, (_, char) => char.toUpperCase()).replace(/^([A-Z])/, (_, char) => char.toLowerCase()),
-  toPascalCase: (text: string) => text.replace(/(?:^|[-_]+)(\w)/g, (_, char) => char.toUpperCase()),
-  toSnakeCase: (text: string) =>
-    text
-      .replace(/([a-z])([A-Z])/g, "$1_$2")
-      .replace(/[- ]+/g, "_")
-      .toLowerCase(),
+  toPascalCase: (text: string) => text.replace(/(?:^|[-_ ]+)(\w)/g, (_, char) => char.toUpperCase()),
   toKebabCase: (text: string) =>
     text
       .replace(/([a-z])([A-Z])/g, "$1-$2")
-      .replace(/[_ ]+/g, "-")
+      .replace(/[-_ ]+/g, "-")
       .toLowerCase(),
-  toConstantCase: (text: string) => caseTranslator.toSnakeCase(text).toUpperCase(),
+  toSnakeCase: (text: string) =>
+    text
+      .replace(/([a-z])([A-Z])/g, "$1_$2")
+      .replace(/[-_ ]+/g, "_")
+      .toLowerCase(),
+  toConstantCase: (text: string) =>
+    text
+      .replace(/([a-z])([A-Z])/g, "$1_$2")
+      .replace(/[-_ ]+/g, "_")
+      .toUpperCase(),
 };
 
 // CLIPBOARD

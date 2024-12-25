@@ -15,7 +15,13 @@ const NavbarPosition = ({ children, isSticky }: { children: ReactNode; isSticky:
   return isSticky ? <div className="sticky-top">{children}</div> : children;
 };
 
-const NavbarUserContent = ({ hideProfileMenu }: { hideProfileMenu?: boolean }) => {
+const NavbarUserContent = ({
+  hideProfileMenu,
+  // t = (x: string) => x,
+}: {
+  hideProfileMenu?: boolean;
+  t?: (x: string) => string;
+}) => {
   const { appSelector } = useRedux();
   const user = appSelector((state: RootState) => state.auth.user);
   // const { theme } = appSelector((state: RootState) => state.theme);
@@ -29,7 +35,7 @@ const NavbarUserContent = ({ hideProfileMenu }: { hideProfileMenu?: boolean }) =
     >
       {/* <div className="d-none d-md-flex">
         <Nav.Link className="p-0" onClick={() => setThemeHandle(theme === LayoutTheme.DARK ? LayoutTheme.LIGHT : LayoutTheme.DARK)}>
-          {theme === LayoutTheme.DARK ? <TbSun className="icon" title="Açık Mod" /> : <TbMoon className="icon" title="Koyu Mod" />}
+          {theme === LayoutTheme.DARK ? <TbSun className="icon" title={t("Açık Mod")} /> : <TbMoon className="icon" title={t("Koyu Mod")} />}
         </Nav.Link>
         <HeaderNotification />
       </div> */}
