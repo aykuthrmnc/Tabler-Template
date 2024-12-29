@@ -1,4 +1,4 @@
-import { NavigateOptions, useSearchParams } from "react-router-dom";
+import { NavigateOptions, useSearchParams } from "react-router";
 
 const useQueryParams = (key: string, options?: NavigateOptions) => {
   const [searchParams, setSearchParams] = useSearchParams();

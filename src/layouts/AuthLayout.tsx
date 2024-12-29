@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router";
 import { RootState } from "~/store";
 
 const AuthLayout = ({ route = "/", userType = "user" }: { route?: string; userType?: "user" | "admin" }) => {

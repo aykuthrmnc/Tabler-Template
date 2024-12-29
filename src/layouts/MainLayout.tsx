@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import Header from "~/components/Layout/Header";
 import ThemeOffcanvas from "~/components/Layout/ThemeOffcanvas";

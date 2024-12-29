@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { RootState } from "~/store";
 
 const RoleBasedRoute = ({ children, roles, route = "/not-found" }: { children: ReactNode; roles?: string[]; route?: string }) => {

@@ -1,4 +1,7 @@
-import { NonIndexRouteObject } from "react-router-dom";
+import { ReactNode } from "react";
+import { ButtonProps } from "react-bootstrap";
+import { IconType } from "react-icons/lib";
+import { NonIndexRouteObject } from "react-router";
 
 //! ROUTER
 export interface Route extends NonIndexRouteObject {
@@ -96,3 +99,38 @@ export type MenuItemTypes = {
   roles?: string[];
   children?: MenuItemTypes[];
 };
+
+//! PAGE TITLE
+export interface PageTitle {
+  documentTitle?: string;
+  title?: string;
+  subtitle?: string;
+  search?: {
+    placeholder?: string;
+    className?: string;
+    value?: string;
+    onChange?: (e: any) => any;
+  };
+  linkItems?: ({
+    label?: ReactNode;
+    path?: string;
+    icon?: {
+      type: IconType;
+      className?: string;
+    };
+    hide?: boolean;
+  } & ButtonProps)[];
+  breadCrumbItems?: {
+    label: ReactNode;
+    subLabel?: ReactNode;
+    path: string;
+    active?: boolean;
+  }[];
+  hide?: {
+    title?: boolean;
+    subtitle?: boolean;
+    search?: boolean;
+    linkItems?: boolean;
+    breadCrumbItems?: boolean;
+  };
+}

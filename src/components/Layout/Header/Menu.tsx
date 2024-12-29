@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { Fragment, useState } from "react";
 import { Dropdown, Nav } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import { MenuItemTypes } from "~/types";
 
 const findAllParent = (menuItems: MenuItemTypes[], menuItem: MenuItemTypes): string[] => {

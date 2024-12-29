@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useRedux } from ".";
-import { PageTitle, setPageTitle } from "~/store/pageTitle";
+import { setPageTitle } from "~/store/pageTitle";
+import { PageTitle } from "~/types";
 
 const usePageTitle = (value: PageTitle) => {
   const { dispatch } = useRedux();
 
   useEffect(() => {
     dispatch(setPageTitle(value));
-    if (value?.title) {
-      document.title = `${import.meta.env.VITE_APP_NAME} | ${value?.title}`;
+    if (value?.documentTitle) {
+      document.title = `${import.meta.env.VITE_APP_NAME} | ${value?.documentTitle}`;
     }
 
     return () => {

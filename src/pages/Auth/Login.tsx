@@ -1,5 +1,5 @@
 import FormInput from "~/components/Custom/FormInput";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthLoginSchema } from "~/validation";

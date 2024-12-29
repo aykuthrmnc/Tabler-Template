@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { TbArrowLeft } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const Error500 = ({ isLayout = false }: { isLayout?: boolean }) => {
   return (

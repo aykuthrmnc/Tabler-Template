@@ -1,5 +1,5 @@
 import { lazy, memo, Suspense } from "react";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
 import ErrorBoundary from "~/components/Custom/ErrorBoundary";
 import Loader from "~/components/Loader";
 import { Route } from "~/types";

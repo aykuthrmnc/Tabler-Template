@@ -1,5 +1,5 @@
 import { Card, Col, Container, ListGroup, Row } from "react-bootstrap";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router";
 
 const Settings = () => {
   const tabs = [

@@ -15,7 +15,7 @@ const Loader = ({
             {showLogo && (
               <div className="mb-3">
                 <div className="navbar-brand navbar-brand-autodark">
-                  <img height="36" src={import.meta.env.VITE_APP_ICON} alt="" />
+                  <img height="36" src={import.meta.env.VITE_APP_ICON} alt={import.meta.env.VITE_APP_NAME} />
                 </div>
               </div>
             )}

@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import FormInput from "~/components/Custom/FormInput";
 import { useQueryParams } from "~/hooks";
 import { AuthResetPasswordSchema } from "~/validation";

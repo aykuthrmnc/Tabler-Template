@@ -1,6 +1,6 @@
 import { Card, Col, Dropdown, ListGroup, Row } from "react-bootstrap";
 import { TbBell, TbStar } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const HeaderNotification = () => {
   return (
