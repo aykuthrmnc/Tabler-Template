@@ -2,15 +2,17 @@ const Loader = ({
   title = "Yükleniyor",
   showLogo = false,
   minHeight,
+  maxWidth,
 }: {
   title?: string;
   showLogo?: boolean;
   minHeight?: string;
+  maxWidth?: string;
 }) => {
   return (
     <div className="d-flex flex-column justify-content-center flex-fill">
-      <div className="page page-center" style={{ minHeight: minHeight }}>
-        <div className="container container-slim py-4">
+      <div className="page page-center" style={{ minHeight }}>
+        <div className="container container-slim py-4" style={{ maxWidth }}>
           <div className="text-center">
             {showLogo && (
               <div className="mb-3">

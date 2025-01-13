@@ -1221,7 +1221,7 @@ const ReactDropZone = ({
   id,
   name,
   label,
-  className = "dropzone",
+  className,
   classNameLabel,
   classNameContainer,
   classNameFile,
@@ -1263,7 +1263,7 @@ const ReactDropZone = ({
           {({ getRootProps, getInputProps, isFocused, isDragAccept, isDragReject }) => (
             <div
               {...getRootProps({
-                className: classNames(className, {
+                className: classNames("dropzone", className, {
                   isFocused: isFocused,
                   isAccept: isDragAccept,
                   isReject: isDragReject,
@@ -1446,125 +1446,3 @@ FormInput.Counter = Counter;
 FormInput.Custom = Custom;
 
 export default FormInput;
-
-// const Control = ({
-//   as,
-//   id,
-//   name,
-//   label,
-//   type = "text",
-//   className,
-//   classNameLabel,
-//   classNameSearch,
-//   classNamePassword,
-//   classNameContainer,
-//   required,
-//   searchIcon,
-//   showPasswordButton = false,
-//   register,
-//   errors,
-//   hideErrorMessage,
-//   ...props
-// }: FormInputControlProps) => {
-//   const [inputType, setInputType] = useState(type);
-
-//   return (
-//     <Form.Group className={classNameContainer}>
-//       {label && (
-//         <Form.Label className={classNameLabel} htmlFor={id}>
-//           {label} {required && <span className="text-danger">*</span>}
-//         </Form.Label>
-//       )}
-//       <div className="position-relative h-100">
-//         {type === "search" && (
-//           <div className={classNames(classNameSearch, "pe-none position-absolute top-0 bottom-0 d-flex align-items-center ps-2")}>
-//             {searchIcon ?? <FaSearch />}
-//           </div>
-//         )}
-//         <Form.Control
-//           as={as}
-//           id={id}
-//           name={name}
-//           type={inputType}
-//           className={classNames(className, {
-//             "ps-4": type === "search",
-//           })}
-//           style={{ paddingRight: showPasswordButton ? "2.5rem" : undefined }}
-//           isInvalid={name.includes(".") ? name.split(".").reduce((x, y) => x?.[y], errors) : errors?.[name] ? true : false}
-//           {...(name && register?.(name))}
-//           {...props}
-//         />
-//         {type === "password" && showPasswordButton && (
-//           <button
-//             type="button"
-//             title={inputType === "password" ? "Göster" : "Gizle"}
-//             onClick={() => setInputType(inputType === "password" ? "text" : "password")}
-//             // 'border-0 bg-transparent position-absolute top-0 bottom-0 end-0 d-flex align-items-center px-2 text-reset'
-//             className={classNames(
-//               classNamePassword,
-//               "position-absolute top-0 bottom-0 end-0 d-flex align-items-center border-0 bg-transparent link-secondary pe-3"
-//             )}
-//           >
-//             {inputType === "password" ? <TbEye size="20" /> : <TbEyeClosed size="20" />}
-//           </button>
-//         )}
-//       </div>
-
-//       {!hideErrorMessage && errors && (
-//         <ErrorMessage errors={errors} name={name} render={({ message }: any) => <div className="d-block invalid-feedback">{message}</div>} />
-//       )}
-//     </Form.Group>
-//   );
-// };
-
-// const Check2 = ({
-//   id,
-//   name,
-//   label,
-//   className,
-//   classNameLabel,
-//   classNameTitle,
-//   classNameContainer,
-//   classNameSubContainer,
-//   required,
-//   type,
-//   title,
-//   register,
-//   errors,
-//   hideErrorMessage,
-//   ...props
-// }: FormInputCheckProps) => (
-//   <Form.Group className={classNameContainer}>
-//     {label && (
-//       <Form.Label className={classNameLabel} htmlFor={id}>
-//         {label} {required && <span className="text-danger">*</span>}
-//       </Form.Label>
-//     )}
-//     <Form.Check className={classNameSubContainer} type={type}>
-//       <Form.Check.Input
-//         id={id}
-//         name={name}
-//         type={type != "switch" ? type : undefined}
-//         className={className}
-//         isInvalid={errors?.[name] ? true : false}
-//         {...(name &&
-//           register?.(name, {
-//             /* FOR BOOLEAN VALUE */
-//           }))}
-//         {...props}
-//       />
-//       {title && (
-//         <Form.Check.Label className={classNameTitle} htmlFor={id}>
-//           {title}
-//         </Form.Check.Label>
-//       )}
-//       {!hideErrorMessage && errors && (
-//         <ErrorMessage
-//           errors={errors}
-//           name={name}
-//           render={({ message }: any) => <Form.Control.Feedback type="invalid">{message}</Form.Control.Feedback>}
-//         />
-//       )}
-//     </Form.Check>
-//   </Form.Group>
-// );

@@ -36,6 +36,9 @@ const axiosBaseQuery =
         error: {
           status: err?.response?.status,
           data: err?.response?.data || err?.message,
+          // {
+          //   message: "Bir ağ hatası oluştu. Bu bir CORS sorunu veya internet bağlantısı sorunu olabilir.",
+          // })
         },
       };
     }

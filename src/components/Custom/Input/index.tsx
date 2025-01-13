@@ -837,7 +837,7 @@ const PhoneInput = ({
 const ReactDropZone = ({
   id,
   label,
-  className = "dropzone",
+  className,
   classNameLabel,
   classNameContainer,
   classNameFile,
@@ -868,7 +868,7 @@ const ReactDropZone = ({
       {({ getRootProps, getInputProps, isFocused, isDragAccept, isDragReject }) => (
         <div
           {...getRootProps({
-            className: classNames(className, {
+            className: classNames("dropzone", className, {
               isFocused: isFocused,
               isAccept: isDragAccept,
               isReject: isDragReject,

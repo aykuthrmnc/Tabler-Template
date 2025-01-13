@@ -7,8 +7,8 @@ import classNames from "classnames";
 import Input from "../Custom/Input";
 
 const Breadcrumbs = () => {
-  const { appSelector } = useRedux();
-  const pageTitle = appSelector((state: RootState) => state.pageTitle.pageTitle);
+  const { useSelector } = useRedux();
+  const pageTitle = useSelector((state: RootState) => state.pageTitle.pageTitle);
 
   return (
     <div className="page-header d-print-none">

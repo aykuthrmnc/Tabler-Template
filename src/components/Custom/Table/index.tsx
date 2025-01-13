@@ -603,11 +603,10 @@ const Table = ({
                       >
                         {editable && tableKey === key && item?.editable != false
                           ? componentMap(item, data)
-                          : item?.valueGetter?.(data) ??
+                          : (item?.valueGetter?.(data) ??
                             data?.[item?.key]?.label ??
                             data?.[item?.key]?.value ??
-                            data?.[item?.key] ??
-                            item?.placeholder}
+                            (data?.[item?.key] || item?.placeholder))}
                       </td>
                     ))}
                     {customFields?.map((item, index: number) => (
@@ -729,7 +728,7 @@ const Table = ({
               </Form.Select>
             </div>
           )}
-          {pagination?.totalPages && (
+          {!!pagination?.totalPages && (
             <Pagination className="ms-lg-auto mb-0">
               <Pagination.Prev
                 linkClassName="shadow-none"

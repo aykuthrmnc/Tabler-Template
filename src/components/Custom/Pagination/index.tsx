@@ -8,9 +8,9 @@ const DynaPagination = ({
 }: {
   pagination: {
     currentPage: number;
-    totalCount: number;
     totalPages: number;
-    pageSize: number;
+    totalCount?: number;
+    pageSize?: number;
   };
   firstLastVisible?: boolean;
   size?: "sm" | "lg";

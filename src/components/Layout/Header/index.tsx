@@ -22,9 +22,9 @@ const NavbarUserContent = ({
   hideProfileMenu?: boolean;
   t?: (x: string) => string;
 }) => {
-  const { appSelector } = useRedux();
-  const user = appSelector((state: RootState) => state.auth.user);
-  // const { theme } = appSelector((state: RootState) => state.theme);
+  const { useSelector } = useRedux();
+  const user = useSelector((state: RootState) => state.auth.user);
+  // const { theme } = useSelector((state: RootState) => state.theme);
 
   return (
     <Nav
@@ -87,15 +87,15 @@ const NavbarUserContent = ({
 
 const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: boolean }) => {
   const VITE_SHOW_MENU = import.meta.env.VITE_SHOW_MENU !== "false";
-  const { appSelector } = useRedux();
-  const { color, position, type, verticalLocation } = appSelector((state: RootState) => state.theme);
+  const { useSelector } = useRedux();
+  const { color, position, type, verticalLocation } = useSelector((state: RootState) => state.theme);
   const searchForm = useForm();
   const searchSubmit = (values: any) => {
     console.log(values);
   };
 
   //! ROLE MANAGEMENT
-  const userRoles = appSelector((state: RootState) => state.auth.user?.[import.meta.env.VITE_AUTH_ROLE_NAME]);
+  const userRoles = useSelector((state: RootState) => state.auth.user?.[import.meta.env.VITE_AUTH_ROLE_NAME]);
   const filterMenuByRoles = (menu: MenuItemTypes[], role?: string | string[]): MenuItemTypes[] => {
     if (role) {
       return menu

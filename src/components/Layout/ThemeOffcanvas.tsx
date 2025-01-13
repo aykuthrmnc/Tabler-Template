@@ -26,8 +26,8 @@ import { toast } from "react-toastify";
 import { getThemeHandle } from "~/utils/storeHandle";
 
 const ThemeOffcanvas = () => {
-  const { dispatch, appSelector } = useRedux();
-  const { color, languageMode, position, theme, type, width, verticalLocation, settingMenuShow } = appSelector(
+  const { dispatch, useSelector } = useRedux();
+  const { color, languageMode, position, theme, type, width, verticalLocation, settingMenuShow } = useSelector(
     (state: RootState) => state.theme,
   );
   const { register, handleSubmit } = useForm();
