@@ -556,7 +556,13 @@ const Table = ({
               ))}
               {customFields?.map((item: any, index: number) => (
                 <th key={index} style={{ width: "1%", minWidth: "1%" }}>
-                  {item?.header}
+                  <div
+                    className={classNames("d-flex align-items-center gap-2 user-select-none", {
+                      "justify-content-center": item?.center,
+                    })}
+                  >
+                    {item?.header}
+                  </div>
                 </th>
               ))}
               {editable && <th style={{ width: "1%", minWidth: "1%" }} />}
@@ -620,7 +626,8 @@ const Table = ({
                             )}
                             onClick={() => item?.onClick?.(data)}
                           >
-                            {item?.icon ?? item?.text}
+                            {(typeof item?.icon == "function" ? item?.icon?.(data) : item?.icon) ??
+                              (typeof item?.text == "function" ? item?.text?.(data) : item?.text)}
                           </button>
                         )}
                       </td>

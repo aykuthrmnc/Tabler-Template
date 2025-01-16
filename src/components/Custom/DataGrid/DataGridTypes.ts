@@ -33,8 +33,9 @@ export interface DataGridObject {
   form?: any;
   customFields?: {
     header?: string;
-    text?: string;
-    icon?: any;
+    text?: ((e: any) => any) | string;
+    icon?: ((e: any) => any) | any;
+    center?: boolean;
     className?: string;
     onClick?: (e: any) => any;
   }[];

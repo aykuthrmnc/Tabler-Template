@@ -10,6 +10,7 @@ export interface Route extends NonIndexRouteObject {
   layout?: boolean;
   name?: string;
   returnPath?: string;
+  userType?: "user" | "admin" | undefined;
   roles?: string[];
 }
 

@@ -249,9 +249,12 @@ export interface InputDropZoneProps extends DropzoneProps {
   classNameLabel?: string;
   classNameContainer?: string;
   classNameFile?: string;
-  placeholder?: string;
+  classNameFileContainer?: string;
+  classNameFileSubContainer?: string;
+  placeholder?: any;
   required?: boolean;
-  acceptedFiles?: any;
+  fileShowType?: "image" | "icon" | null;
+  accept?: any;
   value?: any;
   onChange?: (e: any) => any;
 }

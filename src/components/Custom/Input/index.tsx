@@ -38,6 +38,7 @@ import {
 } from "./InputTypes";
 import axios from "axios";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import { FileIcon } from "react-file-icon";
 
 const styleProps = {
   color: "var(--tblr-body-color)",
@@ -841,14 +842,17 @@ const ReactDropZone = ({
   classNameLabel,
   classNameContainer,
   classNameFile,
+  classNameFileContainer,
+  classNameFileSubContainer,
   placeholder = "Dosyaları Seçin veya Sürükleyin",
   required,
   multiple = false,
-  acceptedFiles = {
-    "image/png": [".png"],
-    "image/jpeg": [".jpg", ".jpeg"],
-    "image/webp": [".webp"],
-  },
+  accept, // accept = {
+  //   "image/png": [".png"],
+  //   "image/jpeg": [".jpg", ".jpeg"],
+  //   "image/webp": [".webp"],
+  // },
+  fileShowType = "image",
   value,
   onChange,
 }: InputDropZoneProps) => (
@@ -860,7 +864,7 @@ const ReactDropZone = ({
     )}
     <BaseReactDropzone
       multiple={multiple}
-      accept={acceptedFiles}
+      accept={accept}
       onDrop={(files: any) => {
         onChange?.(files?.map((file: any) => Object.assign(file, { preview: URL.createObjectURL(file) })));
       }}
@@ -877,21 +881,39 @@ const ReactDropZone = ({
         >
           <input {...getInputProps({ id })} />
           {value?.length ? (
-            <>
-              <aside className="dropzone-showcase">
-                {value?.map((file: any, key: number) => (
-                  <div className="dropzone-showcase-item" key={key}>
-                    <img
-                      alt={file.name}
-                      src={file.preview}
-                      className={classNameFile}
-                      onLoad={() => URL.revokeObjectURL(file.preview)}
-                    />
-                  </div>
-                ))}
-              </aside>
-              {value.length > 1 && <div>{value.length} dosya eklendi.</div>}
-            </>
+            fileShowType ? (
+              <>
+                <aside className={classNames("dropzone-showcase", classNameFileContainer)}>
+                  {value?.map((file: any, key: number) => (
+                    <div className={classNames("dropzone-showcase-item", classNameFileSubContainer)} key={key}>
+                      {fileShowType === "image" && (
+                        <img
+                          alt={file.name}
+                          src={file.preview}
+                          className={classNameFile}
+                          onLoad={() => URL.revokeObjectURL(file.preview)}
+                        />
+                      )}
+                      {fileShowType === "icon" && (
+                        <>
+                          <div className="w-5">
+                            <FileIcon
+                              extension={file?.name?.substring(file?.name?.lastIndexOf(".") + 1)}
+                              labelColor="tomato"
+                              labelUppercase
+                            />
+                          </div>
+                          <span>{file?.name}</span>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </aside>
+                {value?.length > 1 && <div>{value?.length} dosya eklendi.</div>}
+              </>
+            ) : (
+              value?.length && <div>{value?.length} dosya eklendi.</div>
+            )
           ) : (
             <div>{placeholder}</div>
           )}

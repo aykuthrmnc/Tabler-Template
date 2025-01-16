@@ -322,11 +322,12 @@ export const secondScreen = () => {
 export const downloadFile = (
   e: any,
   fileName: string = `${import.meta.env.VITE_APP_NAME || "download"}_${moment().valueOf()}`,
+  extension?: string,
 ) => {
   const url = window.URL.createObjectURL(e);
   const link = document.createElement("a");
   link.href = url;
-  link.setAttribute("download", fileName);
+  link.setAttribute("download", extension ? `${fileName}.${extension}` : fileName);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

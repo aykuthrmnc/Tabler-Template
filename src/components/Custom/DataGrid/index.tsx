@@ -621,7 +621,13 @@ const DataGrid = ({
               ))}
               {customFields?.map((item: any, index: number) => (
                 <th key={index} style={{ width: "1%", minWidth: "1%" }}>
-                  {item?.header}
+                  <div
+                    className={classNames("d-flex align-items-center gap-2 user-select-none", {
+                      "justify-content-center": item?.center,
+                    })}
+                  >
+                    {item?.header}
+                  </div>
                 </th>
               ))}
               {deletable && <th style={{ width: "1%", minWidth: "1%" }}></th>}
@@ -642,7 +648,7 @@ const DataGrid = ({
                   <div className="d-flex flex-column align-items-center">
                     <div className="w-25">{!hideNoDataIcon && (noDataIcon ?? <NoData />)}</div>
                     <h3 className="page-subtitle text-center">
-                      {fields?.length === 0 ? emptyMessage : error ?? "Bir hata oluştu..."}
+                      {fields?.length === 0 ? emptyMessage : (error ?? "Bir hata oluştu...")}
                     </h3>
                   </div>
                 </td>
@@ -670,7 +676,8 @@ const DataGrid = ({
                         )}
                         onClick={() => item?.onClick?.(watch(`array.${key}`))}
                       >
-                        {item?.icon ?? item?.text}
+                        {(typeof item?.icon == "function" ? item?.icon?.(data) : item?.icon) ??
+                          (typeof item?.text == "function" ? item?.text?.(data) : item?.text)}
                       </button>
                     </td>
                   ))}

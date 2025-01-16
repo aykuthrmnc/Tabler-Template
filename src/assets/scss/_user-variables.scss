@@ -9,12 +9,17 @@
 // React-Daterange-Picker
 @import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
 @import "react-calendar/dist/Calendar.css";
-// React-Leaflet
-// @import "leaflet/dist/leaflet.css";
+// React-Pdf
+@import "react-pdf/dist/Page/AnnotationLayer.css";
+@import "react-pdf/dist/Page/TextLayer.css";
 // RC Time Picker
 @import "rc-time-picker/assets/index.css";
 // SweetAlert2
 @import "sweetalert2/src/sweetalert2.scss";
+// React-Leaflet
+// @import "leaflet/dist/leaflet.css";
+// FancyBox
+// @import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 .color-inherit {
   color: inherit;
@@ -48,4 +53,44 @@
 //! DROPDOWN
 .dropdown-menu.dropdown-menu-grid.show {
   display: grid;
+}
+
+//! REACT-PDF
+.react-pdf__Document:hover .page-controls {
+  opacity: 1;
+}
+.page-controls {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  background: #fff;
+  opacity: 0;
+  transform: translate(-50%);
+  transition: opacity ease-in-out 0.2s;
+  box-shadow: 0 30px 40px 0 rgba(16, 36, 94, 0.2);
+  border-radius: 4px;
+  z-index: 2;
+  color: rgb(var(--tblr-dark-rgb)) !important;
+  button {
+    width: 44px;
+    height: 44px;
+    color: inherit;
+    background: #fff;
+    border: 0;
+    font: inherit;
+    font-size: 0.8em;
+    border-radius: 4px;
+  }
+  button:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  span {
+    color: inherit;
+    font: inherit;
+  }
+  button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }

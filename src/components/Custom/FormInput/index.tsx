@@ -1225,8 +1225,8 @@ const ReactDropZone = ({
   classNameLabel,
   classNameContainer,
   classNameFile,
-  classNameFileContainer = "dropzone-showcase",
-  classNameFileSubContainer = "dropzone-showcase-item",
+  classNameFileContainer,
+  classNameFileSubContainer,
   placeholder = "Dosyaları Seçin veya Sürükleyin",
   required,
   control,
@@ -1274,9 +1274,9 @@ const ReactDropZone = ({
               {value?.length ? (
                 fileShowType ? (
                   <>
-                    <aside className={classNameFileContainer}>
+                    <aside className={classNames("dropzone-showcase", classNameFileContainer)}>
                       {value?.map((file: any, key: number) => (
-                        <div className={classNameFileSubContainer} key={key}>
+                        <div className={classNames("dropzone-showcase-item", classNameFileSubContainer)} key={key}>
                           {fileShowType === "image" && (
                             <img
                               alt={file.name}
