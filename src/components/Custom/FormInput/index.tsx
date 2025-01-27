@@ -15,7 +15,7 @@ import BaseReactDatetime from "react-datetime";
 import BaseReactDropzone from "react-dropzone";
 import BasePhoneInput from "react-phone-number-input";
 import phoneInputTr from "react-phone-number-input/locale/tr.json";
-import { FileIcon } from "react-file-icon";
+import { DefaultExtensionType, FileIcon, defaultStyles } from "react-file-icon";
 import { TbEye, TbEyeClosed, TbPlus, TbMinus, TbSearch, TbX } from "react-icons/tb";
 import { NumericFormat as BaseNumericFormat, PatternFormat as BasePatternFormat } from "react-number-format";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
@@ -1289,9 +1289,8 @@ const ReactDropZone = ({
                             <>
                               <div className="w-5">
                                 <FileIcon
-                                  extension={file?.name?.substring(file?.name?.lastIndexOf(".") + 1)}
-                                  labelColor="tomato"
-                                  labelUppercase
+                                  extension={(file?.name?.split(".").pop() as DefaultExtensionType) || "pdf"}
+                                  {...defaultStyles.docx}
                                 />
                               </div>
                               <span>{file?.name}</span>

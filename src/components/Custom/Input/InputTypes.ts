@@ -1,4 +1,4 @@
-import React, { HTMLInputTypeAttribute, InputHTMLAttributes } from "react";
+import { HTMLInputTypeAttribute, InputHTMLAttributes, ReactElement } from "react";
 import { DatetimepickerProps } from "react-datetime";
 // import { Control as RHFControl } from "react-hook-form";
 import { NumericFormatProps, PatternFormatProps } from "react-number-format";
@@ -66,7 +66,7 @@ export interface InputSelectProps extends FormSelectProps {
   label?: any;
   classNameLabel?: string;
   classNameContainer?: string;
-  // children: React.ReactNode;
+  // children: ReactNode;
   value?: any;
   onChange?: (e: any) => any;
   [x: string]: any;
@@ -276,7 +276,7 @@ export interface InputCounterProps {
 }
 
 export interface InputCustomProps {
-  as: React.ReactElement;
+  as: ReactElement;
   id?: string;
   name?: string;
   label?: any;

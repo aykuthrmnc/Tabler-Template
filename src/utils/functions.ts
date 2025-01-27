@@ -404,9 +404,35 @@ export const caseTranslator = {
 
 // CLIPBOARD
 export const copy = (value: string, text = "Kod kopyalandı.") => {
-  navigator.clipboard.writeText(value).then(() => {
-    toast.success(text);
-  });
+  navigator.clipboard
+    .writeText(value)
+    .then(() => {
+      toast.success(text);
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "BAŞARILI",
+      //   html: `<div>${text}</div>`,
+      //   customClass: { popup: "card" },
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   // confirmButtonText: "TAMAM",
+      //   // confirmButtonColor: "var(--tblr-primary,#5b9bd5)",
+      //   // allowOutsideClick: false,
+      // });
+    })
+    .catch(() => {
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "HATA",
+      //   html: `<div>${errText}</div>`,
+      //   customClass: { popup: "card" },
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   // confirmButtonText: "TAMAM",
+      //   // confirmButtonColor: "var(--tblr-primary,#5b9bd5)",
+      //   // allowOutsideClick: false,
+      // });
+    });
 };
 
 //! CANVAS

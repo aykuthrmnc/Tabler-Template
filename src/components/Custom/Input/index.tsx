@@ -38,7 +38,7 @@ import {
 } from "./InputTypes";
 import axios from "axios";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
-import { FileIcon } from "react-file-icon";
+import { DefaultExtensionType, defaultStyles, FileIcon } from "react-file-icon";
 
 const styleProps = {
   color: "var(--tblr-body-color)",
@@ -898,9 +898,8 @@ const ReactDropZone = ({
                         <>
                           <div className="w-5">
                             <FileIcon
-                              extension={file?.name?.substring(file?.name?.lastIndexOf(".") + 1)}
-                              labelColor="tomato"
-                              labelUppercase
+                              extension={(file?.name?.split(".").pop() as DefaultExtensionType) || "pdf"}
+                              {...defaultStyles.docx}
                             />
                           </div>
                           <span>{file?.name}</span>
