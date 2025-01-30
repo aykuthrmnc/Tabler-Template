@@ -567,9 +567,14 @@ const ReactSelectAsyncUrl = ({
       return new Promise((resolve) => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-          axios(optionsUrl?.(e), { method: "get", ...optionConfig?.(e) })
-            .then((res: any) => resolve(getOptionValues?.(res?.data) || res?.data))
-            .catch(() => resolve([]));
+          const url = optionsUrl?.(e);
+          if (url) {
+            axios(url, { method: "get", ...optionConfig?.(e) })
+              .then((res: any) => resolve(getOptionValues?.(res?.data) || res?.data))
+              .catch(() => resolve([]));
+          } else {
+            resolve([]);
+          }
         }, 700);
       });
     }

@@ -148,7 +148,7 @@ export interface InputReactSelectAsyncUrlProps extends ReactSelectAsyncProps<any
   classNameLabel?: string;
   classNameContainer?: string;
   getOptionValues: (e: any) => any;
-  optionsUrl: (e: string) => string;
+  optionsUrl: (e: string) => string | undefined;
   optionConfig?: (e: string) => AxiosRequestConfig;
   isValidOptionsUrl?: boolean | ((e: string) => boolean);
   value?: any;

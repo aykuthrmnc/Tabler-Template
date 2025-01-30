@@ -173,7 +173,7 @@ export interface FormInputReactSelectAsyncUrlProps extends ReactSelectAsyncProps
   classNameLabel?: string;
   classNameContainer?: string;
   getOptionValues: (e: any) => any;
-  optionsUrl: (e: string) => string;
+  optionsUrl: (e: string) => string | undefined;
   optionConfig?: (e: string) => AxiosRequestConfig;
   isValidOptionsUrl?: boolean | ((e: string) => boolean);
   control?: Control<any, any>;
@@ -311,7 +311,7 @@ export interface FormInputDropZoneProps extends DropzoneProps {
   classNameFile?: string;
   classNameFileContainer?: string;
   classNameFileSubContainer?: string;
-  placeholder?: string;
+  placeholder?: any;
   required?: boolean;
   fileShowType?: "image" | "icon" | null;
   control?: Control<any, any>;
