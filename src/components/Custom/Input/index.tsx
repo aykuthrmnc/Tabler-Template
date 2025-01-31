@@ -870,8 +870,8 @@ const ReactDropZone = ({
     <BaseReactDropzone
       multiple={multiple}
       accept={accept}
-      onDrop={(files: any) => {
-        onChange?.(files?.map((file: any) => Object.assign(file, { preview: URL.createObjectURL(file) })));
+      onDrop={(acceptedFiles: any) => {
+        onChange?.(acceptedFiles?.map((file: any) => Object.assign(file, { preview: URL.createObjectURL(file) })));
       }}
     >
       {({ getRootProps, getInputProps, isFocused, isDragAccept, isDragReject }) => (
@@ -892,12 +892,22 @@ const ReactDropZone = ({
                   {value?.map((file: any, key: number) => (
                     <div className={classNames("dropzone-showcase-item", classNameFileSubContainer)} key={key}>
                       {fileShowType === "image" && (
-                        <img
-                          alt={file.name}
-                          src={file.preview}
-                          className={classNameFile}
-                          onLoad={() => URL.revokeObjectURL(file.preview)}
-                        />
+                        <>
+                          <img
+                            alt={file.name}
+                            src={file.preview}
+                            className={classNameFile}
+                            onLoad={() => URL.revokeObjectURL(file.preview)}
+                            // onClick={(e) => {
+                            //   value.splice(key, 1);
+                            //   onChange(...value);
+                            //   e.stopPropagation();
+                            // }}
+                          />
+                          {/* <div className="text-center">
+                             <span>{`(${(file.size / 1024).toFixed(2)} KB)`}</span>
+                           </div> */}
+                        </>
                       )}
                       {fileShowType === "icon" && (
                         <>
