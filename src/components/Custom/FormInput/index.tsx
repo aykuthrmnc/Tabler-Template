@@ -42,7 +42,6 @@ import {
   FormInputDateRangeProps,
   FormInputTimePickerProps,
 } from "./FormInputTypes";
-
 import BaseTimePicker from "rc-time-picker";
 
 const styleProps = {
@@ -1009,52 +1008,63 @@ const DateTime = ({
   dateChangeFormat = "YYYY-MM-DD",
   t = (x: string) => x,
   ...props
-}: FormInputDateTimeProps) => (
-  <Controller
-    control={control}
-    name={name}
-    render={({ field: { onBlur, onChange, ref, value }, fieldState: { invalid, error } }) => (
-      <Form.Group className={classNameContainer}>
-        {label && (
-          <Form.Label className={classNameLabel} htmlFor={id}>
-            {label} {required && <span className="text-danger">*</span>}
-          </Form.Label>
-        )}
-        <BaseReactDatetime
-          className={classNames(classNameSubContainer, {
-            "is-invalid": invalid,
-          })}
-          dateFormat={dateFormat}
-          timeFormat={timeFormat}
-          inputProps={{
-            id,
-            placeholder,
-            disabled,
-            className: classNames(className, "form-control", {
+}: FormInputDateTimeProps) => {
+  const [inputValue, setInputValue] = useState<string>("");
+
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={({ field: { onBlur, onChange, ref, value }, fieldState: { invalid, error } }) => (
+        <Form.Group className={classNameContainer}>
+          {label && (
+            <Form.Label className={classNameLabel} htmlFor={id}>
+              {label} {required && <span className="text-danger">*</span>}
+            </Form.Label>
+          )}
+          <BaseReactDatetime
+            className={classNames(classNameSubContainer, {
               "is-invalid": invalid,
-            }),
-            onBlur,
-            value: value ? moment(value).format(timeFormat ? dateFormat + " " + timeFormat : dateFormat) : "",
-          }}
-          locale="tr-TR"
-          closeOnSelect
-          value={value ? moment(value).format(timeFormat ? dateFormat + " " + timeFormat : dateFormat) : ""}
-          onChange={(e: any) => {
-            onChange(typeof e == "object" ? moment(e).format(dateChangeFormat) : "");
-            onChangeValue?.(typeof e == "object" ? moment(e).format(dateChangeFormat) : "");
-          }}
-          ref={ref}
-          {...props}
-        />
-        {!hideErrorMessage && error && (
-          <div className="d-block invalid-feedback">
-            {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
-          </div>
-        )}
-      </Form.Group>
-    )}
-  />
-);
+            })}
+            dateFormat={dateFormat}
+            timeFormat={timeFormat}
+            // renderInput={(props) => (
+            //   <BasePatternFormat
+            //     {...props}
+            //     format={(timeFormat ? dateFormat + " " + timeFormat : dateFormat).replace(/[a-zA-Z]/g, "#")}
+            //   />
+            // )}
+            inputProps={{
+              id,
+              placeholder,
+              disabled,
+              className: classNames(className, "form-control", {
+                "is-invalid": invalid,
+              }),
+              onBlur,
+              // value: value ? moment(value).format(timeFormat ? dateFormat + " " + timeFormat : dateFormat) : inputValue,
+            }}
+            locale="tr-TR"
+            closeOnSelect
+            value={value ? moment(value).format(timeFormat ? dateFormat + " " + timeFormat : dateFormat) : inputValue}
+            onChange={(e: any) => {
+              setInputValue(e);
+              onChange(moment.isMoment(e) ? moment(e).format(dateChangeFormat) : "");
+              onChangeValue?.(moment.isMoment(e) ? moment(e).format(dateChangeFormat) : "");
+            }}
+            ref={ref}
+            {...props}
+          />
+          {!hideErrorMessage && error && (
+            <div className="d-block invalid-feedback">
+              {Array.isArray(error?.message) ? error?.message?.map((msg) => <div>{t(msg)}</div>) : t(error?.message!)}
+            </div>
+          )}
+        </Form.Group>
+      )}
+    />
+  );
+};
 
 const DateRange = ({
   id,
