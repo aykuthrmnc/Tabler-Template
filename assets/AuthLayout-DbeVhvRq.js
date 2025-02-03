@@ -1,0 +1,1 @@
+import{u,j as e,N as n,O as o}from"./index-CYvwjxWG.js";import{C as i}from"./Container-CbLuQGB_.js";const p=({route:s="/",userType:r="user"})=>u(a=>{var t;return(t=a.auth)==null?void 0:t[r]})?e.jsx(n,{to:s,replace:!0}):e.jsx("div",{className:"page page-center min-vh-100",children:e.jsx(i,{className:"container-tight py-4",children:e.jsx(o,{})})});export{p as default};

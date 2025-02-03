@@ -1,0 +1,1 @@
+import{H as u,u as n,j as i,N as c}from"./index-CYvwjxWG.js";const m=({children:e,route:r="/login",userType:s="user"})=>{const a=u();return n(o=>{var t;return(t=o.auth)==null?void 0:t[s]})?e:i.jsx(c,{to:r,replace:!0,state:{return_url:a.pathname}})};export{m as default};
