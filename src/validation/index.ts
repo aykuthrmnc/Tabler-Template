@@ -120,3 +120,23 @@ export const UserChangePasswordSchema = Yup.object().shape({
 //         .default(undefined)
 //         .required(),
 //   })
+
+export const PersonSchema = Yup.object().shape({
+  id: Yup.number().required(),
+  isim: Yup.string().required(),
+  yas: Yup.number().required(),
+  meslek: Yup.object()
+    .shape({
+      label: Yup.string(),
+      value: Yup.string(),
+    })
+    .default(null)
+    .nullable(),
+  email: Yup.string().email().required(),
+  telefon: Yup.string().nullable(),
+  sehir: Yup.string().nullable(),
+  ilce: Yup.string().nullable(),
+  mahalle: Yup.string().nullable(),
+  sokak: Yup.string().nullable(),
+  postaKodu: Yup.string().nullable(),
+});

@@ -1,4 +1,5 @@
 {
+  "homepage": "https://aykuthrmnc.github.io/Tabler-Template",
   "name": "tabler-template",
   "private": true,
   "version": "0.0.0",
@@ -12,7 +13,9 @@
     "preview": "vite preview",
     "scan-language": "pnpx i18next-scanner",
     "publish": "node scripts/commit-and-push.js",
-    "check-packages": "npx depcheck"
+    "check-packages": "npx depcheck",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
@@ -79,6 +82,7 @@
     "eslint": "^9.4.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "gh-pages": "^6.3.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5",
     "vite": "^5.2.12"

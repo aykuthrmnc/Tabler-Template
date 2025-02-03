@@ -21,9 +21,9 @@
   }
 
   // // AFTER
-  // & > tbody > tr > td {
-  //   height: 50px !important;
-  // }
+  & > tbody > tr > td {
+    height: 50px !important;
+  }
 
   & > tbody > tr > td.editableTd {
     position: relative;

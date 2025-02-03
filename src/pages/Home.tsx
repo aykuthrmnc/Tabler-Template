@@ -1,22 +1,34 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router";
 
 const Home = () => {
   return (
-    <>
-      <div className="page-header d-print-none">
-        <Container fluid="xl">
-          <Row className="g-2 align-items-center">
-            <Col>
-              <h2 className="page-title">Home</h2>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-
-      <div className="page-body">
-        <Container fluid="xl"></Container>
-      </div>
-    </>
+    <div className="page-body">
+      <Container fluid="xl">
+        <Row xs="2" className="g-2">
+          <Col>
+            <Card as={Link} to="/table">
+              <Card.Body>
+                <div className="text-center">
+                  <h2>Table</h2>
+                  <p>Table component with custom fields and search</p>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col>
+            <Card as={Link} to="/datagrid">
+              <Card.Body>
+                <div className="text-center">
+                  <h2>DataGrid</h2>
+                  <p>DataGrid component with custom fields and search</p>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 export default Home;

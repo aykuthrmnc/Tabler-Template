@@ -17,6 +17,9 @@ const Register = lazy(() => import("~/pages/Auth/Register"));
 
 // HOME
 const Home = lazy(() => import("~/pages/Home"));
+const TablePage = lazy(() => import("~/pages/Table"));
+const DataGridPage = lazy(() => import("~/pages/DataGrid"));
+const Person = lazy(() => import("~/pages/Person"));
 // const Profile = lazy(() => import("~/pages/Profile"));
 
 // SETTING
@@ -34,7 +37,8 @@ import Error500 from "~/pages/Error/Error500";
 
 // MENUS
 import { MENU, UIMENU } from "~/constants/menu";
-import RoleBasedRoute from "./RoleBasedRoute";
+
+// import RoleBasedRoute from "./RoleBasedRoute";
 
 const UI = {
   Alerts: lazy(() => import("~/pages/UI/Interface/Alerts")),
@@ -122,6 +126,18 @@ const routes: Route[] = [
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "datagrid",
+        element: <DataGridPage />,
+      },
+      {
+        path: "table",
+        element: <TablePage />,
+      },
+      {
+        path: "person/:id",
+        element: <Person />,
       },
 
       // {
