@@ -25,6 +25,7 @@ export interface NoDataObject {
 export interface Auth {
   user?: any;
   admin?: any;
+  type: "user" | "admin";
 }
 
 //! THEME

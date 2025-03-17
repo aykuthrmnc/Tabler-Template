@@ -1,3 +1,7 @@
+import "moment/dist/locale/tr";
+import axios from "axios";
+import moment from "moment";
+import classNames from "classnames";
 import { cloneElement, useState } from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import BaseReactSelect, { StylesConfig } from "react-select";
@@ -9,9 +13,6 @@ import BaseReactDatetime from "react-datetime";
 import BaseReactDropzone from "react-dropzone";
 import BasePhoneInput from "react-phone-number-input";
 import phoneInputTr from "react-phone-number-input/locale/tr.json";
-import "moment/dist/locale/tr";
-import moment from "moment";
-import classNames from "classnames";
 import { TbEye, TbEyeClosed, TbMinus, TbPlus, TbSearch } from "react-icons/tb";
 import { NumericFormat as BaseNumericFormat, PatternFormat as BasePatternFormat } from "react-number-format";
 import {
@@ -36,7 +37,6 @@ import {
   InputCustomProps,
   InputDateRangeProps,
 } from "./InputTypes";
-import axios from "axios";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { DefaultExtensionType, defaultStyles, FileIcon } from "react-file-icon";
 
@@ -44,6 +44,8 @@ const styleProps = {
   color: "var(--tblr-body-color)",
   placeholderColor: "var(--tblr-gray-400)",
   backgroundColor: "var(--tblr-bg-forms)",
+  colorDisabled: "var(--tblr-gray-500)",
+  backgroundColorDisabled: "var(--tblr-bg-surface-secondary)",
   borderColor: "var(--tblr-border-color)",
   borderFocusColor: "#90b5e2",
   borderWidth: "var(--tblr-border-width)",
@@ -58,25 +60,25 @@ const styleProps = {
 };
 
 const styles: StylesConfig = {
-  input: (base: any) => ({
+  input: (base) => ({
     ...base,
     color: styleProps.color,
     paddingBlock: 0,
     margin: 0,
   }),
-  placeholder: (base: any) => ({
+  placeholder: (base) => ({
     ...base,
     color: styleProps.placeholderColor,
   }),
-  valueContainer: (base: any) => ({
+  valueContainer: (base) => ({
     ...base,
     paddingInlineStart: styleProps.paddingLeft,
     paddingBlock: styleProps.paddingY,
   }),
-  control: (base: any, { isFocused }: any) => ({
+  control: (base, { isFocused, isDisabled }) => ({
     ...base,
     color: styleProps.color,
-    backgroundColor: styleProps.backgroundColor,
+    backgroundColor: isDisabled ? styleProps.backgroundColorDisabled : styleProps.backgroundColor,
     fontSize: styleProps.fontSize,
     border: isFocused
       ? `${styleProps.borderWidth} solid ${styleProps.borderFocusColor}`
@@ -87,7 +89,7 @@ const styles: StylesConfig = {
     boxShadow: "none",
     transition: styleProps.transition,
   }),
-  menu: (base: any) => ({
+  menu: (base) => ({
     ...base,
     zIndex: 99,
     fontSize: styleProps.fontSize,
@@ -95,7 +97,7 @@ const styles: StylesConfig = {
     backgroundColor: styleProps.backgroundColor,
     border: `${styleProps.borderWidth} solid ${styleProps.borderColor}`,
   }),
-  option: (base: any, { isDisabled, isFocused, isSelected }: any) => ({
+  option: (base, { isDisabled, isFocused, isSelected }) => ({
     ...base,
     backgroundColor: isDisabled
       ? ""
@@ -118,20 +120,20 @@ const styles: StylesConfig = {
       color: styleProps.thirdColor,
     },
   }),
-  singleValue: (base: any) => ({
+  singleValue: (base, { isDisabled }) => ({
     ...base,
-    color: styleProps.color,
+    color: isDisabled ? styleProps.colorDisabled : styleProps.color,
   }),
-  multiValue: (base: any) => ({
+  multiValue: (base) => ({
     ...base,
     backgroundColor: "transparent",
   }),
-  multiValueLabel: (base: any) => ({
+  multiValueLabel: (base) => ({
     ...base,
     color: styleProps.thirdColor,
     backgroundColor: styleProps.primaryColor,
   }),
-  multiValueRemove: (base: any) => ({
+  multiValueRemove: (base) => ({
     ...base,
     color: styleProps.thirdColor,
     backgroundColor: styleProps.primaryColor,
@@ -733,6 +735,7 @@ const DateTime = ({
   classNameContainer,
   classNameSubContainer,
   placeholder = "Seçiniz",
+  disabled,
   required,
   dateFormat = "DD.MM.YYYY",
   timeFormat = false,
@@ -754,6 +757,7 @@ const DateTime = ({
       inputProps={{
         id,
         placeholder,
+        disabled,
         className: classNames(className, "form-control"),
       }}
       locale="tr-TR"

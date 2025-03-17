@@ -14,37 +14,55 @@
 // }
 
 #dynagrid {
-  @media (max-width: 767.98px) {
-    & > thead > tr > th {
-      min-width: 150px;
-    }
+  height: 0;
+  // @media (width <= 767.98px) {
+  & > thead > tr > th {
+    min-width: 150px;
   }
+  // }
 
-  // // AFTER
+  // & > thead > tr > th {
+  //   resize: horizontal;
+  //   overflow: hidden;
+  //   &::-webkit-resizer {
+  //     background-color: transparent;
+  //   }
+  //   & div {
+  //     width: inherit;
+  //     overflow: hidden;
+  //     text-overflow: ellipsis;
+  //     white-space: nowrap;
+  //   }
+  // }
+
+  // AFTER
   & > tbody > tr > td {
     height: 50px !important;
   }
 
   & > tbody > tr > td.editableTd {
     position: relative;
-    // padding: 0 !important;
+    padding: 0 !important;
     // height: 50px !important;
 
-    // padding-left: 1px !important;
-    // z-index: 999 !important;
-
     input {
+      border-width: 1px;
       transition: none;
       &:focus {
-        //   border: var(--bs-border-width) solid var(--bs-primary);
-        border: 1px solid #90caf9;
-        //   outline: 0;
+        border: var(--tblr-border-width) solid var(--tblr-primary);
+        // border: 1px solid #90caf9;
       }
     }
 
     .react-select > div {
-      border: inherit;
+      transition: none;
+      border-width: 1px;
+      border-color: transparent;
       background-color: inherit !important;
+
+      &.react-select__control--is-focused {
+        border: var(--tblr-border-width) solid var(--tblr-primary);
+      }
     }
 
     .PhoneInputInput {

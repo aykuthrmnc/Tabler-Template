@@ -1,10 +1,10 @@
 import { Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router";
-import { RootState } from "~/store";
+import { useRedux } from "~/hooks";
 
 const AuthLayout = ({ route = "/", userType = "user" }: { route?: string; userType?: "user" | "admin" }) => {
-  const user = useSelector((state: RootState) => state.auth?.[userType]);
+  const { useSelector } = useRedux();
+  const user = useSelector((state) => state.auth?.[userType]);
 
   if (user) {
     return <Navigate to={route} replace={true} />; // location.state?.return_url

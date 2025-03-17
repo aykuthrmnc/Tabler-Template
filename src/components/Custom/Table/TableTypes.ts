@@ -40,6 +40,7 @@ export interface TableObject {
     header?: string;
     text?: ((e: any) => any) | string;
     icon?: ((e: any) => any) | any;
+    tooltip?: ReactNode;
     center?: boolean;
     className?: string;
     onClick?: (e: any) => any;

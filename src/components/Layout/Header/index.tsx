@@ -1,12 +1,11 @@
 import classNames from "classnames";
 import { ReactNode } from "react";
-import { Col, Container, Dropdown, Form, Nav, Navbar, Row } from "react-bootstrap";
+import { Col, Container, Dropdown, Form, Nav, Navbar, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { TbAdjustments, TbLogout, TbSearch, TbUserCircle } from "react-icons/tb";
-import { Link } from "react-router";
+import { TbAdjustments, TbArrowLeft, TbLogout, TbSearch, TbUserCircle } from "react-icons/tb";
+import { Link, useNavigate } from "react-router";
 import HeaderMenu from "~/components/Layout/Header/Menu";
 import { useRedux } from "~/hooks";
-import { RootState } from "~/store";
 import { LayoutColor, LayoutPosition, LayoutType, LayoutVerticalLocation, MenuItemTypes } from "~/types";
 import { logoutUserHandle, setSettingMenuHandle } from "~/utils/storeHandle";
 // import languages from "~/locales/languages.json";
@@ -22,17 +21,25 @@ const NavbarUserContent = ({
   hideProfileMenu?: boolean;
   t?: (x: string) => string;
 }) => {
+  const navigate = useNavigate();
   const { useSelector } = useRedux();
-  const user = useSelector((state: RootState) => state.auth.user);
-  // const { theme } = useSelector((state: RootState) => state.theme);
+  const user = useSelector((state) => state.auth.user);
+  // const { theme } = useSelector((state) => state.theme);
 
   return (
     <Nav
-      className={classNames("flex-row order-md-last ms-auto gap-3", {
+      className={classNames("flex-row order-md-last gap-3 flex-fill justify-content-end", {
         "d-lg-none": hideProfileMenu,
         // "flex-wrap flex-grow-0 order-lg-last pb-lg-3 ps-lg-3": LayoutType.VERTICAL === type,
       })}
     >
+      {!!window.history?.state?.idx && (
+        <OverlayTrigger flip overlay={<Tooltip placement="bottom">Geri Git</Tooltip>}>
+          <Nav.Link className="me-lg-auto" onClick={() => navigate(-1)}>
+            <TbArrowLeft className="icon" />
+          </Nav.Link>
+        </OverlayTrigger>
+      )}
       {/* <div className="d-none d-md-flex">
         <Nav.Link className="p-0" onClick={() => setThemeHandle(theme === LayoutTheme.DARK ? LayoutTheme.LIGHT : LayoutTheme.DARK)}>
           {theme === LayoutTheme.DARK ? <TbSun className="icon" title={t("Açık Mod")} /> : <TbMoon className="icon" title={t("Koyu Mod")} />}
@@ -88,14 +95,14 @@ const NavbarUserContent = ({
 const Header = ({ MENU, isSearch = false }: { MENU: MenuItemTypes[]; isSearch?: boolean }) => {
   const VITE_SHOW_MENU = import.meta.env.VITE_SHOW_MENU !== "false";
   const { useSelector } = useRedux();
-  const { color, position, type, verticalLocation } = useSelector((state: RootState) => state.theme);
+  const { color, position, type, verticalLocation } = useSelector((state) => state.theme);
   const searchForm = useForm();
   const searchSubmit = (values: any) => {
     console.log(values);
   };
 
   //! ROLE MANAGEMENT
-  const userRoles = useSelector((state: RootState) => state.auth.user?.[import.meta.env.VITE_AUTH_ROLE_NAME]);
+  const userRoles = useSelector((state) => state.auth.user?.[import.meta.env.VITE_AUTH_ROLE_NAME]);
   const filterMenuByRoles = (menu: MenuItemTypes[], role?: string | string[]): MenuItemTypes[] => {
     if (role) {
       return menu

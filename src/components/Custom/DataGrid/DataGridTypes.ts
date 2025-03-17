@@ -3,14 +3,7 @@ import { HTMLInputTypeAttribute, ReactNode } from "react";
 //! DATAGRID
 export interface DataGridObject {
   title?: string;
-  head: (
-    | DataGridHeadObject
-    | DataGridHeadReactSelectObject
-    | DataGridHeadReactSelectAsyncUrlObject
-    | DataGridHeadNumericFormatObject
-    | DataGridHeadPatternFormatObject
-    | DataGridHeadDateTimeObject
-  )[];
+  head: DataGridHeadType[];
   body: (DataGridBodyObject | any)[];
   searchable?: boolean;
   asyncSearchable?: boolean;
@@ -43,7 +36,15 @@ export interface DataGridObject {
   // [x: string]: any;
 }
 
-interface DataGridHeadObject {
+export type DataGridHeadType =
+  | DataGridHeadObject
+  | DataGridHeadReactSelectObject
+  | DataGridHeadReactSelectAsyncUrlObject
+  | DataGridHeadNumericFormatObject
+  | DataGridHeadPatternFormatObject
+  | DataGridHeadDateTimeObject;
+
+  export interface DataGridHeadObject {
   name: string;
   key: string;
   sortable?: boolean;
@@ -54,7 +55,7 @@ interface DataGridHeadObject {
   valueGetter?: (e: any) => any;
 }
 
-interface DataGridHeadReactSelectObject extends DataGridHeadObject {
+export interface DataGridHeadReactSelectObject extends DataGridHeadObject {
   type?: "ReactSelect" | "ReactSelectAsync" | "ReactSelectCreatable" | "ReactSelectAsyncCreatable";
   onChange?: (e: any, item?: any) => any;
   isValidNewOption?: (e: any) => any;
@@ -64,7 +65,7 @@ interface DataGridHeadReactSelectObject extends DataGridHeadObject {
   onCreateOption?: (e: any) => any;
 }
 
-interface DataGridHeadReactSelectAsyncUrlObject extends DataGridHeadObject {
+export interface DataGridHeadReactSelectAsyncUrlObject extends DataGridHeadObject {
   type?: "ReactSelectAsyncUrl";
   onChange?: (e: any, item?: any) => any;
   getOptionValues: (e: any) => any;
@@ -74,7 +75,7 @@ interface DataGridHeadReactSelectAsyncUrlObject extends DataGridHeadObject {
   reset?: boolean;
 }
 
-interface DataGridHeadNumericFormatObject extends DataGridHeadObject {
+export interface DataGridHeadNumericFormatObject extends DataGridHeadObject {
   type?: "NumericFormat";
   onChange?: (e: any, item?: any) => any;
   submit?: boolean;
@@ -84,7 +85,7 @@ interface DataGridHeadNumericFormatObject extends DataGridHeadObject {
   decimalScale?: number;
 }
 
-interface DataGridHeadPatternFormatObject extends DataGridHeadObject {
+export interface DataGridHeadPatternFormatObject extends DataGridHeadObject {
   type?: "PatternFormat";
   onChange?: (e: any, item?: any) => any;
   submit?: boolean;
@@ -93,7 +94,7 @@ interface DataGridHeadPatternFormatObject extends DataGridHeadObject {
   format: string;
 }
 
-interface DataGridHeadDateTimeObject extends DataGridHeadObject {
+export interface DataGridHeadDateTimeObject extends DataGridHeadObject {
   type?: "DateTime";
   onChange?: (e: any, item?: any) => any;
   submit?: boolean;

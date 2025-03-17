@@ -43,7 +43,7 @@ export const dateDifferenceFormatter = ({
   const dif = moment.duration(end.diff(start));
   let value = "";
 
-  let day = dif.days();
+  let day = +dif.asDays().toFixed(0);
   let hour = dif.hours();
   let minute = dif.minutes();
   let second = dif.seconds();

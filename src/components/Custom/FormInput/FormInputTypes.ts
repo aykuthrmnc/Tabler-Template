@@ -335,6 +335,7 @@ export interface FormInputCounterProps {
   format?: (e: any) => string;
   min?: number;
   max?: number;
+  step?: number;
   t?: ((x: string) => string) | TFunction;
 }
 

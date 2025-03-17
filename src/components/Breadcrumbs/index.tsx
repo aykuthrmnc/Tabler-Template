@@ -2,13 +2,12 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { TbSearch } from "react-icons/tb";
 import { Link } from "react-router";
 import { useRedux } from "~/hooks";
-import { RootState } from "~/store";
 import classNames from "classnames";
 import Input from "../Custom/Input";
 
 const Breadcrumbs = () => {
   const { useSelector } = useRedux();
-  const pageTitle = useSelector((state: RootState) => state.pageTitle.pageTitle);
+  const pageTitle = useSelector((state) => state.pageTitle.pageTitle);
 
   return (
     <div className="page-header d-print-none">

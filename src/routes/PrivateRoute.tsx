@@ -1,7 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router";
-import { RootState } from "~/store";
+import { useRedux } from "~/hooks";
 
 const PrivateRoute = ({
   children,
@@ -13,7 +12,8 @@ const PrivateRoute = ({
   userType?: "user" | "admin";
 }) => {
   const location = useLocation();
-  const user = useSelector((state: RootState) => state.auth?.[userType]);
+  const { useSelector } = useRedux();
+  const user = useSelector((state) => state.auth?.[userType]);
 
   if (!user) {
     return <Navigate to={route} replace state={{ return_url: location.pathname }} />;

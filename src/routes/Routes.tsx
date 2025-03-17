@@ -37,6 +37,7 @@ import Error500 from "~/pages/Error/Error500";
 
 // MENUS
 import { MENU, UIMENU } from "~/constants/menu";
+import PartialDataGridPage from "~/pages/PartialDataGrid";
 
 // import RoleBasedRoute from "./RoleBasedRoute";
 
@@ -130,6 +131,10 @@ const routes: Route[] = [
       {
         path: "datagrid",
         element: <DataGridPage />,
+      },
+      {
+        path: "partial-datagrid",
+        element: <PartialDataGridPage />,
       },
       {
         path: "table",

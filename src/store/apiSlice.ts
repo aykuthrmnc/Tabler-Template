@@ -18,6 +18,8 @@ const axiosBaseQuery =
     unknown
   > =>
   async ({ url, method, data, params, headers, responseType }) => {
+    // const token = store.getState().auth[store.getState().auth.type]?.[import.meta.env.VITE_AUTH_TOKEN_NAME];
+
     try {
       const result = await axios({
         baseURL,
@@ -26,7 +28,14 @@ const axiosBaseQuery =
         data,
         params,
         headers,
+        // headers: {
+        //   ...headers,
+        //   Authorization: token ? `Bearer ${token}` : undefined,
+        // },
         responseType,
+        // paramsSerializer: {
+        //   indexes: null,
+        // },
       });
 
       return result;
@@ -35,10 +44,11 @@ const axiosBaseQuery =
       return {
         error: {
           status: err?.response?.status,
-          data: err?.response?.data || err?.message,
-          // {
-          //   message: "Bir ağ hatası oluştu. Bu bir CORS sorunu veya internet bağlantısı sorunu olabilir.",
-          // })
+          data: err?.response?.status
+            ? err?.response?.data || err?.message
+            : {
+                message: "Bir ağ hatası oluştu.",
+              },
         },
       };
     }

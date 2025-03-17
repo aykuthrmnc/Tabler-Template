@@ -1,7 +1,6 @@
 import { Button, Offcanvas } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useRedux } from "~/hooks";
-import { RootState } from "~/store";
 import {
   setColor,
   setLanguageMode,
@@ -28,7 +27,7 @@ import { getThemeHandle } from "~/utils/storeHandle";
 const ThemeOffcanvas = () => {
   const { dispatch, useSelector } = useRedux();
   const { color, languageMode, position, theme, type, width, verticalLocation, settingMenuShow } = useSelector(
-    (state: RootState) => state.theme,
+    (state) => state.theme,
   );
   const { register, handleSubmit } = useForm();
 

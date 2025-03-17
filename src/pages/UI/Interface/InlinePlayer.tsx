@@ -1,12 +1,10 @@
-import { useEffect } from "react";
-
 const InlinePlayer = () => {
-  useEffect(() => {
-    if (window.Plyr) {
-      new window?.Plyr("#player-youtube");
-      new window?.Plyr("#player-charlotte");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.Plyr) {
+  //     new window?.Plyr("#player-youtube");
+  //     new window?.Plyr("#player-charlotte");
+  //   }
+  // }, []);
 
   return (
     <>

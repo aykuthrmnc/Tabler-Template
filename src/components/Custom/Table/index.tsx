@@ -1,6 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { FaCheck, FaPen, FaPlus, FaSort, FaSortDown, FaSortUp, FaTrash, FaXmark } from "react-icons/fa6";
-import { Col, Row, Spinner, Table as RSTable, Form, Pagination, Button } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Spinner,
+  Table as RSTable,
+  Form,
+  Pagination,
+  Button,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import FormInput from "../FormInput";
@@ -130,6 +140,13 @@ const styles: StylesConfig = {
   //   ...base,
   //   color: "var(--bs-border-color)",
   // })
+};
+
+const CustomTooltip = ({ tooltip, children }: { tooltip: ReactNode; children: any }) => {
+  if (tooltip) {
+    return <OverlayTrigger overlay={<Tooltip>{tooltip}</Tooltip>}>{children}</OverlayTrigger>;
+  }
+  return children;
 };
 
 const Table = ({
@@ -466,7 +483,6 @@ const Table = ({
   return (
     <>
       <Row className="align-items-center justify-content-end mb-3 g-3">
-        {children}
         {title && (
           <Col className="text-center text-sm-start">
             <h4 className="mb-0">{title}</h4>
@@ -483,6 +499,7 @@ const Table = ({
             />
           </Col>
         )}
+        {children}
         {creatable && (
           <Col xs="12" sm="auto">
             <Button
@@ -616,19 +633,26 @@ const Table = ({
                       </td>
                     ))}
                     {customFields?.map((item, index: number) => (
-                      <td key={index}>
+                      <td
+                        key={index}
+                        className={classNames({
+                          "text-center": item?.center,
+                        })}
+                      >
                         {!item?.isHidden?.(data) && (
-                          <button
-                            type="button"
-                            className={classNames(
-                              "d-inline-flex align-items-center justify-content-center cursor-pointer bg-transparent border-0 w-100 h-100",
-                              item?.className,
-                            )}
-                            onClick={() => item?.onClick?.(data)}
-                          >
-                            {(typeof item?.icon == "function" ? item?.icon?.(data) : item?.icon) ??
-                              (typeof item?.text == "function" ? item?.text?.(data) : item?.text)}
-                          </button>
+                          <CustomTooltip tooltip={item?.tooltip}>
+                            <button
+                              type="button"
+                              className={classNames(
+                                item?.className ?? "bg-transparent border-0 w-100 h-100",
+                                "d-inline-flex align-items-center justify-content-center cursor-pointer",
+                              )}
+                              onClick={() => item?.onClick?.(data)}
+                            >
+                              {(typeof item?.icon == "function" ? item?.icon?.(data) : item?.icon) ??
+                                (typeof item?.text == "function" ? item?.text?.(data) : item?.text)}
+                            </button>
+                          </CustomTooltip>
                         )}
                       </td>
                     ))}

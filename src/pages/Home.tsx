@@ -26,6 +26,16 @@ const Home = () => {
               </Card.Body>
             </Card>
           </Col>
+          <Col>
+            <Card as={Link} to="/partial-datagrid">
+              <Card.Body>
+                <div className="text-center">
+                  <h2>Partial DataGrid</h2>
+                  <p>Partial DataGrid component with custom fields and search</p>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
         </Row>
       </Container>
     </div>

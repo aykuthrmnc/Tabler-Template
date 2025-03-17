@@ -5,6 +5,7 @@ import { decryptValue, encryptValue } from "~/utils/functions";
 const initialState: Auth = {
   user: null,
   admin: null,
+  type: "user",
 };
 
 const auth = createSlice({
@@ -18,15 +19,18 @@ const auth = createSlice({
         const userValue = decryptValue(value);
         state.user = userValue ? JSON.parse(userValue)?.user : null;
         state.admin = userValue ? JSON.parse(userValue)?.admin : null;
+        state.type = userValue ? JSON.parse(userValue)?.type : "user";
       }
     },
     setUser: (state, action) => {
       switch (action.payload.type) {
         case "admin":
           state.admin = action.payload?.user;
+          state.type = action.payload.type;
           break;
         case "user":
           state.user = action.payload?.user;
+          state.type = action.payload.type;
           break;
       }
 

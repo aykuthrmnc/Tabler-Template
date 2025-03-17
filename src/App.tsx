@@ -1,14 +1,14 @@
 import { ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
-import { RootState } from "./store";
 import { useEffect } from "react";
 import { getThemeHandle, getUserHandle } from "./utils/storeHandle";
 import Routes from "./routes/Routes";
 import { useTranslation } from "react-i18next";
+import { useRedux } from "./hooks";
 
 const App = () => {
   // const showRoutes = useRoutes(routes);
-  const theme = useSelector((state: RootState) => state.theme.theme);
+  const { useSelector } = useRedux();
+  const theme = useSelector((state) => state.theme.theme);
   const { i18n } = useTranslation();
   const dir = i18n.dir();
 

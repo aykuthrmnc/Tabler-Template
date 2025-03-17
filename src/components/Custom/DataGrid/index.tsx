@@ -222,7 +222,7 @@ const DataGrid = ({
     //       key={data.id}
     //       name={key}
     //       control={control}
-    //       classNameContainer="position-absolute inset-0"
+    //       classNameContainer="h-100"
     //     />
     //   );
     // }
@@ -234,7 +234,7 @@ const DataGrid = ({
             key={data.id}
             name={key}
             placeholder={item?.placeholder}
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             options={item?.options}
             onChangeValue={(e: any) => {
               const resetValue = item?.onChange?.(e, data);
@@ -246,7 +246,6 @@ const DataGrid = ({
             isClearable={false}
             baseStyles={styles}
             menuPosition="fixed"
-            menuPlacement="top"
             components={{
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null,
@@ -260,7 +259,7 @@ const DataGrid = ({
             key={data.id}
             name={key}
             placeholder={item?.placeholder}
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             options={item?.options}
             onChangeValue={(e: any) => {
               const resetValue = item?.onChange?.(e, data);
@@ -271,7 +270,6 @@ const DataGrid = ({
             isClearable={false}
             baseStyles={styles}
             menuPosition="fixed"
-            menuPlacement="top"
             components={{
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null,
@@ -285,7 +283,7 @@ const DataGrid = ({
             key={data.id}
             name={key}
             placeholder={item?.placeholder}
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             options={item?.options}
             onChangeValue={(e: any) => {
               const resetValue = item?.onChange?.(e, data);
@@ -296,7 +294,6 @@ const DataGrid = ({
             isClearable={false}
             baseStyles={styles}
             menuPosition="fixed"
-            menuPlacement="top"
             components={{
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null,
@@ -310,7 +307,7 @@ const DataGrid = ({
             key={data.id}
             name={key}
             placeholder={item?.placeholder}
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             options={item?.options}
             onChangeValue={(e: any) => {
               const resetValue = item?.onChange?.(e, data);
@@ -326,7 +323,6 @@ const DataGrid = ({
             isClearable={false}
             baseStyles={styles}
             menuPosition="fixed"
-            menuPlacement="top"
             components={{
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null,
@@ -340,7 +336,7 @@ const DataGrid = ({
             key={data.id}
             name={key}
             placeholder={item?.placeholder}
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             onChangeValue={(e: any) => {
               const resetValue = item?.onChange?.(e, data);
               item?.reset && update(index, resetValue);
@@ -354,7 +350,6 @@ const DataGrid = ({
             isClearable={false}
             baseStyles={styles}
             menuPosition="fixed"
-            menuPlacement="top"
             components={{
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null,
@@ -369,7 +364,7 @@ const DataGrid = ({
             name={key}
             placeholder={item?.placeholder}
             className="form-control-plaintext rounded-0 px-3 h-100"
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             prefix={typeof item?.prefix == "function" ? item?.prefix?.(data) : item?.prefix}
             allowNegative={item?.allowNegative}
             decimalScale={item?.decimalScale}
@@ -389,7 +384,7 @@ const DataGrid = ({
             name={key}
             placeholder={item?.placeholder}
             className="form-control-plaintext rounded-0 px-3 h-100"
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             // prefix={typeof item?.prefix == "function" ? item?.prefix?.(data) : item?.prefix}
             format={item?.format}
             onChangeValue={(e: any) => {
@@ -409,7 +404,7 @@ const DataGrid = ({
             placeholder={item?.placeholder}
             className="form-control-plaintext rounded-0 px-3 h-100"
             classNameSubContainer="h-100"
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             onChangeValue={(e: any) => {
               const resetValue = item?.onChange?.(e, data);
               item?.reset && update(index, resetValue);
@@ -426,7 +421,7 @@ const DataGrid = ({
             name={key}
             placeholder={item?.placeholder}
             classNameSubContainer="h-100"
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             onInput={() => {
               getValues?.(array);
             }}
@@ -435,7 +430,7 @@ const DataGrid = ({
         );
       case "Dropdown":
         return (
-          <Dropdown align="end" className="position-absolute inset-0">
+          <Dropdown align="end" className="h-100">
             <Dropdown.Toggle className="w-100 h-100 shadow-none">
               {data?.[item?.key]?.label ?? "Seçiniz"}
             </Dropdown.Toggle>
@@ -465,7 +460,7 @@ const DataGrid = ({
             type={item?.type}
             placeholder={item?.placeholder}
             className="form-control-plaintext rounded-0 px-3 h-100"
-            classNameContainer="position-absolute inset-0"
+            classNameContainer="h-100"
             onKeyDown={(e: any) => {
               if (["Enter", "NumpadEnter"].includes(e.code)) {
                 const resetValue = item?.onChange?.(e.target.value, data);
@@ -540,10 +535,10 @@ const DataGrid = ({
 
   return (
     <>
-      <Row className="align-items-center justify-content-end mb-3 g-3">
+      <Row className="align-items-center justify-content-end mb-3 g-3 px-3 mt-0">
         {title && (
           <Col className="text-center text-sm-start">
-            <h4 className="mb-0">{title}</h4>
+            <h3 className="mb-0">{title}</h3>
           </Col>
         )}
         {searchable && !asyncSearchable && (
@@ -676,8 +671,7 @@ const DataGrid = ({
                         )}
                         onClick={() => item?.onClick?.(watch(`array.${key}`))}
                       >
-                        {(typeof item?.icon == "function" ? item?.icon?.(data) : item?.icon) ??
-                          (typeof item?.text == "function" ? item?.text?.(data) : item?.text)}
+                        {item?.icon ?? item?.text}
                       </button>
                     </td>
                   ))}
@@ -689,7 +683,7 @@ const DataGrid = ({
                         // onClick={() => reset((i: any) => ({ ...i, key: null }))}
                         onClick={() => remove(key)}
                       >
-                        {deleteIcon ?? <FaTrash size="20" className="text-danger" />}
+                        {deleteIcon ?? <FaTrash size="20" className="text-danger" style={{ maxWidth: "unset" }} />}
                       </button>
                     </td>
                   )}

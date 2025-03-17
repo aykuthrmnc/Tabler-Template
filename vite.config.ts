@@ -5,7 +5,7 @@ import * as path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/Tabler-Template",
+  // base: "/Tabler-Template",
   resolve: {
     alias: {
       "~": path.resolve(__dirname, "./src"),
@@ -14,5 +14,13 @@ export default defineConfig({
   server: {
     // host: "0.0.0.0",
     port: 3000,
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: "esnext",
+    },
+  },
+  build: {
+    target: "esnext",
   },
 });

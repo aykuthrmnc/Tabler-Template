@@ -1,9 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "~/store";
+import { useRedux } from "~/hooks";
 
 const ThemeHOC = (Component: React.FunctionComponent) => (props: any) => {
-  const theme = useSelector((state: RootState) => state.theme);
+  const { useSelector } = useRedux();
+  const theme = useSelector((state) => state.theme);
   return <Component {...props} theme={theme} />;
 };
 

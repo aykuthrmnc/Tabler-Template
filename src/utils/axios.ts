@@ -8,7 +8,7 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.interceptors.request.use(
   (config) => {
     if (!config.headers.Authorization) {
-      const token = store.getState().auth.user?.[import.meta.env.VITE_AUTH_TOKEN_NAME];
+      const token = store.getState().auth[store.getState().auth.type]?.[import.meta.env.VITE_AUTH_TOKEN_NAME];
 
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;

@@ -202,6 +202,7 @@ export interface InputDateTimeProps extends DatetimepickerProps {
   classNameContainer?: string;
   classNameSubContainer?: string;
   placeholder?: string;
+  disabled?: boolean;
   required?: boolean;
   dateFormat?: string;
   timeFormat?: string | boolean;
